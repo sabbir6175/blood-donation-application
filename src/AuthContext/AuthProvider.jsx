@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // import { createUserWithEmailAndPassword,  GoogleAuthProvider,  onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth';
-import {  onAuthStateChanged, signOut} from 'firebase/auth';
+import {  createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile} from 'firebase/auth';
 
 import AuthContext from './AuthContext';
 import auth from '../firebase.init';
@@ -11,21 +11,21 @@ import auth from '../firebase.init';
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
-    // console.log(user)
+    console.log(user)
     // create user
-    // const createUser =(email, password)=>{
-    //     setLoading(true)
-    //     return createUserWithEmailAndPassword(auth, email, password)
-    // }
+    const createUser =(email, password)=>{
+        setLoading(true)
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
     //updateUserProfile
-    // const updateUserProfile=(updatedData)=>{
-    //     return updateProfile(auth.currentUser,updatedData)
-    // }
+    const updateUserProfile=(updatedData)=>{
+        return updateProfile(auth.currentUser, updatedData)
+    }
     // // sign in user
-    // const signInUser = (email , password)=>{
-    //     setLoading(true)
-    //     return signInWithEmailAndPassword(auth, email, password)
-    // }
+    const signInUser = (email , password)=>{
+        setLoading(true)
+        return signInWithEmailAndPassword(auth, email, password)
+    }
     // //sing in with google 
     // const singWithGoogle =()=>{
     //     setLoading(true)
@@ -54,9 +54,9 @@ const AuthProvider = ({ children }) => {
         user,
         setUser, 
         loading,
-        // createUser,
-        // updateUserProfile,
-        // signInUser,
+        createUser,
+        updateUserProfile,
+        signInUser,
         singOutUser,
         // singWithGoogle
     }

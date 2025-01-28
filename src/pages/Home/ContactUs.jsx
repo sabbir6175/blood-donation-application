@@ -33,7 +33,7 @@ const ContactUs = () => {
                                   className="w-full p-3 rounded-md border border-gray-300"
                               ></textarea>
                           </div>
-                          <button type="submit" className="py-3 px-6 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                          <button type="submit" className="py-3 px-6 bg-red-500 text-white rounded-md hover:bg-blue-600 transition">
                               Send Message
                           </button>
                       </form>
@@ -43,7 +43,7 @@ const ContactUs = () => {
                   <div className="bg-white bg-opacity-70 backdrop-blur-lg p-8 rounded-xl shadow-lg">
                       <h3 className="text-2xl font-semibold mb-6">Call Us</h3>
                       <p className="text-lg mb-6">If you prefer to talk to us directly, feel free to call:</p>
-                      <p className="text-2xl font-semibold text-blue-600">+88 013</p>
+                      <p className="text-2xl font-semibold text-blue-600">+88 01310101661</p>
                       <p className="mt-4">We’re available 24/7 for any blood donation queries.</p>
                   </div>
               </div>

@@ -30,8 +30,8 @@ const SearchPage = () => {
   return (
     <div className="container mx-auto px-4 py-10">
       {/* Search Form */}
-      <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Search for Blood Donors</h2>
+      <div className="bg-red-50 p-8 rounded-lg shadow-lg mb-8">
+        <h2 className="text-2xl font-semibold mb-6 text-center uppercase text-red-600">Search for Blood Donors</h2>
         <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
           {/* Blood Group */}
           <div>
@@ -40,7 +40,9 @@ const SearchPage = () => {
               id="bloodGroup"
               value={bloodGroup}
               onChange={(e) => setBloodGroup(e.target.value)}
+             
               className="w-full p-3 border border-gray-300 rounded-lg"
+              required
             >
               <option value="">Select Blood Group</option>
               <option value="A+">A+</option>
@@ -62,6 +64,7 @@ const SearchPage = () => {
               value={district}
               onChange={(e) => setDistrict(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg"
+              required
             >
               <option value="">Select District</option>
               <option value="Dhaka">Dhaka</option>
@@ -79,6 +82,7 @@ const SearchPage = () => {
               value={upazila}
               onChange={(e) => setUpazila(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg"
+              required
             >
               <option value="">Select Upazila</option>
               <option value="Dhanmondi">Dhanmondi</option>
@@ -101,7 +105,7 @@ const SearchPage = () => {
 
       {/* Donor List */}
       <div>
-        <h3 className="text-xl font-semibold mb-4">Donor List</h3>
+        <h3 className="text-xl font-semibold mb-4 text-red-600">Donor List :</h3>
         {donors.length === 0 ? (
           <p>No donors found based on your search criteria.</p>
         ) : (

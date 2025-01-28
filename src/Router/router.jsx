@@ -6,6 +6,11 @@ import Home from "../pages/Home/Home";
 import SignIn from "../pages/Authentication/Login/SignIn";
 import SignUp from "../pages/Authentication/Register/SignUp";
 import SearchPage from "../Components/SearchPage/SearchPage";
+import HomePage from "../pages/Dashboard/HomePage/HomePage";
+import Dashboard from "../layout/Dashboard";
+import MyDonationRequest from "../pages/Dashboard/MyDonationRequest/MyDonationRequest";
+import CreateDonationRequest from "../pages/Dashboard/CreateDonationRequest/CreateDonationRequest";
+import PrivateRoute from "./PrivetRouter";
   
   
   
@@ -32,6 +37,25 @@ import SearchPage from "../Components/SearchPage/SearchPage";
         },
       ]
     },
+    {
+      path : 'dashboard',
+      element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+      children: [
+        {
+          path: '/dashboard/home',
+          element: <HomePage></HomePage>
+        },
+        {
+          path: '/dashboard/donation/request',
+          element: <MyDonationRequest></MyDonationRequest>
+        },
+        {
+          path: '/dashboard/create-donation-request',
+          element: <CreateDonationRequest></CreateDonationRequest>
+        },
+      ]
+
+    }
     
 
   ]);

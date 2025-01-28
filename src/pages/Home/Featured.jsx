@@ -28,7 +28,7 @@ const Featured = () => {
   
           <div className="mt-10">
             <Link to="/">
-              <button className="py-3 px-8 bg-green-500 text-white rounded-full hover:bg-green-600 transition">
+              <button className="py-3 px-8 bg-white text-red-700 rounded-full  transition">
                 Join as a Donor
               </button>
             </Link>

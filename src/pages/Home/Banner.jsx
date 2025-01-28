@@ -22,12 +22,12 @@ const Banner = () => {
             </h1>
             <div className="flex gap-5">
               <Link to="/SignUp">
-                <button className="mt-5 py-3 px-8 bg-red-500 text-white rounded-full hover:bg-green-600">
+                <button className="mt-5 py-3 px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500">
                   Join as a donor
                 </button>
               </Link>
               <Link to="/Search">
-                <button className="mt-5 py-3 px-8 bg-orange-600 text-white rounded-full hover:bg-green-600">
+                <button className="mt-5 py-3 px-8 bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white">
                   Search Donors
                 </button>
               </Link>
