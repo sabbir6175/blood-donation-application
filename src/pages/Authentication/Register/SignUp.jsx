@@ -3,9 +3,11 @@ import { SiGnu } from "react-icons/si";
 import AuthContext from "../../../AuthContext/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const SignUp = () => {
   const { setUser, createUser, updateUserProfile } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic()
   const location = useLocation();
   const navigate = useNavigate();
   const [error, setError] = useState(""); 
@@ -67,22 +69,44 @@ const SignUp = () => {
     };
     console.log(data);
 
-    try {
+    
+      // Step 1: Create the user using Firebase or any authentication service
       const result = await createUser(email, newPassword);
-      setUser(result.Data);
+      setUser(result.data); // Set the user in AuthContext
+
+      // Step 2: Update user profile with photo URL
+      await updateUserProfile({ displayName: name, photoURL: photoURL });
       toast.success("User created successfully", {
         position: "top-center",
       });
 
-      // Update user profile with photo URL
-      await updateUserProfile({ displayName: name, photoURL: photoURL });
+      // Step 3: Send the user info to your backend to store in MongoDB
+      const userInfo = {
+        email: email,
+        displayName: name,
+        photoURL: photoURL,
+        bloodGroup: bloodGroup,
+        district: district,
+         upazila: upazila,
+      };
 
-      // Navigate to the previous page or home page
-      navigate(location?.state ? location.state : '/');
-    } catch (error) {
-      console.log(error);
-      toast.error("Error creating user.");
-    }
+      // Make the POST request to save the user in the database
+      const response = await axiosPublic.post("/users", userInfo);
+      if (response.data) {
+        console.log("User added to the database:", response.data);
+      } else {
+        console.error("Error saving user to the database");
+      }
+
+      // Step 4: Navigate to the home page or previous page
+      navigate(location?.state ? location.state : "/");
+
+    
+    // catch (error) {
+    //   console.error(error);
+    //   toast.error("Error creating user.");
+    // }
+ 
   };
 
   return (
@@ -155,7 +179,6 @@ const SignUp = () => {
             <option value="Chattogram">Chattogram</option>
             <option value="Chuadanga">Chuadanga</option>
             <option value="Cumilla">Cumilla</option>
-            <option value="Cox's Bazar">Cox's Bazar</option>
             <option value="Dhaka">Dhaka</option>
             <option value="Dinajpur">Dinajpur</option>
             <option value="Faridpur">Faridpur</option>
