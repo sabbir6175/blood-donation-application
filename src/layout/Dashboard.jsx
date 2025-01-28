@@ -1,15 +1,37 @@
-import {  FaDonate, FaHome, FaMapMarked } from "react-icons/fa";
+import {  FaDonate, FaHome, FaMapMarked, FaUsers } from "react-icons/fa";
+
 import { NavLink, Outlet } from "react-router-dom";
 
 
 const Dashboard = () => {
 
+        const isAdmin = true;
     return (
         <div className="flex">
             {/* dashboard side bar */}
-            <div className="w-64 min-h-screen bg-orange-400">
-                <ul className="menu p-4">
-                    <li>
+            <div className="w-64 min-h-screen bg-orange-500">
+                <ul className="menu p-4  min-h-screen rounded-sm m-2">
+                   {
+                    isAdmin ? <>
+                        <li >
+                            <NavLink to="/dashboard/Admin-home">
+                                <FaHome></FaHome>
+                                Admin Home</NavLink>
+                        </li>
+                       
+                        <li >
+                            <NavLink to="/dashboard/All-donation-request">
+                                <FaDonate></FaDonate>
+                                All Blood Donation Request</NavLink>
+                        </li>
+                        <li >
+                            <NavLink to="/dashboard/AllUser">
+                                <FaUsers></FaUsers>
+                                All Users</NavLink>
+                        </li>
+                    </>: <>
+                    
+                    <li >
                         <NavLink to="/dashboard/home">
                             <FaHome></FaHome>
                             User Home</NavLink>
@@ -24,6 +46,8 @@ const Dashboard = () => {
                             <FaMapMarked></FaMapMarked>
                             Create Donation Request</NavLink>
                     </li>
+                    </>
+                   }
                     <div className="divider"></div>
                     <li>
                         <NavLink to="/">

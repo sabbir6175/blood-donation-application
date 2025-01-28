@@ -13,7 +13,7 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/">Donation Requests</Link>
+        <Link to="/donationRequest">Donation Requests</Link>
       </li>
       <li>
         <Link to="/">Blog</Link>
@@ -41,7 +41,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-slate-50 sticky top-0 z-10 backdrop-blur-md">
+    <div className="navbar bg-red-500 sticky text-black top-0 z-10 backdrop-blur-md">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -73,7 +73,7 @@ const Navbar = () => {
             className="w-12 h-12 outline-red-600 rounded-full outline"
             alt="Logo"
           />
-          <h1 className="text-4xl text-red-600 animate-pulse uppercase">Blood</h1>
+          <h1 className="text-4xl text-white animate-pulse uppercase">Blood</h1>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -85,8 +85,8 @@ const Navbar = () => {
         {user ? (
           <li className="list-none">
             <div className="dropdown">
-              <button tabIndex={0} className="btn btn-ghost">
-                <img src={user?.photoURL} className='w-8 h-8 rounded-full' alt="User Avatar" />
+              <button tabIndex={0} className=" mr-5">
+                <img src={user?.photoURL} className='w-10 h-10 rounded-full' alt="User Avatar" />
               </button>
               <ul
                 tabIndex={0}

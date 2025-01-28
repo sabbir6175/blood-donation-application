@@ -11,6 +11,8 @@ import Dashboard from "../layout/Dashboard";
 import MyDonationRequest from "../pages/Dashboard/MyDonationRequest/MyDonationRequest";
 import CreateDonationRequest from "../pages/Dashboard/CreateDonationRequest/CreateDonationRequest";
 import PrivateRoute from "./PrivetRouter";
+import DonationRequest from "../pages/DonationRequest/DonationRequest";
+import AllUser from "../pages/Dashboard/Adminpanel/AllUser";
   
   
   
@@ -22,6 +24,10 @@ import PrivateRoute from "./PrivetRouter";
         {
           path: '/',
           element: <Home></Home>
+        },
+        {
+          path: '/donationRequest',
+          element: <DonationRequest></DonationRequest>
         },
         {
           path: '/Search',
@@ -53,6 +59,12 @@ import PrivateRoute from "./PrivetRouter";
           path: '/dashboard/create-donation-request',
           element: <CreateDonationRequest></CreateDonationRequest>
         },
+        //admin panel 
+
+        {
+          path: 'AllUser',
+          element: <AllUser></AllUser>
+        }
       ]
 
     }

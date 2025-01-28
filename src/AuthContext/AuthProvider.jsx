@@ -36,6 +36,11 @@ const AuthProvider = ({ children }) => {
         setLoading(true)
         return signOut(auth)
     }
+    const donationRequests = [
+        // Sample requests
+        { id: 1, recipientName: 'John Doe', recipientDistrict: 'Dhaka', recipientUpazila: 'Uttara', bloodGroup: 'A+', donationDate: '2025-02-01', donationTime: '10:00 AM', status: 'pending' },
+        // Add more sample requests here...
+      ];
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
@@ -58,13 +63,14 @@ const AuthProvider = ({ children }) => {
         updateUserProfile,
         signInUser,
         singOutUser,
+        donationRequests
         // singWithGoogle
     }
 
 
 
     return (
-        <AuthContext.Provider value={authInfo}>
+        <AuthContext.Provider value={authInfo}  >
             { children }
         </AuthContext.Provider>
     );
