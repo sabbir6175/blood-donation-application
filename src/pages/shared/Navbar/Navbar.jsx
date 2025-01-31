@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../../AuthContext/AuthContext";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, singOutUser } = useContext(AuthContext);  // Use context to get user state
@@ -31,8 +32,12 @@ const Navbar = () => {
   const handleSingOut = () => {
     singOutUser()
       .then(() => {
-        toast.success("User logged out successfully", {
+        Swal.fire({
           position: "top-center",
+          icon: "success",
+          title: "user logout Successfully",
+          showConfirmButton: false,
+          timer: 1500
         });
       })
       .catch((error) => {
@@ -86,7 +91,7 @@ const Navbar = () => {
           <li className="list-none">
             <div className="dropdown">
               <button tabIndex={0} className=" mr-5">
-                <img src={user?.photoURL} className='w-10 h-10 rounded-full' alt="User Avatar" />
+                <img src={user?.photoURL} className='w-10 h-10 outline outline-yellow-50 rounded-full' alt="User photoURL" />
               </button>
               <ul
                 tabIndex={0}

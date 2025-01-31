@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { SiGnu } from "react-icons/si";
 import AuthContext from "../../../AuthContext/AuthContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const { setUser, createUser, updateUserProfile } = useContext(AuthContext);
@@ -76,12 +77,16 @@ const SignUp = () => {
 
     // Step 1: Create the user using Firebase or any authentication service
     const result = await createUser(email, newPassword);
-    setUser(result.user); // Set the user in AuthContext
+    setUser(result.data); // Set the user in AuthContext
 
     // Step 2: Update user profile with photo URL
     await updateUserProfile({ displayName: name, photoURL: photoURL });
-    toast.success("User created successfully", {
+    Swal.fire({
       position: "top-center",
+      icon: "success",
+      title: "User Create Successfully",
+      showConfirmButton: false,
+      timer: 1500
     });
 
     // Step 3: Send the user info to your backend to store in MongoDB
@@ -336,7 +341,7 @@ const SignUp = () => {
                 type="password"
                 name="confirmPassword"
                 className="input input-bordered w-full"
-                   placeholder="Enter your confirm password?"
+                placeholder="Enter your confirm password?"
                 required
               />
             </div>
@@ -347,10 +352,18 @@ const SignUp = () => {
             <div className="text-red-500 text-center mt-2">{error}</div>
           )}
 
-          <button type="submit" className="btn bg-red-700 text-white w-full">
+          <button type="submit" className="btn bg-red-500 text-white w-full">
             <SiGnu /> Sign Up
           </button>
         </form>
+        <div className="text-center mt-4">
+          <p>
+             have an account?{" "}
+            <Link to="/SignIn" className="text-blue-500">
+              Sign In
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
