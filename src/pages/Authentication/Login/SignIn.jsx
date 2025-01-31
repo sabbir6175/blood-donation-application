@@ -40,7 +40,7 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen  shadow-2xl bg-red-600 p-4">
-      <div className=" p-4 card w-5/12 mt-10 mx-auto bg-red-50 backdrop-blur-md ">
+      <div className=" p-4 card w-5/12  mx-auto bg-red-50 backdrop-blur-md ">
         <h2 className="text-3xl mb-4 text-center font-bold animate-bounce">Login</h2>
         <form
           onSubmit={handleSubmit}
