@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../../AuthContext/AuthContext";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { RiDashboardFill } from "react-icons/ri";
+import { CgLogOut } from "react-icons/cg";
 
 const Navbar = () => {
   const { user, singOutUser } = useContext(AuthContext);  // Use context to get user state
@@ -95,13 +97,13 @@ const Navbar = () => {
               </button>
               <ul
                 tabIndex={0}
-                className="dropdown-content -ml-36 menu menu-compact bg-base-100 rounded-box w-52 shadow-lg mt-2"
+                className="dropdown-content -ml-36 bg-red-400 text-white menu menu-compact  rounded-box w-52 shadow-lg mt-2"
               >
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard"> <RiDashboardFill></RiDashboardFill> Dashboard</Link>
                 </li>
                 <li>
-                  <button onClick={handleSingOut}>Logout</button>
+                  <button onClick={handleSingOut}><CgLogOut className="-rotate-180"></CgLogOut> Logout</button>
                 </li>
               </ul>
             </div>

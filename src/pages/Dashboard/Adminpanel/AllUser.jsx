@@ -89,7 +89,7 @@ const AllUser = () => {
   const handleDeleteUser = (user) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "Do you want to delete the user?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -102,7 +102,7 @@ const AllUser = () => {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "User has been deleted.",
               icon: "success",
             });
           }
@@ -233,7 +233,7 @@ const AllUser = () => {
       </table>
 
       {/* Pagination */}
-      <div className="my-4">
+      <div className="mt-20">
         <ReactPaginate
           pageCount={data?.totalPages || 1}
           onPageChange={handlePageClick}

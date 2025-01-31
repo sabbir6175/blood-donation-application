@@ -1,40 +1,90 @@
-
-import { useContext } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import AuthContext from "../../AuthContext/AuthContext";
 
 const DonationRequest = () => {
-    const {user ,donationRequests} = useContext(AuthContext)
-  const pendingRequests = donationRequests.filter((request) => request.status === 'pending');
+  const [pendingDonation, setPendingDonation] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:7000/donationRequest", {
+        params: { status: "pending" },
+      })
+      .then((res) => setPendingDonation(res.data));
+  }, []);
+
+  const formatDate = (date) => {
+    const options = { day: "2-digit", month: "short", year: "numeric" };
+    const dated = new Date(date);
+    return dated.toLocaleDateString("en-US", options);
+  };
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold">Pending Blood Donation Requests</h1>
-
-      {pendingRequests.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-          {pendingRequests.map((request) => (
-            <div key={request.id} className="bg-white p-4 rounded-lg shadow-md border border-gray-300">
-              <h2 className="text-xl font-semibold">{request.recipientName}</h2>
-              <p><strong>Location:</strong> {request.recipientDistrict}, {request.recipientUpazila}</p>
-              <p><strong>Blood Group:</strong> {request.bloodGroup}</p>
-              <p><strong>Date:</strong> {request.donationDate}</p>
-              <p><strong>Time:</strong> {request.donationTime}</p>
-
-              {/* Check if user is logged in and navigate accordingly */}
-              <Link
-                to={user && user.id ? `/donation-request/${request.id}` : '/login'}
-                className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded"
-              >
-                View
-              </Link>
-            </div>
-          ))}
+    <>
+      <div className="">
+        <div className="flex items-center gap-2 py-5 md:pt-6 px-6 justify-center">
+          <div>
+            <h1 className="text-base lg:text-2xl text-gray-700 font-bold">
+              All Pending Donation Requests({pendingDonation.length})
+            </h1>
+            <p className="text-xs text-red-500 font-medium w-11/12">
+              Every Drop Counts. Donate Blood, Save Lives
+            </p>
+          </div>
         </div>
-      ) : (
-        <p>No pending donation requests available.</p>
-      )}
-    </div>
+        <div className="w-11/12 mx-auto pb-12">
+          {pendingDonation.length !== 0 ? (
+            <>
+              <div className="overflow-x-auto pt-6">
+                <table className="table table-xs">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Location</th>
+                      <th>Date</th>
+                      <th>Group</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pendingDonation.map((pending, i) => (
+                      <tr key={pending?._id}>
+                        <th>{i + 1}</th>
+                        <td>{pending?.requesterName}</td>
+                        <td>{pending?.address}</td>
+                        <td>{formatDate(pending?.date)}</td>
+                        <td>{pending?.blood}</td>
+                        <td>{pending?.status}</td>
+                        <td className="flex items-center gap-2 pb-4">
+                          <Link
+                            to={`/donationDetails/${pending._id}`}
+                            className="flex items-center gap-1"
+                          >
+                            <FaEye
+                              className="text-base text-green-700"
+                              title="View"
+                            />
+                            View Details
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ) : (
+            <div className="min-h-[400px] flex flex-col items-center justify-center">
+              <h1 className="text-xl font-semibold pb-3 pt-10 md:pt-0">
+                Don't have any pending donation request
+              </h1>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 

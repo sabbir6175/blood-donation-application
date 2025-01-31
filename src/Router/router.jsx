@@ -17,6 +17,8 @@ import AllDonationRequest from "../pages/Dashboard/Adminpanel/AllDonationRequest
 import ContentManagement from "../pages/Dashboard/Adminpanel/ContentManagement ";
 import AdminHome from "../pages/Dashboard/Adminpanel/AdminHome";
 import AddBlog from "../pages/Dashboard/Adminpanel/AddBlog";
+import AdminProfile from "../pages/Dashboard/Adminpanel/AdminProfile";
+import DonationDetails from "../pages/DonationRequest/DonationDetails";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/donationRequest',
         element: <DonationRequest></DonationRequest>
+      },
+      {
+        path: '/donationDetails/:id',
+        element: <PrivateRoute><DonationDetails></DonationDetails></PrivateRoute>
       },
       {
         path: '/Search',
@@ -49,6 +55,10 @@ const router = createBrowserRouter([
     path: '/dashboard',
     element: <PrivateRoute><Dashboard /></PrivateRoute>,
     children: [
+      {
+        path: '/dashboard/admin-profile',
+        element: <AdminProfile></AdminProfile>
+      },
       {
         path: '/dashboard/home',
         element: <HomePage></HomePage>
