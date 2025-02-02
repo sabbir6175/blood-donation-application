@@ -1,6 +1,6 @@
 import {  FaDonate, FaEdit, FaHome, FaMapMarked, FaUser, FaUsers } from "react-icons/fa";
 
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
 
 
@@ -10,72 +10,72 @@ const Dashboard = () => {
     return (
         <div className="flex ">
             {/* dashboard side bar */}
-            <div className="  md:w-64 md:min-h-screen bg-orange-500">
-                <ul className="menu p-4  min-h-screen rounded-sm m-2">
+            <div className="  md:w-64 md:min-h-screen  bg-orange-500">
+                <ul className="menu p-4  min-h-screen fixed top-0 z-50 rounded-sm m-2">
                    {
                     isAdmin ? (<>
                         <li >
-                            <NavLink to="/dashboard/admin-profile" >
+                            <Link to="/dashboard/admin-profile" >
                                 
                                 <FaUser></FaUser>
-                                Profile</NavLink>
+                                Profile</Link>
                         </li>
                         <li >
-                            <NavLink to="/dashboard/Admin-home" >
+                            <Link to="/dashboard" >
                                 
                                 <FaHome></FaHome>
-                                Admin Home</NavLink>
+                                Admin Home</Link>
                         </li>
                        
                         <li >
-                            <NavLink to="/dashboard/All-donation-request">
+                            <Link to="/dashboard/All-donation-request">
                                 <FaDonate></FaDonate>
-                                All Blood Donation Request</NavLink>
+                                All Blood Donation Request</Link>
                         </li>
                         <li >
-                            <NavLink to="/dashboard/content-management">
+                            <Link to="/dashboard/content-management">
                                 <FaEdit></FaEdit>
-                                Content Management Page </NavLink>
+                                Content Management Page </Link>
                         </li>
                         <li >
-                            <NavLink to="/dashboard/all-user">
+                            <Link to="/dashboard/all-user">
                                 <FaUsers></FaUsers>
-                                All Users</NavLink>
+                                All Users</Link>
                         </li>
                         <li >
-                        <NavLink to="/dashboard/add-blog">
+                        <Link to="/dashboard/add-blog">
                             <FaHome></FaHome>
-                            Add blog</NavLink>
+                            Add blog</Link>
                         </li>
                     </>): (<>
                         <li >
-                            <NavLink to="/dashboard/admin-profile" >
+                            <Link to="/dashboard/admin-profile" >
                                 
                                 <FaUser></FaUser>
-                                Profile</NavLink>
+                                Profile</Link>
                         </li>
                     <li >
-                        <NavLink to="/dashboard/home">
+                        <Link to="/dashboard">
                             <FaHome></FaHome>
-                            User Home</NavLink>
+                            User Home</Link>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/donation/request">
+                        <Link to="/dashboard/donation/request">
                             <FaDonate></FaDonate>
-                            My Donation Request</NavLink>
+                            My Donation Request</Link>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/create-donation-request">
+                        <Link to="/dashboard/create-donation-request">
                             <FaMapMarked></FaMapMarked>
-                            Create Donation Request</NavLink>
+                            Create Donation Request</Link>
                     </li>
                     </>)
                    }
                     <div className="divider"></div>
                     <li>
-                        <NavLink to="/">
+                        <Link to="/">
                             <FaHome></FaHome>
-                            Home</NavLink>
+                            Home</Link>
                     </li>
                     
                 </ul>
@@ -84,7 +84,7 @@ const Dashboard = () => {
             
             <div className="flex-1 ">
 
-                <div className="bg-red-500 w-full py-4 text-3xl font-bold text-white text-center"> Dashboard</div>
+                <div className="bg-red-500 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center"> Dashboard</div>
                 <div className="p-8 ">
                 <Outlet></Outlet>
                 </div>

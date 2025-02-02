@@ -7,12 +7,15 @@ import Modal from "./Modal"; // Assuming you have a modal component
 import { useContext } from "react";
 import AuthContext from "../../AuthContext/AuthContext";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+
 
 const DonationDetails = () => {
   const { id } = useParams(); // Get the donation request ID from the URL
   const { loading, user } = useContext(AuthContext);
   // console.log(user.displayName)
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure()
 
   const [request, setRequest] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,15 +25,15 @@ const DonationDetails = () => {
   // Fetch the donation request details when the component mounts
   useEffect(() => {
     
-    axios
-      .get(`http://localhost:7000/donationRequest/${id}`)
+    axiosSecure
+      .get(`/donationRequest/${id}`)
       .then((res) => {
         setRequest(res.data);
       })
       .catch((err) => {
         console.error("Failed to fetch request details:", err);
       });
-  }, [id, loading, navigate]);
+  }, [id, axiosSecure, loading, navigate]);
 
   // Handle opening and closing the modal
   const handleOpenModal = () => {
@@ -43,17 +46,18 @@ const DonationDetails = () => {
 
   // Handle the form submission and update the status
   const handleDonate = () => {
-    axios
-      .put(`http://localhost:7000/donationRequest/${id}`, {
+    axiosSecure
+      .put(`/donationRequest/${id}`, {
         requesterName,
         requesterEmail,
       })
-      .then((response) => {
+      .then((res) => {
+        console.log(res)
         toast.success("Donation confirmed!",{
           top: 'center'
         });
         setIsModalOpen(false); // Close the modal
-        setRequest({ ...request, status: "inprogress" });
+        setRequest({ ...request, donationStatus: "inprogress" });
         navigate('/donationRequest')
       })
       .catch((error) => {
@@ -74,17 +78,17 @@ const DonationDetails = () => {
         <div className="w-full mb-5 h-52"> 
           <img className="w-full h-full" src="https://i.ibb.co.com/274cVp87/images.jpg" alt="" />
         </div>
-        <h3 className="text-xl font-bold text-center mb-2">Request by: {request.requesterName}</h3>
-        <p><strong className="text-lg">Location:</strong> {request.address}</p>
-        <p><strong className="text-lg">Blood Group:</strong> {request.blood}</p>
-        <p><strong className="text-lg">Hospital:</strong> {request.hospital}</p>
-        <p><strong className="text-lg">Date:</strong> {new Date(request.date).toLocaleDateString()}</p>
-        <p><strong className="text-lg">Time:</strong> {request.time}</p>
-        <p><strong className="text-lg">Status:</strong> {request.status}</p>
-        <p><strong className="text-lg">Message:</strong> {request.message}</p>
+        <h3 ><strong className="text-lg">Request by:</strong> {request.recipientName}</h3>
+        <p><strong className="text-lg">Location:</strong> {request.fullAddress}</p>
+        <p><strong className="text-lg">Blood Group:</strong> {request.bloodGroup}</p>
+        <p><strong className="text-lg">Hospital:</strong> {request.hospitalName}</p>
+        <p><strong className="text-lg">Date:</strong> {new Date(request.donationDate).toLocaleDateString()}</p>
+        <p><strong className="text-lg">Time:</strong> {request.donationTime}</p>
+        <p><strong className="text-lg">Status:</strong> {request.donationStatus}</p>
+        <p><strong className="text-lg">Message:</strong> {request.requestMessage}</p>
 
         {/* Button to open the modal */}
-        {request.status === "pending" && (
+        {request.donationStatus === "pending" && (
           <button
             className="mt-4 w-full bg-red-600 font-bold text-white p-2 rounded"
             onClick={handleOpenModal}

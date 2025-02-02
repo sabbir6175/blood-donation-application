@@ -1,11 +1,190 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+
+const MyDonationRequests = () => {
+  const [donationRequests, setDonationRequests] = useState([]);
+  const [statusFilter, setStatusFilter] = useState(""); // For filtering by status
+  const [currentPage, setCurrentPage] = useState(1); // Pagination: current page
+  const [totalPages, setTotalPages] = useState(1); // Total pages for pagination
+  const [loading, setLoading] = useState(false); // Loading state
+  const axiosSecure = useAxiosSecure();
+
+  // Fetch donation requests for the logged-in user
+  const fetchDonationRequests = async () => {
+    setLoading(true); // Start loading
+    try {
+      const response = await axiosSecure.get("/my-donation-requests", {
+        params: {
+          donationStatus: statusFilter, // Status filter
+          page: currentPage, // Current page
+          limit: 10, // Items per page
+        },
+      });
+
+      setDonationRequests(response.data.donationRequests);
+      setTotalPages(response.data.totalPages); // Update the total pages
+    } catch (error) {
+      console.error("Error fetching donation requests:", error);
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
+
+  // Call the fetch function when the component mounts or when filters/pagination change
+  useEffect(() => {
+    fetchDonationRequests();
+  }, [statusFilter, currentPage]);
 
 
-const MyDonationRequest = () => {
-    return (
-        <div>
-           <h1 className="text-3xl font-bold text-red-500 text-center">Welcome to My Donation Request</h1>
-        </div>
-    );
+const updateDonationStatus = async (id, status) => {
+  try {
+    // Send PUT request to update donation status
+    const response = await axios.put(`/donationRequest/${id}`, { donationStatus: status });
+    console.log(response.data.message);  // Success message
+
+    // Optionally, trigger a re-fetch of donation requests to update the UI
+    fetchDonationRequests();
+  } catch (error) {
+    console.error("Error updating status:", error.response ? error.response.data.message : error.message);
+  }
 };
 
-export default MyDonationRequest;
+// Mark as Done button click handler
+const handleMarkAsDone = (id) => {
+  updateDonationStatus(id, "done");
+};
+
+// Cancel button click handler
+const handleCancelRequest = (id) => {
+  updateDonationStatus(id, "canceled");
+};
+
+
+  // Format donation date to a readable format
+  const formatDate = (donationDate) => {
+    const options = { day: "2-digit", month: "short", year: "numeric" };
+    const dated = new Date(donationDate);
+    return dated.toLocaleDateString("en-US", options);
+  };
+
+  return (
+    <div className="bg-slate-50">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-semibold text-center mb-6">
+          My Donation Requests
+        </h1>
+
+        {/* Status filter */}
+        <div className="mb-4 flex justify-between items-center">
+          <label htmlFor="statusFilter" className="text-lg font-medium">
+            Status Filter:
+          </label>
+          <select
+            id="statusFilter"
+            onChange={(e) => setStatusFilter(e.target.value)}
+            value={statusFilter}
+            className="p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="">All</option>
+            <option value="pending">Pending</option>
+            <option value="inprogress">In Progress</option>
+            <option value="done">Done</option>
+            <option value="canceled">Canceled</option>
+          </select>
+        </div>
+
+        {/* Donation Requests Table */}
+        {loading ? (
+          <div className="text-center py-4">Loading...</div>
+        ) : (
+          <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead className="bg-indigo-600 text-white">
+              <tr>
+                <th className="px-6 py-3 text-center">Recipient Name</th>
+                <th className="px-6 py-3 text-center">Location</th>
+                <th className="px-6 py-3 text-center">Date</th>
+                <th className="px-6 py-3 text-center">Group</th>
+                <th className="px-6 py-3 text-center">Status</th>
+                <th className="px-6 py-3 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {donationRequests.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center py-4">
+                    No donation requests available.
+                  </td>
+                </tr>
+              ) : (
+                donationRequests.map((request) => (
+                  <tr key={request._id} className="border-t hover:bg-slate-50 text-center">
+                    <td className="px-6 py-4">{request.recipientName}</td>
+                    <td className="py-2 text-sm">{request.recipientDistrict}, {request.recipientUpazila}</td>
+                    <td className="py-2 text-sm">{formatDate(request?.donationDate)}</td>
+                    <td className="px-6 py-4">{request.bloodGroup}</td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`px-2 py-1 text-sm rounded-full ${
+                          request.donationStatus === "pending"
+                            ? "bg-yellow-200 text-yellow-800"
+                            : request.donationStatus === "inprogress"
+                            ? "bg-blue-200 text-blue-800"
+                            : request.donationStatus === "done"
+                            ? "bg-green-200 text-green-800"
+                            : "bg-red-200 text-red-800"
+                        }`}
+                      >
+                        {request.donationStatus}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 space-x-2">
+                      {request.donationStatus !== "done" && (
+                        <button
+                        onClick={() => handleMarkAsDone(request._id)}
+                          className="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                        >
+                          Mark as Done
+                        </button>
+                      )}
+                      {request.donationStatus !== "canceled" && (
+                        <button
+                        onClick={() => handleCancelRequest(request._id)}
+                          className="px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        )}
+
+        {/* Pagination Controls */}
+        <div className="mt-6 flex justify-between items-center">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+            className="px-4 py-2 bg-indigo-500 text-white rounded-md disabled:bg-gray-400"
+          >
+            Previous Page
+          </button>
+          <span className="text-lg">{`Page ${currentPage} of ${totalPages}`}</span>
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+            className="px-4 py-2 bg-indigo-500 text-white rounded-md disabled:bg-gray-400"
+          >
+            Next Page
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MyDonationRequests;

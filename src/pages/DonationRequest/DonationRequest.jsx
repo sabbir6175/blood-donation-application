@@ -10,15 +10,17 @@ const DonationRequest = () => {
 //  console.log(pendingDonation)
   useEffect(() => {
     axiosSecure
-      .get("/donationRequest", {
-        params: { status: "pending" },
-      })
-      .then((res) => setPendingDonation(res.data));
+      .get("/donationRequest")
+      .then((res) => {
+        // Filter for pending donations if needed
+        const pendingData = res.data.filter(donation => donation.donationStatus === 'pending');
+        setPendingDonation(pendingData);
+      });
   }, [axiosSecure]);
 
-  const formatDate = (date) => {
+  const formatDate = (donationDate) => {
     const options = { day: "2-digit", month: "short", year: "numeric" };
-    const dated = new Date(date);
+    const dated = new Date(donationDate);
     return dated.toLocaleDateString("en-US", options);
   };
   return (
@@ -53,11 +55,11 @@ const DonationRequest = () => {
                       // console.log(pending),
                       <tr className="hover:bg-slate-300 " key={pending?._id}>
                         <th>{i + 1}</th>
-                        <td>{pending?.requesterName}</td>
-                        <td>{pending?.address}</td>
-                        <td>{formatDate(pending?.date)}</td>
-                        <td>{pending?.blood}</td>
-                        <td>{pending?.status}</td>
+                        <td>{pending?.recipientName}</td>
+                        <td>{pending?.fullAddress}</td>
+                        <td>{formatDate(pending?.donationDate)}</td>
+                        <td>{pending?.bloodGroup}</td>
+                        <td>{pending?.donationStatus}</td>
                         <td className="flex items-center gap-2 pb-4">
                           <Link
                             to={`/donationDetails/${pending._id}`}

@@ -6,7 +6,6 @@ import Home from "../pages/Home/Home";
 import SignIn from "../pages/Authentication/Login/SignIn";
 import SignUp from "../pages/Authentication/Register/SignUp";
 import SearchPage from "../Components/SearchPage/SearchPage";
-import HomePage from "../pages/Dashboard/HomePage/HomePage";
 import Dashboard from "../layout/Dashboard";
 import MyDonationRequest from "../pages/Dashboard/MyDonationRequest/MyDonationRequest";
 import CreateDonationRequest from "../pages/Dashboard/CreateDonationRequest/CreateDonationRequest";
@@ -19,6 +18,7 @@ import AdminHome from "../pages/Dashboard/Adminpanel/AdminHome";
 import AddBlog from "../pages/Dashboard/Adminpanel/AddBlog";
 import AdminProfile from "../pages/Dashboard/Adminpanel/AdminProfile";
 import DonationDetails from "../pages/DonationRequest/DonationDetails";
+import DashboardHome from "../pages/Dashboard/HomePage/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -60,8 +60,8 @@ const router = createBrowserRouter([
         element: <AdminProfile></AdminProfile>
       },
       {
-        path: '/dashboard/home',
-        element: <HomePage></HomePage>
+        path: '/dashboard',
+        element: <DashboardHome></DashboardHome>
       },
       {
         path: '/dashboard/donation/request',
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
       },
       // Admin Panel
       {
-        path: '/dashboard/admin-home',
+        path: '/dashboard',
         element: <AdminHome></AdminHome>
       },
       {
