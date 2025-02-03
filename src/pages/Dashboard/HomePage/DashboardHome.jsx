@@ -54,7 +54,7 @@ console.log(donations)
                 <td className="py-2   text-sm text-gray-900">
                   {donation.donationStatus === "inprogress" && (
                     <>
-                      <button className="bg-green-500 text-white py-1 px-3 rounded mr-2">Done</button>
+                    
                       <button className="bg-red-500 text-white py-1 px-3 rounded">Cancel</button>
                     </>
                   )}

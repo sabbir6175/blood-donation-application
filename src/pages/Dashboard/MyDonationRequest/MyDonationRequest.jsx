@@ -38,28 +38,25 @@ const MyDonationRequest = () => {
   }, [statusFilter, currentPage]);
 
 
-const updateDonationStatus = async (id, status) => {
-  try {
-    // Send PUT request to update donation status
-    const response = await axios.put(`/donationRequest/${id}`, { donationStatus: status });
-    console.log(response.data.message);  // Success message
-
-    // Optionally, trigger a re-fetch of donation requests to update the UI
-    fetchDonationRequests();
-  } catch (error) {
-    console.error("Error updating status:", error.response ? error.response.data.message : error.message);
-  }
-};
-
-// Mark as Done button click handler
-const handleMarkAsDone = (id) => {
-  updateDonationStatus(id, "done");
-};
-
-// Cancel button click handler
-const handleCancelRequest = (id) => {
-  updateDonationStatus(id, "canceled");
-};
+ const handleStatusChange = (id, status) => {
+    axiosSecure.put(`/donationRequest/${id}`, { donationStatus: status })
+      .then((res) => {
+        console.log(res.data)
+        setDonationRequests((prevRequests) =>
+          prevRequests.map((request) =>
+            request._id === id ? { ...request, donationStatus: status } : request
+          )
+        );
+        toast.success(`Successfully updated donation ${status}`,{
+          top:'center'
+        })
+      })
+      .catch((err) => {
+        console.error("Error details:", err); // Log the full error object for debugging
+        alert("Error updating donation status"); // Display a generic error message
+        return
+      });
+  };
 
 
   // Format donation date to a readable format
@@ -140,20 +137,13 @@ const handleCancelRequest = (id) => {
                       </span>
                     </td>
                     <td className="px-6 py-4 space-x-2">
-                      {request.donationStatus !== "done" && (
-                        <button
-                        onClick={() => handleMarkAsDone(request._id)}
-                          className="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
-                        >
-                          Mark as Done
-                        </button>
-                      )}
+                      
                       {request.donationStatus !== "canceled" && (
                         <button
-                        onClick={() => handleCancelRequest(request._id)}
+                          onClick={() => handleStatusChange(request._id, "canceled")}
                           className="px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
                         >
-                          Cancel
+                           Reject
                         </button>
                       )}
                     </td>
