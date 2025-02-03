@@ -1,9 +1,11 @@
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useEffect } from "react";
+import AuthContext from "../../../AuthContext/AuthContext";
 
 const Dashboard = () => {
+  const {user} = useContext(AuthContext)
   const [donations, setDonations] = useState([]);
   const axiosSecure = useAxiosSecure()
 
@@ -26,7 +28,7 @@ const Dashboard = () => {
 console.log(donations)
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Welcome, Donor!</h1>
+      <h1 className="text-3xl font-bold mb-6 uppercase text-center py-5">Welcome, {user.displayName}!</h1>
       
       {/* Display 3 most recent donations */}
       {donations.length > 0 ? (
@@ -67,7 +69,7 @@ console.log(donations)
         <p>No donation requests found.</p>
       )}
 
-      <Link to="/my-donation-requests">
+      <Link to="/dashboard/my-donation-requests">
         <button className="mt-6 bg-blue-500 text-white py-2 px-4 rounded">View My All Requests</button>
       </Link>
     </div>

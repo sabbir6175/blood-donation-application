@@ -1,27 +1,30 @@
 import {  FaDonate, FaEdit, FaHome, FaMapMarked, FaUser, FaUsers } from "react-icons/fa";
 
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
+import useDonor from "../Hooks/useDonor";
 
 
 const Dashboard = () => {
 
         const [isAdmin] = useAdmin();
+        const [isDonor] = useDonor();
     return (
         <div className="flex ">
             {/* dashboard side bar */}
-            <div className="  md:w-64 md:min-h-screen  bg-orange-500">
+            <div className="  md:w-64 md:min-h-screen  bg-gradient-to-r from-red-600 to-green-500 ">
                 <ul className="menu p-4  min-h-screen fixed top-0 z-50 rounded-sm m-2">
-                   {
-                    isAdmin ? (<>
-                        <li >
+                    <li >
                             <Link to="/dashboard/admin-profile" >
                                 
                                 <FaUser></FaUser>
                                 Profile</Link>
                         </li>
+                   {
+                    isAdmin ? (<>
+                        
                         <li >
-                            <Link to="/dashboard" >
+                            <Link to="/dashboard/Home" >
                                 
                                 <FaHome></FaHome>
                                 Admin Home</Link>
@@ -47,20 +50,15 @@ const Dashboard = () => {
                             <FaHome></FaHome>
                             Add blog</Link>
                         </li>
-                    </>): (<>
-                        <li >
-                            <Link to="/dashboard/admin-profile" >
-                                
-                                <FaUser></FaUser>
-                                Profile</Link>
-                        </li>
+                    </>): isDonor ? null: (<>
+                       
                     <li >
-                        <Link to="/dashboard">
+                        <Link to="/dashboard/user">
                             <FaHome></FaHome>
                             User Home</Link>
                     </li>
                     <li>
-                        <Link to="/dashboard/donation/request">
+                        <Link to="/dashboard/my-donation-requests">
                             <FaDonate></FaDonate>
                             My Donation Request</Link>
                     </li>
@@ -84,7 +82,7 @@ const Dashboard = () => {
             
             <div className="flex-1 ">
 
-                <div className="bg-red-500 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center"> Dashboard</div>
+                <div className="bg-gradient-to-r from-red-600 to-green-500  w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center"> Dashboard</div>
                 <div className="p-8 ">
                 <Outlet></Outlet>
                 </div>

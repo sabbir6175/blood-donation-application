@@ -1,104 +1,107 @@
+import React, { useEffect, useState } from "react";
+import { FaEdit, FaTrash, FaCheckCircle } from "react-icons/fa";
 
+const AllBloodDonationRequests = () => {
+  const [donationRequests, setDonationRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-// const AllDonationRequest = () => {
-//     return (
-//         <div>
-//             <h1> Admin panel all donation request</h1>
-            
-//         </div>
-//     );
-// };
+  // Fetch all donation requests (Replace with your API call)
+  useEffect(() => {
+    const fetchDonationRequests = async () => {
+      try {
+        const response = await fetch("http://localhost:7000/donation-requests"); // Replace with your API endpoint
+        const data = await response.json();
+        setDonationRequests(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching donation requests:", error);
+        setLoading(false);
+      }
+    };
 
-// export default AllDonationRequest;
+    fetchDonationRequests();
+  }, []);
 
-// import  { useState, useEffect } from 'react';
-// import axios from 'axios';
- // For routing
+  // Handle delete request
+  const handleDeleteRequest = (id) => {
+    // Handle delete logic (call API to delete request)
+    setDonationRequests(donationRequests.filter((request) => request.id !== id));
+  };
 
-const AllDonationRequest = () => {
-    // const [requests, setRequests] = useState([]);
+  // Handle mark request as completed
+  const handleCompleteRequest = (id) => {
+    // Handle mark completed logic (API call to update request)
+    const updatedRequests = donationRequests.map((request) => {
+      if (request.id === id) {
+        return { ...request, status: "Completed" };
+      }
+      return request;
+    });
+    setDonationRequests(updatedRequests);
+  };
 
-    // useEffect(() => {
-    //     const fetchRequests = async () => {
-    //         try {
-    //             const response = await axios.get('/api/donation-requests'); // Replace with your API endpoint
-    //             setRequests(response.data);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    //     fetchRequests();
-    // }, []);
-
-    // const handleStatusChange = async (requestId, newStatus) => {
-    //     try {
-    //         await axios.put(`/api/donation-requests/${requestId}`, { status: newStatus });
-    //         // Update the local state to reflect the changes
-    //         setRequests(prevRequests => prevRequests.map(request => {
-    //             if (request._id === requestId) {
-    //                 return { ...request, status: newStatus };
-    //             }
-    //             return request;
-    //         }));
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
-    return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">সকল রক্তদানের অনুরোধ</h1>
-            <table className="min-w-full table-auto">
-                <thead>
-                    <tr>
-                        <th className="px-4 py-2">নাম</th>
-                        <th className="px-4 py-2">রক্তের গ্রুপ</th>
-                        <th className="px-4 py-2">একক</th>
-                        <th className="px-4 py-2">অবস্থান</th>
-                        <th className="px-4 py-2">হাসপাতাল</th>
-                        <th className="px-4 py-2">যোগাযোগ</th>
-                        <th className="px-4 py-2">স্ট্যাটাস</th>
-                        <th className="px-4 py-2">অ্যাকশন</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {/* {requests.map(request => (
-                        <tr key={request._id}>
-                            <td className="border px-4 py-2">{request.userId && request.userId.name}</td> 
-                            <td className="border px-4 py-2">{request.bloodGroup}</td>
-                            <td className="border px-4 py-2">{request.units}</td>
-                            <td className="border px-4 py-2">{request.location}</td>
-                            <td className="border px-4 py-2">{request.hospital}</td>
-                            <td className="border px-4 py-2">{request.contact}</td>
-                            <td className="border px-4 py-2">
-                                <span className={`
-                                    ${request.status === 'pending' && 'bg-yellow-100 text-yellow-800'} 
-                                    ${request.status === 'approved' && 'bg-green-100 text-green-800'} 
-                                    ${request.status === 'rejected' && 'bg-red-100 text-red-800'} 
-                                    ${request.status === 'completed' && 'bg-blue-100 text-blue-800'}
-                                    px-2 py-1 rounded`}>
-                                    {request.status}
-                                </span>
-                            </td>
-                            <td className="border px-4 py-2">
-                                <button 
-                                    onClick={() => handleStatusChange(request._id, 'approved')} 
-                                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
-                                    অনুমোদন করুন
-                                </button>
-                                <button 
-                                    onClick={() => handleStatusChange(request._id, 'rejected')} 
-                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                    প্রত্যাখ্যান করুন
-                                </button>
-                            </td>
-                        </tr>
-                    ))} */}
-                </tbody>
-            </table>
-        </div>
-    );
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-semibold mb-6">All Blood Donation Requests</h1>
+      
+      <div className="overflow-x-auto">
+        <table className="table w-full">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="py-2">Donor Name</th>
+              <th className="py-2">Blood Group</th>
+              <th className="py-2">Location</th>
+              <th className="py-2">Request Date</th>
+              <th className="py-2">Status</th>
+              <th className="py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {donationRequests.map((request) => (
+              <tr key={request.id}>
+                <td className="py-2">{request.donorName}</td>
+                <td className="py-2">{request.bloodGroup}</td>
+                <td className="py-2">{request.location}</td>
+                <td className="py-2">{new Date(request.date).toLocaleDateString()}</td>
+                <td className="py-2">
+                  {request.status === "Completed" ? (
+                    <span className="text-green-500">Completed</span>
+                  ) : (
+                    <span className="text-yellow-500">Pending</span>
+                  )}
+                </td>
+                <td className="py-2">
+                  <button
+                    className="text-blue-500 mr-2"
+                    onClick={() => alert("Edit Request")}
+                  >
+                    <FaEdit />
+                  </button>
+                  <button
+                    className="text-red-500 mr-2"
+                    onClick={() => handleDeleteRequest(request.id)}
+                  >
+                    <FaTrash />
+                  </button>
+                  <button
+                    className="text-green-500"
+                    onClick={() => handleCompleteRequest(request.id)}
+                  >
+                    <FaCheckCircle />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
-export default AllDonationRequest;
+export default AllBloodDonationRequests;
+// 

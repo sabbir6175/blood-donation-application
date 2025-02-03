@@ -2,21 +2,21 @@
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const DonationRequest = () => {
   const [pendingDonation, setPendingDonation] = useState([]);
-  const axiosSecure = useAxiosSecure()
+  const AxiosPublic = useAxiosPublic()
 //  console.log(pendingDonation)
   useEffect(() => {
-    axiosSecure
+    AxiosPublic
       .get("/donationRequest")
       .then((res) => {
         // Filter for pending donations if needed
         const pendingData = res.data.filter(donation => donation.donationStatus === 'pending');
         setPendingDonation(pendingData);
       });
-  }, [axiosSecure]);
+  }, [AxiosPublic]);
 
   const formatDate = (donationDate) => {
     const options = { day: "2-digit", month: "short", year: "numeric" };

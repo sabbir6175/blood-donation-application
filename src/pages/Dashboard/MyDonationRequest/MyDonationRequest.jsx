@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import Swal from "sweetalert2";
 
-const MyDonationRequests = () => {
+
+const MyDonationRequest = () => {
   const [donationRequests, setDonationRequests] = useState([]);
   const [statusFilter, setStatusFilter] = useState(""); // For filtering by status
   const [currentPage, setCurrentPage] = useState(1); // Pagination: current page
@@ -187,4 +187,4 @@ const handleCancelRequest = (id) => {
   );
 };
 
-export default MyDonationRequests;
+export default MyDonationRequest;

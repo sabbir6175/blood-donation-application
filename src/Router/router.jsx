@@ -11,12 +11,12 @@ import MyDonationRequest from "../pages/Dashboard/MyDonationRequest/MyDonationRe
 import CreateDonationRequest from "../pages/Dashboard/CreateDonationRequest/CreateDonationRequest";
 import PrivateRoute from "./PrivetRouter";
 import DonationRequest from "../pages/DonationRequest/DonationRequest";
-import AllUser from "../pages/Dashboard/Adminpanel/AllUser";
-import AllDonationRequest from "../pages/Dashboard/Adminpanel/AllDonationRequest";
-import ContentManagement from "../pages/Dashboard/Adminpanel/ContentManagement ";
-import AdminHome from "../pages/Dashboard/Adminpanel/AdminHome";
-import AddBlog from "../pages/Dashboard/Adminpanel/AddBlog";
-import AdminProfile from "../pages/Dashboard/Adminpanel/AdminProfile";
+import AllUser from "../pages/Dashboard/AdminPanel/AllUser";
+import AllDonationRequest from "../pages/Dashboard/AdminPanel/AllDonationRequest";
+import ContentManagement from "../pages/Dashboard/AdminPanel/ContentManagement ";
+import AdminHome from "../pages/Dashboard/AdminPanel/AdminHome";
+import AddBlog from "../pages/Dashboard/AdminPanel/AddBlog";
+import AdminProfile from "../pages/Dashboard/AdminPanel/AdminProfile";
 import DonationDetails from "../pages/DonationRequest/DonationDetails";
 import DashboardHome from "../pages/Dashboard/HomePage/DashboardHome";
 
@@ -60,11 +60,11 @@ const router = createBrowserRouter([
         element: <AdminProfile></AdminProfile>
       },
       {
-        path: '/dashboard',
+        path: '/dashboard/user',
         element: <DashboardHome></DashboardHome>
       },
       {
-        path: '/dashboard/donation/request',
+        path: '/dashboard/my-donation-requests',
         element: <MyDonationRequest></MyDonationRequest>
       },
       {
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
       },
       // Admin Panel
       {
-        path: '/dashboard',
+        path: '/dashboard/Home',
         element: <AdminHome></AdminHome>
       },
       {
