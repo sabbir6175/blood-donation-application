@@ -97,7 +97,7 @@ const MyDonationRequest = () => {
           <div className="text-center py-4">Loading...</div>
         ) : (
           <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-            <thead className="bg-indigo-600 text-white">
+            <thead className="bg-green-300">
               <tr>
                 <th className="px-6 py-3 text-center">Recipient Name</th>
                 <th className="px-6 py-3 text-center">Location</th>
@@ -141,7 +141,7 @@ const MyDonationRequest = () => {
                       {request.donationStatus !== "canceled" && (
                         <button
                           onClick={() => handleStatusChange(request._id, "canceled")}
-                          className="px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                          className="px-4 py-1 text-white bg-red-500 hover:bg-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
                         >
                            Reject
                         </button>

@@ -21,7 +21,7 @@ const AllDonationRequest = () => {
         setError("Error fetching donation requests");
         setLoading(false);
       });
-  }, []);
+  }, [AxiosPublic]);
 
   // Function to update donation status (approve/reject)
   const handleStatusChange = (id, status) => {

@@ -45,11 +45,7 @@ const Dashboard = () => {
                                 <FaUsers></FaUsers>
                                 All Users</Link>
                         </li>
-                        <li >
-                        <Link to="/dashboard/add-blog">
-                            <FaHome></FaHome>
-                            Add blog</Link>
-                        </li>
+                        
                     </>): isDonor ? null: (<>
                        
                     <li >

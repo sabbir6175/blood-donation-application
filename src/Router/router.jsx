@@ -19,6 +19,7 @@ import AddBlog from "../pages/Dashboard/AdminPanel/AddBlog";
 import AdminProfile from "../pages/Dashboard/AdminPanel/AdminProfile";
 import DonationDetails from "../pages/DonationRequest/DonationDetails";
 import DashboardHome from "../pages/Dashboard/HomePage/DashboardHome";
+import UpdateEdit from "../pages/Dashboard/HomePage/UpdateEdit";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,11 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/user',
         element: <DashboardHome></DashboardHome>
+      },
+      {
+        path: '/dashboard/Update/:id',
+        element: <UpdateEdit></UpdateEdit>,
+        loader: ({params}) => fetch(`http://localhost:7000/donationRequest/${params.id}`)
       },
       {
         path: '/dashboard/my-donation-requests',

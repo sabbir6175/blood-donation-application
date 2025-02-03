@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import axios from 'axios';
 import JoditEditor from "jodit-react";
+import useAxiosPublic from '../../../Hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const axiosPublic = useAxiosPublic()
 
   const handleFileUpload = async (file) => {
     setLoading(true);
@@ -34,38 +37,59 @@ const AddBlog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // If there's a file, upload it to ImgBB first
     let thumbnailUrl = "";
     if (thumbnail) {
       thumbnailUrl = await handleFileUpload(thumbnail);
     }
-
+  
     if (!thumbnailUrl) {
       alert("Failed to upload image.");
       return;
     }
-
+  
     // Create FormData for the blog content
     const formData = new FormData();
     formData.append("title", title);
     formData.append("thumbnail", thumbnailUrl); // Use the ImgBB image URL
     formData.append("content", content);
-
+    formData.append("date", new Date().toDateString());
+    for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+    
+    // Sending the formData object directly to axios
     try {
-      const response = await axios.post("http://localhost:7000/api/blogs", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (response.status === 200) {
-        alert("Blog created successfully!");
+      const response = await axiosPublic.post("/blogs", formData);
+  
+      if (response.data) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Your blog added successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
       }
     } catch (error) {
-      console.error("Error creating blog:", error);
+      console.error("Error submitting blog:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong while submitting the blog!",
+      });
     }
   };
+  
+ 
 
   return (
     <div className="max-w-3xl mx-auto p-4">
