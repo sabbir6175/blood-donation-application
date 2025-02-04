@@ -20,6 +20,8 @@ import AdminProfile from "../pages/Dashboard/AdminPanel/AdminProfile";
 import DonationDetails from "../pages/DonationRequest/DonationDetails";
 import DashboardHome from "../pages/Dashboard/HomePage/DashboardHome";
 import UpdateEdit from "../pages/Dashboard/HomePage/UpdateEdit";
+import Blogs from "../pages/Blogs/Blogs";
+import BlogDetailPage from "../pages/Blogs/BlogDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: '/donationDetails/:id',
         element: <PrivateRoute><DonationDetails></DonationDetails></PrivateRoute>
+      },
+      {
+        path: '/blogs',
+        element: <Blogs></Blogs>
+      },
+      {
+        path: '/blogs/:id',
+        element: <BlogDetailPage></BlogDetailPage>
       },
       {
         path: '/Search',

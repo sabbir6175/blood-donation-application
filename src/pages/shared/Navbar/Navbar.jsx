@@ -19,7 +19,7 @@ const Navbar = () => {
         <Link to="/donationRequest">Donation Requests</Link>
       </li>
       <li>
-        <Link to="/">Blog</Link>
+        <Link to="/blogs">Blog</Link>
       </li>
       {user && (
         <>
@@ -48,7 +48,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-red-500 sticky text-black top-0 z-10 backdrop-blur-md">
+    <div className="navbar  bg-gradient-to-r from-green-600 to-red-500  sticky text-black top-0 z-10 backdrop-blur-md">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -93,7 +93,7 @@ const Navbar = () => {
           <li className="list-none">
             <div className="dropdown">
               <button tabIndex={0} className=" mr-5">
-                <img src={user?.photoURL} className='w-10 h-10 outline outline-yellow-50 rounded-full' alt="User photoURL" />
+                <img src={user?.photoURL} className='w-10 h-10 outline outline-green-600 rounded-full' alt="User photoURL" />
               </button>
               <ul
                 tabIndex={0}

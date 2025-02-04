@@ -3,12 +3,14 @@ import {  FaDonate, FaEdit, FaHome, FaMapMarked, FaUser, FaUsers } from "react-i
 import { Link, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
 import useDonor from "../Hooks/useDonor";
+// import useVolunteer from "../Hooks/useVolunteer";
 
 
 const Dashboard = () => {
 
         const [isAdmin] = useAdmin();
         const [isDonor] = useDonor();
+        // const [isVolunteer] = useVolunteer();
     return (
         <div className="flex ">
             {/* dashboard side bar */}
@@ -19,9 +21,9 @@ const Dashboard = () => {
                                 
                                 <FaUser></FaUser>
                                 Profile</Link>
-                        </li>
+                    </li>
                    {
-                    isAdmin ? (<>
+                    isAdmin && (<>
                         
                         <li >
                             <Link to="/dashboard/Home" >
@@ -46,25 +48,55 @@ const Dashboard = () => {
                                 All Users</Link>
                         </li>
                         
-                    </>): isDonor ? null: (<>
-                       
-                    <li >
-                        <Link to="/dashboard/user">
-                            <FaHome></FaHome>
-                            User Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/dashboard/my-donation-requests">
-                            <FaDonate></FaDonate>
-                            My Donation Request</Link>
-                    </li>
-                    <li>
-                        <Link to="/dashboard/create-donation-request">
-                            <FaMapMarked></FaMapMarked>
-                            Create Donation Request</Link>
-                    </li>
                     </>)
-                   }
+                    }
+                    {/* {
+                        isVolunteer &&(
+                            <>
+                            
+                            <li >
+                            <Link to="/dashboard/All-donation-request">
+                                <FaDonate></FaDonate>
+                                All Blood Donation Request</Link>
+                            </li>
+                            <li >
+                                <Link to="/dashboard/content-management">
+                                    <FaEdit></FaEdit>
+                                    Content Management Page </Link>
+                            </li>
+                            <li >
+                                <Link to="/dashboard/all-user">
+                                    <FaUsers></FaUsers>
+                                    All Users</Link>
+                            </li>
+                        
+                            
+                            
+                            </>
+                        )
+                    } */}
+                    {
+                    isDonor && (<>
+                                        
+                        <li >
+                            <Link to="/dashboard/user">
+                                <FaHome></FaHome>
+                                User Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/dashboard/my-donation-requests">
+                                <FaDonate></FaDonate>
+                                My Donation Request</Link>
+                        </li>
+                        <li>
+                            <Link to="/dashboard/create-donation-request">
+                                <FaMapMarked></FaMapMarked>
+                                Create Donation Request</Link>
+                        </li>
+                        </>)
+                    }
+                    
+                   
                     <div className="divider"></div>
                     <li>
                         <Link to="/">

@@ -3,13 +3,13 @@ import axios from 'axios';
 import JoditEditor from "jodit-react";
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
+import DOMPurify from 'dompurify'; // Import DOMPurify to sanitize the content
 
 const AddBlog = () => {
-  const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
 
   const handleFileUpload = async (file) => {
     setLoading(true);
@@ -48,35 +48,40 @@ const AddBlog = () => {
       alert("Failed to upload image.");
       return;
     }
-  
-    // Create FormData for the blog content
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("thumbnail", thumbnailUrl); // Use the ImgBB image URL
-    formData.append("content", content);
-    formData.append("date", new Date().toDateString());
-    for (let [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
-  }
+
+   
+
+    // Sanitize and extract plain text from content
+    const sanitizedContent = DOMPurify.sanitize(content); 
+    const plainContent = sanitizedContent.replace(/<\/?[^>]+(>|$)/g, ""); 
+    const formValue = {
+      title: e.target.title.value.trim(),
+      thumbnail: thumbnailUrl,
+      content: plainContent,
+      date: new Date().toDateString(),
+      status: "draft", // Default status
+    };
     
+    console.log(formValue);
+
     // Sending the formData object directly to axios
     try {
-      const response = await axiosPublic.post("/blogs", formData);
-  
+      const response = await axiosPublic.post("/blogs", formValue);
+      console.log(response.data)
       if (response.data) {
         Swal.fire({
           position: "top-center",
           icon: "success",
-          title: "Your blog added successfully",
+          title: "Your blog was added successfully",
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
       } else {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Something went wrong!",
-          footer: '<a href="#">Why do I have this issue?</a>'
+          footer: '<a href="#">Why do I have this issue?</a>',
         });
       }
     } catch (error) {
@@ -89,35 +94,38 @@ const AddBlog = () => {
     }
   };
   
- 
-
   return (
-    <div className="max-w-3xl mx-auto p-4">
+   <div className='bg-slate-50'>
+         <div className="max-w-3xl  mx-auto p-4">
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
+          name="title"
           className="input input-bordered w-full"
           placeholder="Blog Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
         />
 
         <input
           type="file"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full py-2"
+          name="img"
           onChange={(e) => setThumbnail(e.target.files[0])}
         />
         
         <JoditEditor
           value={content}
           onChange={setContent}
+          name="description"
         />
 
         {loading && <p>Uploading image...</p>}
         
-        <button type="submit" className="btn btn-primary">Create Blog</button>
+        <button type="submit" className="btn w-full text-white btn-wide bg-gradient-to-tl from-green-400 to-red-500">
+          Create Blog
+        </button>
       </form>
     </div>
+   </div>
   );
 };
 
