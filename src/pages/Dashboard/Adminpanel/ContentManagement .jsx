@@ -30,6 +30,7 @@ const ContentManagement = () => {
     axiosSecure.put(`/blogs/publish/${id}`)
       .then((res) => {
         const updatedBlog = res.data;
+        console.log(updatedBlog)
         // Update the state to reflect the published status
         setBlogs((prevBlogs) =>
           prevBlogs.map((blog) =>
@@ -53,6 +54,7 @@ const ContentManagement = () => {
     axiosSecure.put(`/blogs/unpublish/${id}`)
       .then((res) => {
         const updatedBlog = res.data;
+        console.log(updatedBlog)
         // Update the state to reflect the draft status
         setBlogs((prevBlogs) =>
           prevBlogs.map((blog) =>

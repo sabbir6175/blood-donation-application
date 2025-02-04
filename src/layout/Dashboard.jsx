@@ -76,7 +76,7 @@ const Dashboard = () => {
                         )
                     } */}
                     {
-                    isDonor && (<>
+                    isDonor ? null: (<>
                                         
                         <li >
                             <Link to="/dashboard/user">

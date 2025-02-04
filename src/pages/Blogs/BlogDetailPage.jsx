@@ -1,32 +1,44 @@
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
-const BlogDetailPage = () => {
-  const { id } = useParams(); // Get the blog ID from the URL
+const BlogDetailsPage = () => {
+  const { id } = useParams();  // Use the blog ID from the URL
+  const [blog, setBlog] = useState(null);
+  const AxiosPublic = useAxiosPublic();
 
-  // Sample blog content based on the ID
-  const blog = {
-    1: { title: 'Blog 1', content: 'This is the full content of Blog 1', date: '2025-02-01', author: 'Author 1' },
-    2: { title: 'Blog 2', content: 'This is the full content of Blog 2', date: '2025-02-02', author: 'Author 2' },
-    // Add more blog data as needed
-  };
+  useEffect(() => {
+    // Fetch the details of a specific blog based on the ID
+    AxiosPublic.get(`/blogs/data/${id}`)
+      .then((res) => {
+        setBlog(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching blog details:", error);
+      });
+  }, [id, AxiosPublic]);
 
-  const currentBlog = blog[id];
-
-  if (!currentBlog) {
-    return <div>Blog not found!</div>;
-  }
+  if (!blog) return <div>Loading...</div>;
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold">{currentBlog.title}</h1>
-      <div className="mt-2 text-gray-600">
-        <span>By {currentBlog.author}</span> | <span>{currentBlog.date}</span>
-      </div>
-      <div className="mt-4">
-        <p>{currentBlog.content}</p>
+      <h1 className="text-4xl font-bold text-center mb-8">All Blog Details</h1>
+      <div className="flex flex-col border-2 p-2 md:p-5 md:flex-row gap-6">
+        <div className="md:w-1/3">
+          <img
+            src={blog.thumbnail}
+            alt="Blog Thumbnail"
+            className="w-full h-auto rounded-lg"
+          />
+        </div>
+        <div className="md:w-2/3">
+          <h1 className="text-xl font-bold"> {blog.title}</h1>
+          <p className="text-lg mt-2 mr-32">descriptions : {blog.content}</p>
+          <h2 className="text-xl font-bold mt-4">Deadline: {blog.date}</h2>
+        </div>
       </div>
     </div>
   );
 };
 
-export default BlogDetailPage;
+export default BlogDetailsPage;
