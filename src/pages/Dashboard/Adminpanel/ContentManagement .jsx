@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { toast } from "react-toastify";
 
 const ContentManagement = () => {
   const [blogs, setBlogs] = useState([]);
@@ -15,7 +16,6 @@ const ContentManagement = () => {
       try {
         const response = await axiosPublic.get(`/blogs?status=${filter}`);
         setBlogs(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
@@ -24,15 +24,66 @@ const ContentManagement = () => {
     fetchBlogs();
   }, [filter, axiosPublic]);
 
+  // Handle publishing the blog
+  const handlePublish = (id) => {
+    // Call the API to publish the blog
+    axiosSecure.put(`/blogs/publish/${id}`)
+      .then((res) => {
+        const updatedBlog = res.data;
+        // Update the state to reflect the published status
+        setBlogs((prevBlogs) =>
+          prevBlogs.map((blog) =>
+            blog._id === id ? { ...blog, status: 'published' } : blog
+          )
+        );
+        toast.success(`Blog successfully published!`, {
+          position: "top-center",
+        });
+      })
+      .catch((err) => {
+        console.error("Error details:", err);
+        toast.error("Failed to publish the blog", {
+          position: "top-center",
+        });
+      });
+  };
 
+  // Handle unpublishing the blog
+  const handleUnpublish = (id) => {
+    axiosSecure.put(`/blogs/unpublish/${id}`)
+      .then((res) => {
+        const updatedBlog = res.data;
+        // Update the state to reflect the draft status
+        setBlogs((prevBlogs) =>
+          prevBlogs.map((blog) =>
+            blog._id === id ? { ...blog, status: 'draft' } : blog
+          )
+        );
+        toast.success(`Blog successfully unpublished!`, {
+          position: "top-center",
+        });
+      })
+      .catch((err) => {
+        console.error("Error details:", err);
+        toast.error("Failed to unpublish the blog", {
+          position: "top-center",
+        });
+      });
+  };
 
   // Handle blog deletion
   const handleDelete = async (id) => {
     try {
       await axiosSecure.delete(`/blogs/${id}`);
       setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== id));
+      toast.success(`Blog successfully deleted!`, {
+        position: "top-center",
+      });
     } catch (error) {
       console.error("Error deleting the blog:", error);
+      toast.error("Failed to delete the blog", {
+        position: "top-center",
+      });
     }
   };
 
