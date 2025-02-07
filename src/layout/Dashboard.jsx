@@ -34,7 +34,7 @@ const Dashboard = () => {
           {isAdmin ? (
             <>
               <li>
-                <Link to="/dashboard/Home">
+                <Link to="/dashboard">
                   <FaHome />
                   Admin Home
                 </Link>
@@ -62,7 +62,7 @@ const Dashboard = () => {
           ) : isDonor ? (
             <>
               <li>
-                <Link to="/dashboard/user">
+                <Link to="/dashboard">
                   <FaHome />
                   User Home
                 </Link>

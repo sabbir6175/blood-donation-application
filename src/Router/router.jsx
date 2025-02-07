@@ -89,7 +89,7 @@ const router = createBrowserRouter([
       },
       // Admin Panel
       {
-        path: '/dashboard/Home',
+        path: '/dashboard',
         element: <AdminHome></AdminHome>
       },
       {
