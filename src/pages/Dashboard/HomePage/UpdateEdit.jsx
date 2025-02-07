@@ -1,127 +1,54 @@
-import  { useState, useEffect, useContext } from "react";
+import  { useState,  useContext } from "react";
 import AuthContext from "../../../AuthContext/AuthContext";
 import { toast } from "react-toastify";
 import { FaArrowRight } from "react-icons/fa";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+// import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useLoaderData } from "react-router-dom";
-// import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const UpdateEdit = () => {
     const {user } =useContext(AuthContext)
-    const AxiosPublic =useAxiosPublic()
-    // const AxiosSecure =useAxiosSecure()
+    // const AxiosPublic =useAxiosPublic()
+    const [isBlocked, setIsBlocked] = useState(false);
+    const AxiosSecure =useAxiosSecure()
    
    const donationUpdate = useLoaderData();
    const {_id,requesterName,requesterEmail,recipientName,recipientDistrict,recipientUpazila,hospitalName,fullAddress,bloodGroup,donationDate,donationTime,requestMessage,donationStatus} = donationUpdate;
    console.log(donationUpdate)
 
-//    {
-//     "_id": "679e7988b12bfe61137edbf1",
-//     "requesterName": "masum",
-//     "requesterEmail": "masumbillah@gmail.com",
-//     "recipientName": "Ava Mcclure",
-//     "recipientDistrict": "Dhaka",
-//     "recipientUpazila": "Gulshan",
-//     "hospitalName": "Hope Frazier",
-//     "fullAddress": "Id amet voluptatib",
-//     "bloodGroup": "A+",
-//     "donationDate": "2025-02-02T12:09:22.294Z",
-//     "donationTime": "12:33",
-//     "requestMessage": "Molestiae dolor quas",
-//     "donationStatus": "done"
-// }
-
-
-    // useEffect(() => {
-    //     // Fetch all donation requests for admin
-    //     AxiosSecure.get(`/donationRequest/${id}`)
-    //       .then((res) => {
-    //         // Check if the fetched data ID matches the URL ID
-    //         if (res.data._id === id) {
-    //           setDonation(res.data); // Set the donation data if IDs match
-    //           toast.success("Donation data fetched successfully");
-    //         } else {
-    //           toast.error("No matching donation request found");
-    //         }
-    //         setLoading(false);
-    //       })
-    //       .catch((err) => {
-    //         console.error("Error fetching donation request", err);
-    //         toast.error("Error fetching donation request");
-    //         setLoading(false);
-    //       });
-    //   }, [AxiosSecure, id, setLoading]);
-    
-  const [formData, setFormData] = useState({
-    requesterName: "",
-    requesterEmail: "",
-    recipientName: "",
-    recipientDistrict: "",
-    recipientUpazila: "",
-    hospitalName: "",
-    fullAddress: "",
-    bloodGroup: "",
-    donationDate: "",
-    donationTime: "",
-    requestMessage: "",
-    donationStatus: "pending", // Default status
-  });
-
-  const [isBlocked, setIsBlocked] = useState(false);
-
   // Effect to fetch user data
-  useEffect(() => {
-     
-    setFormData((prevState) => ({
-      ...prevState,
-      requesterName: user.displayName,
-      requesterEmail: user.email,
-    }));
-
     if (user.status === "blocked") {
       setIsBlocked(true);
     }
-  }, [user.displayName ,user.email,user.status ,]);
-
-  // Handle change in form fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-
-//   AxiosPublic.put(`/donationRequest/${id}`, formData)
-//       .then((res) => {
-//         toast.success("Donation request updated successfully");
-//         history.push("/donation-requests"); // 
-//       })
-//       .catch((err) => {
-//         toast.error("Error updating donation request");
-//       });
-
   // Handle form submission
   const handleUpdated = async (e) => {
     e.preventDefault();
-
+    const form = e.target;
+    const requesterName = form.requesterName.value;
+    const requesterEmail = form.requesterEmail.value;
+    const recipientName = form.recipientName.value;
+    const recipientDistrict = form.recipientDistrict.value;
+    const recipientUpazila = form.recipientUpazila.value;
+    const hospitalName = form.hospitalName.value;
+    const fullAddress = form.fullAddress.value;
+    const bloodGroup = form.bloodGroup.value;
+    const donationDate = form.donationDate.value;
+    const donationTime = form.donationTime.value;
+    const requestMessage = form.requestMessage.value;
+    
+    // donationStatus: "pending", 
+    const updatedValue={requesterName,requesterEmail,recipientName,recipientDistrict,recipientUpazila,hospitalName,fullAddress,bloodGroup,donationDate,donationTime,requestMessage, donationStatus: "pending", }
+    console.log(updatedValue)
     if (isBlocked) {
-      alert("You are blocked and cannot create a donation request.");
+      toast.warn("You are blocked and cannot create a donation request.");
       return;
     }
-
-    try {
-      const response = await AxiosPublic.put(`/donation-requests/${_id}`, formData);
-      console.log(response.data);
+      const response = await AxiosSecure.patch(`/donationRequest/${_id}`, updatedValue );
+      console.log(response.data.result);
       toast.success("Create Donation request successfully!",{
         top:'center'
       });
      
-    } catch (error) {
-      console.error("Error submitting donation request", error);
-      alert("There was an error submitting the request.");
-    }
   };
 
   return (
@@ -133,8 +60,8 @@ const UpdateEdit = () => {
           <input
             type="text"
             name="requesterName"
-            value={formData.requesterName}
             defaultValue={requesterName}
+            
             readOnly
             className="w-full p-2 border rounded-md"
           />
@@ -144,8 +71,8 @@ const UpdateEdit = () => {
           <input
             type="email"
             name="requesterEmail"
-            value={formData.requesterEmail}
             defaultValue={requesterEmail}
+            
             readOnly
             className="w-full p-2 border rounded-md"
           />
@@ -155,9 +82,9 @@ const UpdateEdit = () => {
           <input
             type="text"
             name="recipientName"
-            value={formData.recipientName}
+           
             defaultValue={recipientName}
-            onChange={handleChange}
+         
             required
             className="w-full p-2 border rounded-md"
           />
@@ -166,9 +93,7 @@ const UpdateEdit = () => {
           <label className="block font-medium">Recipient District : </label>
           <select
             name="recipientDistrict"
-            value={formData.recipientDistrict}
             defaultValue={recipientDistrict}
-            onChange={handleChange}
             required
             className="w-full p-2 border rounded-md"
           >
@@ -238,9 +163,7 @@ const UpdateEdit = () => {
           <label className="block font-medium">Recipient Upazila : </label>
           <select
             name="recipientUpazila"
-            value={formData.recipientUpazila}
             defaultValue={recipientUpazila}
-            onChange={handleChange}
             required
             className="w-full p-2 border rounded-md"
           >
@@ -305,9 +228,8 @@ const UpdateEdit = () => {
             type="text"
             name="hospitalName"
             placeholder="Please provide Hospital Name"
-            value={formData.hospitalName}
+          
             defaultValue={hospitalName}
-            onChange={handleChange}
             required
             className="w-full p-2 border rounded-md"
           />
@@ -317,10 +239,9 @@ const UpdateEdit = () => {
           <input
             type="text"
             name="fullAddress"
-            value={formData.fullAddress}
+            
             defaultValue={fullAddress}
             placeholder="Please provide full address"
-            onChange={handleChange}
             required
             className="w-full p-2 border rounded-md"
           />
@@ -329,9 +250,7 @@ const UpdateEdit = () => {
           <label className="block font-medium">Blood Group : </label>
           <select
             name="bloodGroup"
-            value={formData.bloodGroup}
             defaultValue={bloodGroup}
-            onChange={handleChange}
             required
             className="w-full p-2 border rounded-md"
           >
@@ -351,9 +270,7 @@ const UpdateEdit = () => {
           <input
             type="date"
             name="donationDate"
-            value={formData.donationDate}
             defaultValue={donationDate}
-            onChange={handleChange}
             required
             className="w-full p-2 border rounded-md"
           />
@@ -363,9 +280,8 @@ const UpdateEdit = () => {
           <input
             type="time"
             name="donationTime"
-            value={formData.donationTime}
             defaultValue={donationTime}
-            onChange={handleChange}
+           
             required
             className="w-full p-2 border rounded-md"
           />
@@ -374,8 +290,7 @@ const UpdateEdit = () => {
           <label className="block font-medium">Request Message : </label>
           <textarea
             name="requestMessage"
-            value={formData.requestMessage}
-            onChange={handleChange}
+            
             placeholder="Please request message provide?"
             defaultValue={requestMessage}
             required

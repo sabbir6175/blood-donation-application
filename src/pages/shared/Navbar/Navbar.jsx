@@ -48,7 +48,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar  bg-gradient-to-r from-green-600 to-red-500  sticky text-black top-0 z-10 backdrop-blur-md">
+    <div className="navbar  bg-gradient-to-r from-red-600 to-red-500  sticky text-black top-0 z-10 backdrop-blur-md">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -104,6 +104,9 @@ const Navbar = () => {
                 </li>
                 <li>
                   <button onClick={handleSingOut}><CgLogOut className="-rotate-180"></CgLogOut> Logout</button>
+                </li>
+                <li>
+                    {user.displayName}
                 </li>
               </ul>
             </div>

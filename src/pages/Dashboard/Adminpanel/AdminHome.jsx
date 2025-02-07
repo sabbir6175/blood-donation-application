@@ -1,32 +1,33 @@
-import { useContext,  useState } from "react";
+import { useContext,  useEffect,  useState } from "react";
 import { FaHandHoldingUsd, FaUsers } from "react-icons/fa";
 import AuthContext from "../../../AuthContext/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-// import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const AdminHome = () => {
   // Context for user info
   const { user } = useContext(AuthContext);
-  // const [donationRequest, setDonationRequests] = useState([])
+  const [donationRequest, setDonationRequests] = useState([])
 
   const totalFunding = "To do : Process"; // Total amount donated
 
   // Axios hook for public API calls
-  // const AxiosPublic = useAxiosPublic();
+  const AxiosPublic = useAxiosPublic();
   const AxiosSecure = useAxiosSecure();
 
-  // useEffect(() => {
-  //   AxiosSecure.get('/donationRequest/data')
-  //     .then(res => {
-  //       // Filter the donations with donationStatus of 'inprogress'
-  //       const inProgressDonations = res.data.filter(donation => donation.donationStatus === 'inprogress');
-  //       setDonationRequests(inProgressDonations); // Set the filtered donations
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching donation data:', error);
-  //     });
-  // }, [AxiosSecure]);
+  useEffect(() => {
+    AxiosPublic.get('/donationRequest/data')
+      .then(res => {
+        console.log(res.data)
+        // Filter the donations with donationStatus of 'inprogress'
+        // const inProgressDonations = res.data.filter(donation => donation.donationStatus === "inprogress");
+        setDonationRequests(res.data); // Set the filtered donations
+      })
+      .catch(error => {
+        console.error('Error fetching donation data:', error);
+      });
+  }, [AxiosPublic]);
   
   
 
@@ -94,7 +95,7 @@ const AdminHome = () => {
             <img className="w-10 rounded-tr-box h-10" src="https://i.ibb.co/274cVp87/images.jpg" alt="" />
             <div>
               <h3 className="text-xl  font-bold">Total Blood Requests</h3>
-              <p className="text-lg font-bold text-center">{0}</p> {/* Displaying the number of pending donations */}
+              <p className="text-lg font-bold text-center">{donationRequest.length}</p> {/* Displaying the number of pending donations */}
             </div>
           </div>
         </div>

@@ -1,11 +1,11 @@
 const Footer = () => {
   return (
     <div>
-      <footer className="footer  bg-gradient-to-r from-red-600 to-green-500 py-20 text-black p-10">
+      <footer className="footer  bg-red-600 py-20 text-white p-10">
        
        <div>
           
-       <h1 className="font-bold text-4xl text-black">Blood Donation</h1>
+       <h1 className="font-bold text-4xl">Blood Donation</h1>
           
           <p>
             ACME Industries Ltd.

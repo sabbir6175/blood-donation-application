@@ -10,11 +10,12 @@ const useVolunteer = () => {
         queryKey: [user?.email, 'volunteer'],
         queryFn: async()=>{
             const res = await axiosSecure.get(`/users/volunteer/${user.email}`);
-            console.log(res.data)
-            return res.data?.donar;
+            // console.log(res.data)
+            return res.data
         }
     })
    
+    // console.log(isVolunteer)
     return [isVolunteer,isVolunteerLoading]
 };
 

@@ -121,7 +121,7 @@ const AllUser = () => {
   }
 
   return (
-    <div className="overflow-y-auto md:overflow-hidden">
+    <div className="overflow-y-auto bg-slate-50 md:overflow-hidden">
       <div className="flex justify-between my-4">
         <h2 className="text-3xl font-extrabold">All Users</h2>
         <h2 className="text-3xl font-extrabold">
@@ -142,14 +142,14 @@ const AllUser = () => {
       </div>
 
       <table className="table table-xs  table-pin-rows table-pin-cols">
-        <thead className=" text-lg font-bold text-black">
-          <tr className="bg-red-500 p-10 m-10">
-            <th>Photo</th>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Actions</th>
+        <thead className=" text-lg font-bold text-black ">
+          <tr className="">
+            <th className="bg-green-200 rounded-sm py-2">Photo</th>
+            <th className="bg-green-200 rounded-sm py-2">Email</th>
+            <th className="bg-green-200 rounded-sm py-2">Name</th>
+            <th className="bg-green-200 rounded-sm py-2">Role</th>
+            <th className="bg-green-200 rounded-sm py-2">Status</th>
+            <th className="bg-green-200 rounded-sm py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -169,7 +169,7 @@ const AllUser = () => {
               <td>
                 <div className="dropdown">
                   <div className="flex gap-5">
-                    <button className="btn btn-sm bg-red-600">
+                    <button className="btn btn-sm bg-orange-600">
                       <HiDotsVertical></HiDotsVertical>
                     </button>
                     <button

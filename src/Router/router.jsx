@@ -93,7 +93,7 @@ const router = createBrowserRouter([
         element: <AdminHome></AdminHome>
       },
       {
-        path: '/dashboard/add-blog',
+        path: '/dashboard/content-management/add-blog',
         element: <AddBlog></AddBlog>
       },
       {

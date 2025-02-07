@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Modal from "./Modal"; // Assuming you have a modal component
 import { useContext } from "react";
 import AuthContext from "../../AuthContext/AuthContext";
@@ -13,6 +12,8 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const DonationDetails = () => {
   const { id } = useParams(); // Get the donation request ID from the URL
   const { loading, user } = useContext(AuthContext);
+  const email = user.email;
+  console.log(email)
   // console.log(user.displayName)
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure()
@@ -45,26 +46,27 @@ const DonationDetails = () => {
   };
 
   // Handle the form submission and update the status
-  const handleDonate = () => {
+  const handleDonate = (id) => {
+    console.log(id);
     axiosSecure
-      .put(`/donationRequest/${id}`, {
-        requesterName,
-        requesterEmail,
+      .patch(`/donationRequest/${id}`, {
+        requesterName,  // Donor name
+        requesterEmail, // Donor email
+        donationStatus: 'inprogress'  // Set status to 'inprogress'
       })
       .then((res) => {
-        console.log(res)
-        toast.success("Donation confirmed!",{
-          top: 'center'
-        });
+        console.log(res);
+        toast.success("Donation confirmed!", { top: 'center' });
         setIsModalOpen(false); // Close the modal
         setRequest({ ...request, donationStatus: "inprogress" });
-        navigate('/donationRequest')
+        navigate('/donationRequest');
       })
       .catch((error) => {
         console.error("Failed to confirm donation:", error);
         toast.warn("Something went wrong, please try again.");
       });
   };
+  
 
   if (!request) {
     return <p>Loading request details...</p>;
@@ -127,7 +129,7 @@ const DonationDetails = () => {
               <button
                 type="button"
                 className="bg-green-500 text-white p-2 rounded"
-                onClick={handleDonate}
+                onClick={()=>handleDonate(request?._id)}
               >
                 Confirm Donation
               </button>

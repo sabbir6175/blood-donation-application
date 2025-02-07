@@ -6,14 +6,14 @@ import useDonor from "../Hooks/useDonor";
 
 const DonorRouter = (children) => {
     const [user, loading] = useContext(AuthContext); 
-    const [isDonar, isDonarLoading] = useDonor();
+    const [isDonor, isDonarLoading] = useDonor();
     const location = useLocation();
 
     if(loading || isDonarLoading){
         return <progress className="progress w-56"></progress>
     }
 
-    if (user && isDonar) {
+    if (user && isDonor) {
         return children;
     }
     return <Navigate to="/SignIn" state={{from: location}} replace></Navigate>
