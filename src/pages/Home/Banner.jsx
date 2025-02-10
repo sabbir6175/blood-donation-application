@@ -22,12 +22,12 @@ const Banner = () => {
             </h1>
             <div className="flex gap-5">
               <Link to="/SignUp">
-                <button className="mt-5 py-3 animate-bounce px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500">
+                <button className="mt-5 py-2 md:py-3 animate-bounce px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500">
                   Join as a donor
                 </button>
               </Link>
               <Link to="/Search">
-                <button className="mt-5 -inset-90 animate-bounce  py-3 px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
+                <button className="mt-5 -inset-90 animate-bounce  py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
                   Search Donors
                 </button>
               </Link>

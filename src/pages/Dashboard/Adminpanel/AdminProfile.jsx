@@ -45,7 +45,7 @@ const ProfilePage = () => {
     };
     console.log("Sending ID:", profileData._id, updatedData);
 
-    AxiosPublic.patch(`/users/${profileData._id}`, updatedData)
+    AxiosPublic.put(`/users/${profileData._id}`, updatedData)
       .then(() => {
         toast.success("Profile updated successfully");
         setProfileData((prev) => ({

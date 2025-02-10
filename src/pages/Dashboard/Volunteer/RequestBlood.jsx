@@ -3,7 +3,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
-const AllDonationRequest = () => {
+const RequestBlood = () => {
   const [donationRequests, setDonationRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -122,7 +122,7 @@ const AllDonationRequest = () => {
   );
 };
 
-export default AllDonationRequest;
+export default RequestBlood;
 
 
 

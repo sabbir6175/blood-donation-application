@@ -22,6 +22,7 @@ import DashboardHome from "../pages/Dashboard/HomePage/DashboardHome";
 import UpdateEdit from "../pages/Dashboard/HomePage/UpdateEdit";
 import Blogs from "../pages/Blogs/Blogs";
 import BlogDetailPage from "../pages/Blogs/BlogDetailPage";
+import RequestBlood from "../pages/Dashboard/Volunteer/RequestBlood";
 
 const router = createBrowserRouter([
   {
@@ -64,32 +65,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <PrivateRoute><Dashboard /></PrivateRoute>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
         path: '/dashboard/admin-profile',
         element: <AdminProfile></AdminProfile>
       },
-      {
-        path: '/dashboard/user',
-        element: <DashboardHome></DashboardHome>
-      },
-      {
-        path: '/dashboard/Update/:id',
-        element: <UpdateEdit></UpdateEdit>,
-        loader: ({params}) => fetch(`http://localhost:7000/donationRequest/${params.id}`)
-      },
-      {
-        path: '/dashboard/my-donation-requests',
-        element: <MyDonationRequest></MyDonationRequest>
-      },
-      {
-        path: '/dashboard/create-donation-request',
-        element: <CreateDonationRequest></CreateDonationRequest>
-      },
       // Admin Panel
       {
-        path: '/dashboard',
+        path: '/dashboard/admin',
         element: <AdminHome></AdminHome>
       },
       {
@@ -108,6 +92,29 @@ const router = createBrowserRouter([
         path: '/dashboard/content-management',
         element: <ContentManagement></ContentManagement>
       },
+      //donor dashboard
+      {
+        path: '/dashboard/donor',
+        element: <DashboardHome></DashboardHome>
+      },
+      {
+        path: '/dashboard/Update/:id',
+        element: <UpdateEdit></UpdateEdit>,
+        loader: ({params}) => fetch(`http://localhost:7000/donationRequest/${params.id}`)
+      },
+      {
+        path: '/dashboard/my-donation-requests',
+        element: <MyDonationRequest></MyDonationRequest>
+      },
+      {
+        path: '/dashboard/create-donation-request',
+        element: <CreateDonationRequest></CreateDonationRequest>
+      },
+      //volunteer dashboard
+      {
+        path: '/dashboard/all-blood-donation-request',
+        element: <RequestBlood></RequestBlood>
+      }
     ]
   }
 ]);
