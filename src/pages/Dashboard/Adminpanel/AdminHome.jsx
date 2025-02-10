@@ -19,7 +19,7 @@ const AdminHome = () => {
   useEffect(() => {
     AxiosPublic.get('/donationRequest/data')
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         // Filter the donations with donationStatus of 'inprogress'
         // const inProgressDonations = res.data.filter(donation => donation.donationStatus === "inprogress");
         setDonationRequests(res.data); // Set the filtered donations
@@ -57,55 +57,55 @@ const AdminHome = () => {
   }
 
   return (
-    <div className="p-8 bg-slate-50">
+    <div className="p-4 md:p-8 bg-slate-50">
       {/* Welcome Section */}
       <div className="bg-gradient-to-r from-green-600 to-red-500   text-white p-6 rounded-lg mb-8">
-        <h1 className="text-4xl font-bold text-center uppercase">Welcome {user.displayName}!</h1>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center uppercase">Welcome {user.displayName}!</h1>
       </div>
 
       {/* Featured Cards Section */}
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 shadow p-5 bg-slate-200 gap-6">
         
         {/* Total Donors Card */}
-        <div className="bg-white shadow-lg rounded-lg p-6 flex items-center justify-between">
-          <div className="flex items-center gap-10">
+        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
+          <div className="flex items-center   md:gap-10">
             <FaUsers className="text-3xl text-orange-500 mr-4" />
             <div className="flex justify-center items-center flex-col">
-              <h3 className="text-xl text-orange-400 font-bold">Total Donors</h3>
-              <p className="text-lg text-orange-400 font-bold">{donors.length}</p> {/* Displaying the number of donors */}
+              <h3 className="text-base md:text-xl font-bold">Total Donors</h3>
+              <p className="text-base md:text-xl font-bold">{donors.length}</p> {/* Displaying the number of donors */}
             </div>
           </div>
         </div>
 
         {/* Total Volunteers Card */}
-        <div className="bg-white shadow-lg rounded-lg p-6 flex items-center justify-between">
-          <div className="flex items-center gap-10">
+        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
+          <div className="flex items-center md:gap-10">
             <FaUsers className="text-3xl text-orange-500 mr-4" />
             <div className="flex justify-center items-center flex-col">
-              <h3 className="text-xl  font-bold">Total Volunteer</h3>
-              <p className="text-lg font-bold">{volunteer.length}</p> {/* Displaying the number of volunteers */}
+              <h3 className="text-base md:text-xl  font-bold">Total Volunteer</h3>
+              <p className="text-base md:text-xl font-bold">{volunteer.length}</p> {/* Displaying the number of volunteers */}
             </div>
           </div>
         </div>
 
          {/* Total Blood Donation Requests Card */}
-         <div className="bg-white shadow-lg rounded-lg p-6 flex items-center justify-between">
-          <div className="flex items-center gap-10">
+         <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
+          <div className="flex items-center gap-5 md:gap-10">
             {/* <FaHeartbeat className="text-3xl text-red-500 mr-4" /> */}
             <img className="w-10 rounded-tr-box h-10" src="https://i.ibb.co/274cVp87/images.jpg" alt="" />
             <div>
-              <h3 className="text-xl  font-bold">Total Blood Requests</h3>
-              <p className="text-lg font-bold text-center">{donationRequest.length}</p> {/* Displaying the number of pending donations */}
+              <h3 className="text-base md:text-xl  font-bold">Total Blood Requests</h3>
+              <p className="text-base md:text-xl font-bold text-center">{donationRequest.length}</p> {/* Displaying the number of pending donations */}
             </div>
           </div>
         </div>
         
         {/* Total Funding Card */}
-        <div className="bg-white shadow-lg rounded-lg p-6 flex items-center justify-between">
-          <div className="flex items-center gap-10">
+        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
+          <div className="flex items-center md:gap-10">
             <FaHandHoldingUsd className="text-3xl  text-green-500 mr-4" />
             <div>
-              <h3 className="text-xl font-bold">Total Funding</h3>
+              <h3 className="text-base md:text-xl font-bold">Total Funding</h3>
               <p className="text-base font-bold">${totalFunding}</p>
             </div>
           </div>

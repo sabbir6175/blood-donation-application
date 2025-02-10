@@ -1,5 +1,4 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import ReactPaginate from "react-paginate";
@@ -22,11 +21,8 @@ const AllUser = () => {
     ],
     queryFn: async ({ queryKey }) => {
       const [, { status, page, limit }] = queryKey;
-      const response = await AxiosSecure.get("http://localhost:7000/users", {
+      const response = await AxiosSecure.get("/users", {
         params: { status, page, limit },
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('access-token')}`
-        // }
       });
       return response.data;
     },
@@ -40,7 +36,7 @@ const AllUser = () => {
   // Block user mutation with optimistic update
   const { mutate: blockUser } = useMutation({
     mutationFn: (userId) =>
-      AxiosSecure.put(`http://localhost:7000/users/block/${userId}`),
+      AxiosSecure.put(`/users/block/${userId}`),
     onMutate: (userId) => {
       // Optimistically update the UI
       const previousData = data;
@@ -65,7 +61,7 @@ const AllUser = () => {
   // Unblock user mutation
   const { mutate: unblockUser } = useMutation({
     mutationFn: (userId) =>
-      AxiosSecure.put(`http://localhost:7000/users/unblock/${userId}`),
+      AxiosSecure.put(`/users/unblock/${userId}`),
     onSuccess: () => refetch(),
     onError: (error) => console.error("Error unblocking user:", error),
   });
@@ -73,7 +69,7 @@ const AllUser = () => {
   // Make volunteer mutation
   const { mutate: makeVolunteer } = useMutation({
     mutationFn: (userId) =>
-      AxiosSecure.put(`http://localhost:7000/users/make-volunteer/${userId}`),
+      AxiosSecure.put(`/users/make-volunteer/${userId}`),
     onSuccess: () => refetch(),
     onError: (error) => console.error("Error making volunteer:", error),
   });
@@ -81,7 +77,7 @@ const AllUser = () => {
   // Make admin mutation
   const { mutate: makeAdmin } = useMutation({
     mutationFn: (userId) =>
-      AxiosSecure.put(`http://localhost:7000/users/make-admin/${userId}`),
+      AxiosSecure.put(`/users/make-admin/${userId}`),
     onSuccess: () => refetch(),
     onError: (error) => console.error("Error making admin:", error),
   });
@@ -121,15 +117,15 @@ const AllUser = () => {
   }
 
   return (
-    <div className="overflow-y-auto bg-slate-50 md:overflow-hidden">
+    <div className="p-4 bg-slate-50">
       <div className="flex justify-between my-4">
-        <h2 className="text-3xl font-extrabold">All Users</h2>
-        <h2 className="text-3xl font-extrabold">
+        <h2 className="text-2xl md:text-3xl font-extrabold">All Users</h2>
+        <h2 className="text-2xl md:text-3xl font-extrabold">
           Total Users: {data?.totalUsers}
         </h2>
       </div>
 
-      <div className="my-4">
+      <div className="my-4 text-right">
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
@@ -141,96 +137,99 @@ const AllUser = () => {
         </select>
       </div>
 
-      <table className="table table-xs  table-pin-rows table-pin-cols">
-        <thead className=" text-lg font-bold text-black ">
-          <tr className="">
-            <th className="bg-green-200 rounded-sm py-2">Photo</th>
-            <th className="bg-green-200 rounded-sm py-2">Email</th>
-            <th className="bg-green-200 rounded-sm py-2">Name</th>
-            <th className="bg-green-200 rounded-sm py-2">Role</th>
-            <th className="bg-green-200 rounded-sm py-2">Status</th>
-            <th className="bg-green-200 rounded-sm py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.users?.map((user) => (
-            <tr key={user._id} className="shadow hover:bg-slate-100">
-              <td>
-                <img
-                  src={user.photoURL}
-                  alt="Avatar"
-                  className="w-10 h-10 rounded-full"
-                />
-              </td>
-              <td className="">{user.email}</td>
-              <td>{user.displayName}</td>
-              <td>{user.role}</td>
-              <td>{user.status}</td>
-              <td>
-                <div className="dropdown">
-                  <div className="flex gap-5">
-                    <button className="btn btn-sm bg-orange-600">
-                      <HiDotsVertical></HiDotsVertical>
-                    </button>
-                    <button
-                      onClick={() => handleDeleteUser(user)}
-                      className="btn btn-sm"
-                    >
-                      <FaTrashAlt className="text-red-600"></FaTrashAlt>
-                    </button>
-                  </div>
-                  <div className="menu -ml-36 dropdown-content bg-green-300 rounded-box z-[1] w-36 p-2 shadow">
-                    {user.status === "active" && (
-                      <button
-                        className="block  py-2 text-red-500"
-                        onClick={() => {
-                          console.log("Blocking user:", user._id);
-                          blockUser(user._id);
-                        }}
-                      >
-                        Block
-                      </button>
-                    )}
-                    {user.status === "blocked" && (
-                      <button
-                        className="block  py-2 text-green-500"
-                        onClick={() => {
-                          console.log("Unblocking user:", user._id);
-                          unblockUser(user._id);
-                        }}
-                      >
-                        Unblock
-                      </button>
-                    )}
-                    {user.role !== "volunteer" && (
-                      <button
-                        className="block  py-2 text-blue-500"
-                        onClick={() => {
-                          console.log("Making user volunteer:", user._id);
-                          makeVolunteer(user._id);
-                        }}
-                      >
-                        Volunteer
-                      </button>
-                    )}
-                    {user.role !== "admin" && (
-                      <button
-                        className="block  py-2 text-yellow-500"
-                        onClick={() => {
-                          console.log("Making user admin:", user._id);
-                          makeAdmin(user._id);
-                        }}
-                      >
-                        Admin
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </td>
+      {/* Table Container with horizontal scrolling */}
+      <div className="">
+        <table className="table table-xs table-pin-rows table-pin-cols w-full">
+          <thead className=" text-lg font-bold text-black ">
+            <tr className="">
+              <th className="bg-green-200 rounded-sm py-2">Photo</th>
+              <th className="bg-green-200 rounded-sm py-2">Email</th>
+              <th className="bg-green-200 rounded-sm py-2">Name</th>
+              <th className="bg-green-200 rounded-sm py-2">Role</th>
+              <th className="bg-green-200 rounded-sm py-2">Status</th>
+              <th className="bg-green-200 rounded-sm py-2">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data?.users?.map((user) => (
+              <tr key={user._id} className="shadow hover:bg-slate-100">
+                <td>
+                  <img
+                    src={user.photoURL}
+                    alt="Avatar"
+                    className="w-10 h-10 rounded-full"
+                  />
+                </td>
+                <td className="">{user.email}</td>
+                <td>{user.displayName}</td>
+                <td>{user.role}</td>
+                <td>{user.status}</td>
+                <td>
+                  <div className="dropdown">
+                    <div className="flex gap-5">
+                      <button className="btn btn-sm bg-orange-600">
+                        <HiDotsVertical></HiDotsVertical>
+                      </button>
+                      <button
+                        onClick={() => handleDeleteUser(user)}
+                        className="btn btn-sm"
+                      >
+                        <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                      </button>
+                    </div>
+                    <div className="menu -ml-36 dropdown-content bg-green-300 rounded-box z-[1] w-36 p-2 shadow">
+                      {user.status === "active" && (
+                        <button
+                          className="block py-2 text-red-500"
+                          onClick={() => {
+                            console.log("Blocking user:", user._id);
+                            blockUser(user._id);
+                          }}
+                        >
+                          Block
+                        </button>
+                      )}
+                      {user.status === "blocked" && (
+                        <button
+                          className="block py-2 text-green-500"
+                          onClick={() => {
+                            console.log("Unblocking user:", user._id);
+                            unblockUser(user._id);
+                          }}
+                        >
+                          Unblock
+                        </button>
+                      )}
+                      {user.role !== "volunteer" && (
+                        <button
+                          className="block py-2 text-blue-500"
+                          onClick={() => {
+                            console.log("Making user volunteer:", user._id);
+                            makeVolunteer(user._id);
+                          }}
+                        >
+                          Volunteer
+                        </button>
+                      )}
+                      {user.role !== "admin" && (
+                        <button
+                          className="block py-2 text-yellow-500"
+                          onClick={() => {
+                            console.log("Making user admin:", user._id);
+                            makeAdmin(user._id);
+                          }}
+                        >
+                          Admin
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Pagination */}
       <div className="mt-20">

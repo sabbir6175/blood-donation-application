@@ -119,14 +119,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-red-600 py-10">
-      <div className="  p-4 card w-5/12 mx-auto bg-red-50 backdrop-blur-md ">
+    <div className="bg-slate-200 py-10 px-2">
+      <div className="  p-4 card lg:w-5/12 mx-auto bg-red-50 backdrop-blur-md ">
         <h2 className="text-3xl  text-center font-bold mb-4">
           Register For Blood Donation
         </h2>
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-4 ">
           {/* Name */}
-          <div className="flex flex-col md:flex-row  md:gap-4">
+          <div className="flex flex-col lg:flex-row  md:gap-4">
             <div className="form-control">
               <label className="label font-bold">Name :</label>
               <input
@@ -151,9 +151,9 @@ const SignUp = () => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row  w-full md:gap-4">
+          <div className="flex flex-col lg:flex-row  w-full md:gap-4">
             {/* Avatar (Image Upload) */}
-            <div className="form-control w-full md:w-1/2">
+            <div className="form-control w-full lg:w-1/2">
               <label className="label font-bold">Upload Photo : </label>
               <input
                 type="file"
@@ -167,7 +167,7 @@ const SignUp = () => {
             </div>
 
             {/* Blood Group */}
-            <div className="form-control w-full md:w-1/2">
+            <div className="form-control w-full lg:w-1/2">
               <label className="label font-bold">Blood Group : </label>
               <select
                 name="bloodGroup"
@@ -185,9 +185,9 @@ const SignUp = () => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row md:gap-4 w-full">
+          <div className="flex flex-col lg:flex-row md:gap-4 w-full">
             {/* District */}
-            <div className="form-control w-full md:w-1/2">
+            <div className="form-control w-full lg:w-1/2">
               <label className="label font-bold">District :</label>
               <select
                 name="district"
@@ -257,7 +257,7 @@ const SignUp = () => {
             </div>
 
             {/* Upazila */}
-            <div className="form-control w-full md:w-1/2">
+            <div className="form-control w-full lg:w-1/2">
               <label className="label font-bold">Upazila : </label>
               <select
                 name="upazila"
@@ -321,9 +321,9 @@ const SignUp = () => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row md:gap-4 w-full">
+          <div className="flex flex-col lg:flex-row md:gap-4 w-full">
             {/* Password */}
-            <div className="form-control  w-full md:w-1/2 ">
+            <div className="form-control  w-full lg:w-1/2 ">
               <label className="label font-bold">Password : </label>
               <input
                 type="password"
@@ -335,7 +335,7 @@ const SignUp = () => {
             </div>
 
             {/* Confirm Password */}
-            <div className="form-control  w-full md:w-1/2">
+            <div className="form-control  w-full lg:w-1/2">
               <label className="label font-bold">Confirm Password : </label>
               <input
                 type="password"

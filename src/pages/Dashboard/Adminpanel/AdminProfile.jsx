@@ -10,53 +10,68 @@ const ProfilePage = () => {
   const AxiosPublic = useAxiosPublic();
   const [isEditable, setIsEditable] = useState(false);
 
-  const [profileData, setProfileData] = useState([]);
-
-  console.log(profileData);
+  const [profileData, setProfileData] = useState({
+    displayName: "",
+    email: "",
+    photoURL: "",
+    district: "",
+    upazila: "",
+    bloodGroup: "",
+  });
 
   useEffect(() => {
+    // Fetching profile data
     AxiosPublic.get(`/users/${email}`)
       .then((response) => {
         setProfileData(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching profile data", error);
       });
-  }, [user, email, AxiosPublic]);
+  }, [email, AxiosPublic]);
 
-    const handleSave = (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const email = form.email.value;
-      const photoURL = form.photoURL.value;
-      const district = form.district.value;
-      const upazila = form.upazila.value;
-      const bloodGroup = form.bloodGroup.value;
-      const save  = {email, photoURL, district, upazila, bloodGroup}
-      console.log(save)
+  const handleSave = (e) => {
+    e.preventDefault();
+    const form = e.target;
 
-      AxiosPublic
-        .put(`/users/${user._id}`, profileData)
-        .then(() => {
-          toast.success("Profile updated successfully");
-          setIsEditable(false); // Turn off edit mode
-        })
-        .catch((error) => {
-          toast.error("Failed to update profile");
-          console.error("Error saving profile data", error);
-        });
+    const updatedData = {
+      displayName: form.name.value,
+      email: form.email.value,
+      photoURL: form.photoURL.value,
+      district: form.district.value,
+      upazila: form.upazila.value,
+      bloodGroup: form.bloodGroup.value,
     };
+    console.log("Sending ID:", profileData._id, updatedData);
 
-  //   console.log("Profile Data in state: ", profileData); // Debugging profileData state
+    AxiosPublic.patch(`/users/${profileData._id}`, updatedData)
+      .then(() => {
+        toast.success("Profile updated successfully");
+        setProfileData((prev) => ({
+          ...prev,
+          ...updatedData,
+        })); // Update the profile data in state after successful save
+        setIsEditable(false); // Turn off edit mode
+      })
+      .catch((error) => {
+        toast.error("Failed to update profile");
+        console.error("Error saving profile data", error);
+      });
+  };
 
   return (
     <div className="container mx-auto p-6">
-     
-
-      <div className="bg-gradient-to-t from-red-400 to-green-300 p-6 rounded-lg shadow-md  ">
-          <h1 className="text-3xl font-bold mb-6 text-center uppercase">{profileData.role} Profile</h1>
-        <div className="w-1/5 h-[150px] rounded-full border-2 bg-white mx-auto">
-            <img className="w-full h-full rounded-full " src={profileData.photoURL} alt="" />
+      <div className="bg-gradient-to-t from-red-400 to-green-300 p-6 rounded-lg shadow-md">
+        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center uppercase">
+          {profileData.role} Profile
+        </h1>
+        <div className="w-4/12 md:w-1/5 h-[100px] md:h-[190px] rounded-full border-2 bg-white mx-auto">
+          <img
+            className="w-full h-full rounded-full"
+            src={profileData.photoURL}
+            alt="Profile"
+          />
         </div>
         <div className="text-right">
           <button
@@ -66,18 +81,6 @@ const ProfilePage = () => {
             {isEditable ? "Cancel" : "Edit"}
           </button>
         </div>
-
-        {/* {
-    "_id": "679c6aab015b6a4832bfdadc",
-    "email": "masumbillah@gmail.com",
-    "displayName": "masum",
-    "photoURL": "https://i.ibb.co.com/hFr55t7Z/1699191905292.jpg",
-    "bloodGroup": "AB+",
-    "district": "Dhaka",
-    "upazila": "Munshiganj",
-    "role": "donor",
-    "status": "active"
-} */}
 
         <form onSubmit={handleSave}>
           <div className="flex flex-col lg:flex-row lg:gap-3">
@@ -110,7 +113,7 @@ const ProfilePage = () => {
                 name="email"
                 defaultValue={profileData.email}
                 disabled
-                className="w-full p-2 border rounded-lg  cursor-not-allowed"
+                className="w-full p-2 border rounded-lg cursor-not-allowed"
               />
             </div>
           </div>
@@ -118,7 +121,7 @@ const ProfilePage = () => {
           <div className="flex flex-col lg:flex-row lg:gap-3">
             <div className="mb-4 w-full">
               <label
-                htmlFor="avatar"
+                htmlFor="photoURL"
                 className="block text-sm font-semibold mb-2"
               >
                 Photo URL
@@ -188,8 +191,7 @@ const ProfilePage = () => {
 
           {isEditable && (
             <button
-                
-              type="button"
+              type="submit"
               className="bg-green-500 w-full text-white py-2 px-4 rounded"
             >
               Save

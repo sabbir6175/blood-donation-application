@@ -22,7 +22,7 @@ const Dashboard = () => {
   return (
     <div className="flex">
       {/* dashboard side bar */}
-      <div className="md:w-64 md:min-h-screen bg-gradient-to-r from-red-600 to-green-500">
+      <div className="hidden md:block md:w-64 md:min-h-screen bg-gradient-to-r from-red-600 to-green-500">
         <ul className="menu p-4 min-h-screen fixed top-0 z-50 rounded-sm m-2">
           <li>
             <Link to="/dashboard/admin-profile">
@@ -119,7 +119,7 @@ const Dashboard = () => {
         <div className="bg-gradient-to-r from-red-600 to-green-500 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center">
           Dashboard
         </div>
-        <div className="p-8">
+        <div className="p-0 md:p-4 lg:p-8">
           <Outlet />
         </div>
       </div>

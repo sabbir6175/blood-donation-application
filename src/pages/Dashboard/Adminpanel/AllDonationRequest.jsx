@@ -57,12 +57,12 @@ const AllDonationRequest = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-4">
+      <h1 className="text-2xl text-center mt-2 md:text-3xl font-bold mb-4">
         All Blood Donation Requests ({donationRequests.length})
       </h1>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full table-auto border-collapse border border-gray-300">
+      <div className="overflow-x-auto p-4">
+        <table className="md:min-w-full overflow-x-auto table-auto border-collapse border border-gray-300">
           <thead className="bg-gray-100 ">
             <tr>
               <th className="py-2 font-semibold text-gray-700 border-b">No</th>
@@ -87,7 +87,7 @@ const AllDonationRequest = () => {
                   <td className="py-2">{formatDate(request.donationDate)}</td>
                   <td className="py-2">{request.bloodGroup}</td>
                   <td className="py-2">{request.donationStatus}</td>
-                  <td className="py-2 text-center">
+                  <td className="py-2 flex flex-col  md:flex-row text-center">
                     {/* Buttons to change donation status */}
                     {request.donationStatus !== "done" && (
                       <button

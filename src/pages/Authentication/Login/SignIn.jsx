@@ -39,12 +39,12 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen  shadow-2xl bg-red-600 p-4">
-      <div className=" p-4 card w-5/12  mx-auto bg-red-50 backdrop-blur-md ">
+    <div className="  shadow-2xl bg-slate-200 p-4">
+      <div className=" p-4 card lg:w-5/12  mx-auto bg-red-50 backdrop-blur-md ">
         <h2 className="text-3xl mb-4 text-center font-bold animate-bounce">Login</h2>
         <form
           onSubmit={handleSubmit}
-          className=" p-4"
+          className=" md:p-4 w-full"
         >
           {/* Email */}
           <div className="form-control">
@@ -70,7 +70,7 @@ const SignIn = () => {
 
          
 
-          <button type="submit" className="btn mt-5 bg-red-500 w-full">
+          <button type="submit" className="btn mt-5 text-white bg-red-500 w-full">
             Log In
           </button>
         </form>

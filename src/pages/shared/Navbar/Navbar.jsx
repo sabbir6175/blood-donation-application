@@ -112,7 +112,7 @@ const Navbar = () => {
             </div>
           </li>
         ) : (
-          <Link to="/SignIn" className="btn bg-white text-red-700 outline-none animate-bounce">
+          <Link to="/SignIn" className="btn bg-white text-red-700 outline-none animate-pulse">
             Login
           </Link>
         )}
