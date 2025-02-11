@@ -7,222 +7,245 @@ import {
   FaUsers,
 } from "react-icons/fa";
 
-import { Link, Outlet,} from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
+import { MdOutlineMenu } from "react-icons/md";
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
   console.log(isAdmin);
 
+  const linkAdmin = (
+    <>
+      <li>
+        <Link to="/dashboard/admin-profile">
+          <FaUser />
+          Profile
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/admin">
+          <FaHome />
+          Admin Home
+        </Link>
+      </li>
+
+      <li>
+        <Link to="/dashboard/All-donation-request">
+          <FaDonate />
+          All Blood Donation Request
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/content-management">
+          <FaEdit />
+          Content Management Page{" "}
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/all-user">
+          <FaUsers />
+          All Users
+        </Link>
+      </li>
+      <div className="divider"></div>
+      <li>
+        <Link to="/">
+          <FaHome />
+          Home
+        </Link>
+      </li>
+    </>
+  );
+  const linkVolunteer = (
+    <>
+      <li>
+        <Link to="/dashboard/admin-profile">
+          <FaUser />
+          Profile
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/admin">
+          <FaHome />
+          Volunteer Home
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/all-blood-donation-request">
+          <FaDonate />
+          All Blood Donation Request
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/content-management-volunteer">
+          <FaEdit />
+          Content Management Page
+        </Link>
+      </li>
+
+      <div className="divider"></div>
+      <li>
+        <Link to="/">
+          <FaHome />
+          Home
+        </Link>
+      </li>
+    </>
+  );
+  const linkDonor = (
+    <>
+      <li>
+        <Link to="/dashboard/admin-profile">
+          <FaUser />
+          Profile
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/donor">
+          <FaHome />
+          User Home
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/my-donation-requests">
+          <FaDonate />
+          My Donation Request
+        </Link>
+      </li>
+      <li>
+        <Link to="/dashboard/create-donation-request">
+          <FaMapMarked />
+          Create Donation Request
+        </Link>
+      </li>
+
+      <div className="divider"></div>
+          <li>
+            <Link to="/">
+              <FaHome />
+              Home
+            </Link>
+      </li>
+    </>
+  );
 
   return (
     <div className="flex">
-      <div className="hidden text-white md:block md:w-64 md:min-h-screen bg-gradient-to-r from-red-600 to-green-500">
-        <ul className="menu  min-h-screen fixed top-0 z-50 rounded-sm m-2">
+      <div className=" flex flex-row md:flex-col text-white  md:w-64 md:min-h-screen bg-gradient-to-r from-red-600 to-green-500">
+        <ul className="menu w-full md:w-64  bg-gradient-to-r from-red-600 to-green-500  md:min-h-screen fixed top-0 z-50 rounded-sm ">
           {isAdmin?.admin === true && (
             <>
-            <h1 className="text-2xl font-semibold text-center text-white mb-10">Admin <br /> Dashboard</h1>
-             <li>
-                <Link to="/dashboard/admin-profile">
-                  <FaUser />
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/admin">
-                  <FaHome />
-                  Admin Home
-                </Link>
-              </li>
+              <div className="flex justify-between place-items-center w-full sticky top-0 z-50 ">
+                <div className="w-1/2 text-xl font-semibold text-center text-white md:mb-10">
+                  <h1 className="">Admin Dashboard</h1>
+                </div>
+                <div className="drawer w-1/2 text-end mr-5 block md:hidden ">
+                  <input
+                    id="my-drawer"
+                    type="checkbox"
+                    className="drawer-toggle"
+                  />
+                  <div className="drawer-content">
+                    {/* Page content here */}
+                    <label htmlFor="my-drawer" className="btn  drawer-button">
+                      <MdOutlineMenu></MdOutlineMenu>
+                    </label>
+                  </div>
+                  <div className="drawer-side">
+                    <label
+                      htmlFor="my-drawer"
+                      aria-label="close sidebar"
+                      className="drawer-overlay"
+                    ></label>
+                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-600 to-green-500  min-h-full  p-4">
+                      {/* Sidebar content here */}
+                      {linkAdmin}
+                    </ul>
+                  </div>
+                </div>
+              </div>
 
-              <li>
-                <Link to="/dashboard/All-donation-request">
-                  <FaDonate />
-                  All Blood Donation Request
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/content-management">
-                  <FaEdit />
-                  Content Management Page{" "}
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/all-user">
-                  <FaUsers />
-                  All Users
-                </Link>
-              </li>
+              <div className="hidden md:block">{linkAdmin}</div>
             </>
           )}
 
           {isAdmin?.volunteer === true && (
             <>
-            <h1 className="text-2xl font-semibold text-center text-white mb-10">Volunteer <br /> Dashboard</h1>
-             <li>
-                <Link to="/dashboard/admin-profile">
-                  <FaUser />
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/admin">
-                  <FaHome />
-                  Admin Home
-                </Link>
-              </li>
-              
-              <li>
-                <Link to="/dashboard/all-blood-donation-request">
-                  <FaDonate />
-                  All Blood Donation Request
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  <FaEdit />
-                  Content Management Page{" "}
-                </Link>
-              </li>
+              <div className="flex justify-between place-items-center w-full sticky top-0 z-50 ">
+                <div className="w-1/2 text-xl font-semibold text-center text-white md:mb-10">
+                  <h1 className="">Volunteer Dashboard</h1>
+                </div>
+                <div className="drawer w-1/2 text-end mr-5 block md:hidden ">
+                  <input
+                    id="my-drawer"
+                    type="checkbox"
+                    className="drawer-toggle"
+                  />
+                  <div className="drawer-content">
+                    {/* Page content here */}
+                    <label htmlFor="my-drawer" className="btn  drawer-button">
+                      <MdOutlineMenu></MdOutlineMenu>
+                    </label>
+                  </div>
+                  <div className="drawer-side">
+                    <label
+                      htmlFor="my-drawer"
+                      aria-label="close sidebar"
+                      className="drawer-overlay"
+                    ></label>
+                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-600 to-green-500  min-h-full  p-4">
+                      {/* Sidebar content here */}
+                      {linkVolunteer}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden md:block">{linkVolunteer}</div>
             </>
           )}
           {isAdmin?.donor === true && (
             <>
-            <h1 className="text-2xl font-semibold text-center text-white mb-10">Donar <br /> Dashboard</h1>
-              <li>
-                <Link to="/dashboard/admin-profile">
-                  <FaUser />
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/donor">
-                  <FaHome />
-                  User Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/my-donation-requests">
-                  <FaDonate />
-                  My Donation Request
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/create-donation-request">
-                  <FaMapMarked />
-                  Create Donation Request
-                </Link>
-              </li>
+              <div className="flex justify-between place-items-center w-full sticky top-0 z-50 ">
+                <div className="w-1/2 text-xl font-semibold text-center text-white md:mb-10">
+                  <h1 className="">Donor Dashboard</h1>
+                </div>
+                <div className="drawer w-1/2 text-end mr-5 block md:hidden ">
+                  <input
+                    id="my-drawer"
+                    type="checkbox"
+                    className="drawer-toggle"
+                  />
+                  <div className="drawer-content">
+                    {/* Page content here */}
+                    <label htmlFor="my-drawer" className="btn  drawer-button">
+                      <MdOutlineMenu></MdOutlineMenu>
+                    </label>
+                  </div>
+                  <div className="drawer-side">
+                    <label
+                      htmlFor="my-drawer"
+                      aria-label="close sidebar"
+                      className="drawer-overlay"
+                    ></label>
+                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-600 to-green-500  min-h-full  p-4">
+                      {/* Sidebar content here */}
+                      {linkDonor}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden md:block">{linkDonor}</div>
             </>
           )}
-
-          <div className="divider"></div>
-          <li>
-            <Link to="/">
-              <FaHome />
-              Home
-            </Link>
-          </li>
         </ul>
       </div>
 
-      {/* <div className="hidden md:block md:w-64 md:min-h-screen bg-gradient-to-r from-red-600 to-green-500">
-        <ul className="menu p-4 min-h-screen fixed top-0 z-50 rounded-sm m-2">
-          <li>
-            <Link to="/dashboard/admin-profile">
-              <FaUser />
-              Profile
-            </Link>
-          </li>
-
-          {isAdmin ? (
-            <>
-              <li>
-                <Link to="/dashboard">
-                  <FaHome />
-                  Admin Home
-                </Link>
-              </li>
-
-              <li>
-                <Link to="/dashboard/All-donation-request">
-                  <FaDonate />
-                  All Blood Donation Request
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/content-management">
-                  <FaEdit />
-                  Content Management Page{" "}
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/all-user">
-                  <FaUsers />
-                  All Users
-                </Link>
-              </li>
-            </>
-          ) : isDonor ? (
-            <>
-              <li>
-                <Link to="/dashboard">
-                  <FaHome />
-                  User Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/my-donation-requests">
-                  <FaDonate />
-                  My Donation Request
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard/create-donation-request">
-                  <FaMapMarked />
-                  Create Donation Request
-                </Link>
-              </li>
-            </>
-          ) : isVolunteer ? (
-            <>
-              <li>
-                <Link to="">
-                  <FaHome />
-                  User Home
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  <FaDonate />
-                  All Blood Donation Request
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  <FaEdit />
-                  Content Management Page{" "}
-                </Link>
-              </li>
-            </>
-          ) : null}
-
-          <div className="divider"></div>
-          <li>
-            <Link to="/">
-              <FaHome />
-              Home
-            </Link>
-          </li>
-        </ul>
-      </div> */}
-      {/* dashboard content */}
-
-      <div className="flex-1">
-        <div className="bg-gradient-to-r from-red-600 to-green-500 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center">
+      <div className="flex-1 md:flex-0 w-full md:w-0">
+        <div className="hidden md:block bg-gradient-to-r from-red-600 to-green-500 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center">
           Dashboard
         </div>
-        <div className="p-0 md:p-4 lg:p-8">
+        <div className="container mx-auto p-0 md:p-4 mt-20 md:mt-0 lg:p-8">
           <Outlet />
         </div>
       </div>

@@ -28,7 +28,7 @@ const DonationRequest = () => {
       <div className="bg-slate-200">
         <div className="flex items-center gap-2 py-5 md:pt-6 px-6 justify-center">
           <div>
-            <h1 className="text-base lg:text-4xl text-black font-bold">
+            <h1 className="text-xl lg:text-4xl text-black font-bold">
               All Pending Donation Requests({pendingDonation.length})
             </h1>
             
@@ -39,7 +39,7 @@ const DonationRequest = () => {
             <>
               <div className="overflow-x-auto  pt-6">
                 <table className="table table-xs">
-                  <thead className="bg-red-200 text-black font-bold text-lg rounded-sm">
+                  <thead className="bg-green-200 text-black font-bold text-base rounded-sm">
                     <tr className="">
                       <th>No</th>
                       <th>Name</th>

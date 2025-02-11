@@ -23,6 +23,7 @@ import UpdateEdit from "../pages/Dashboard/HomePage/UpdateEdit";
 import Blogs from "../pages/Blogs/Blogs";
 import BlogDetailPage from "../pages/Blogs/BlogDetailPage";
 import RequestBlood from "../pages/Dashboard/Volunteer/RequestBlood";
+import ContentManagementVolunteer from "../pages/Dashboard/Volunteer/ContentManagementVolunteer";
 
 const router = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/all-blood-donation-request',
         element: <RequestBlood></RequestBlood>
+      },
+      {
+        path: '/dashboard/content-management-volunteer',
+        element: <ContentManagementVolunteer></ContentManagementVolunteer>
       }
     ]
   }

@@ -74,11 +74,11 @@ const DonationDetails = () => {
 
   return (
     <div className="container mx-auto pb-10 p-4 bg-slate-200">
-      <h2 className="text-4xl font-bold my-10 text-center  ">Welcome Donation Request</h2>
+      <h2 className="text-2xl md:text-4xl font-bold my-10 text-center">Welcome Donation Request</h2>
 
       <div className="mt-4 p-4 bg-white shadow-md mx-auto rounded-md md:w-96">
         <div className="w-full mb-5 h-52"> 
-          <img className="w-full h-full" src="https://i.ibb.co.com/274cVp87/images.jpg" alt="" />
+          <img className="w-full h-full" src="https://i.ibb.co.com/cXpR7WZc/blood-2.jpg" alt="" />
         </div>
         <h3 ><strong className="text-lg">Request by:</strong> {request.recipientName}</h3>
         <p><strong className="text-lg">Location:</strong> {request.fullAddress}</p>
@@ -92,7 +92,7 @@ const DonationDetails = () => {
         {/* Button to open the modal */}
         {request.donationStatus === "pending" && (
           <button
-            className="mt-4 w-full bg-red-600 font-bold text-white p-2 rounded"
+            className="mt-4 w-full bg-green-300 border-2  shadow-2xl font-bold text-black p-2 rounded"
             onClick={handleOpenModal}
           >
             Donate

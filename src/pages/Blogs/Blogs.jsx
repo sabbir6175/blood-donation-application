@@ -25,7 +25,7 @@ const Blogs = () => {
 
   return (
     <div className="container my-10 mx-auto p-4">
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-4 md:mb-8">All Blog Posts</h1>
+      <h1 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">All Blog Posts</h1>
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6">
       {blogs.length === 0 ? (
          

@@ -61,7 +61,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 ">
       <div className="bg-gradient-to-t from-red-400 to-green-300 p-6 rounded-lg shadow-md">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center uppercase">
           {profileData.role} Profile

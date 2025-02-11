@@ -22,7 +22,7 @@ const BlogDetailsPage = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center mb-8">All Blog Details</h1>
+      <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">All Blog Details</h1>
       <div className="flex flex-col border-2 p-2 md:p-5 md:flex-row gap-6">
         <div className="md:w-1/3">
           <img
@@ -33,7 +33,7 @@ const BlogDetailsPage = () => {
         </div>
         <div className="md:w-2/3">
           <h1 className="text-xl font-bold"> {blog.title}</h1>
-          <p className="text-lg mt-2 mr-32">descriptions : {blog.content}</p>
+          <p className="text-lg mt-2 md:mr-32"><span className="font-bold">Descriptions :</span> {blog.content}</p>
           <h2 className="text-xl font-bold mt-4">Deadline: {blog.date}</h2>
         </div>
       </div>

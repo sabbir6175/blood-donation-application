@@ -3,13 +3,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../../AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import useAdmin from "../../../Hooks/useAdmin";
 
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isAdmin]=useAdmin()
+  console.log(isAdmin)
 
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/dashboard/admin";
 
   const handleSubmit = async (e) => {
     e.preventDefault();

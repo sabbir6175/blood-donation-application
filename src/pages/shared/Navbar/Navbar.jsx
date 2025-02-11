@@ -5,10 +5,12 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { RiDashboardFill } from "react-icons/ri";
 import { CgLogOut } from "react-icons/cg";
+import useAdmin from "../../../Hooks/useAdmin";
 
 const Navbar = () => {
   const { user, singOutUser } = useContext(AuthContext);  // Use context to get user state
-
+  const [isAdmin] = useAdmin();
+  console.log(' user  ',isAdmin)
   // Define links to show on the navbar
   const links = (
     <>
@@ -48,10 +50,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar  bg-gradient-to-r from-red-600 to-red-500  sticky text-black top-0 z-10 backdrop-blur-md">
+    <div className="navbar  bg-gradient-to-r from-red-600 to-red-600  sticky text-black top-0 z-10 backdrop-blur-md">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost text-white lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -69,7 +71,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content  bg-white rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
           >
             {links}
           </ul>
@@ -77,14 +79,14 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <img
             src="https://i.ibb.co/J3tCD0M/blood-logo.jpg"
-            className="w-12 h-12 outline-red-600 rounded-full outline"
+            className="w-10 md:w-12 h-10 md:h-12 hidden md:block outline-red-600 rounded-full outline"
             alt="Logo"
           />
-          <h1 className="text-4xl text-white animate-pulse uppercase">Blood</h1>
+          <h1 className="text-2xl md:text-4xl text-white uppercase">Blood</h1>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 text-white">
           {links}
         </ul>
       </div>
@@ -99,9 +101,20 @@ const Navbar = () => {
                 tabIndex={0}
                 className="dropdown-content -ml-36 bg-red-400 text-white menu menu-compact  rounded-box w-52 shadow-lg mt-2"
               >
-                <li>
-                  <Link to="/dashboard"> <RiDashboardFill></RiDashboardFill> Dashboard</Link>
-                </li>
+                {
+                  isAdmin?.admin ?
+                  <li>
+                    <Link to="/dashboard/admin"><RiDashboardFill></RiDashboardFill> Dashboard</Link>
+                  </li>:
+                  isAdmin?.volunteer ?
+                  <li>
+                    <Link to="/dashboard/admin"> <RiDashboardFill></RiDashboardFill> Dashboard</Link>
+                  </li>:
+                   <li>
+                      <Link to="/dashboard/donor"> <RiDashboardFill></RiDashboardFill> Dashboard</Link>
+                  </li>
+                }
+               
                 <li>
                   <button onClick={handleSingOut}><CgLogOut className="-rotate-180"></CgLogOut> Logout</button>
                 </li>

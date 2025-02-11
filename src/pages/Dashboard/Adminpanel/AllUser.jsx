@@ -117,14 +117,13 @@ const AllUser = () => {
   }
 
   return (
-    <div className="p-4 bg-slate-50">
-      <div className="flex justify-between my-4">
-        <h2 className="text-2xl md:text-3xl font-extrabold">All Users</h2>
-        <h2 className="text-2xl md:text-3xl font-extrabold">
+    <div className="p-2 md:p-4 bg-slate-50">
+     <div className="flex justify-between items-center">
+     <div className="flex justify-between my-4">
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold">
           Total Users: {data?.totalUsers}
         </h2>
       </div>
-
       <div className="my-4 text-right">
         <select
           value={statusFilter}
@@ -136,11 +135,12 @@ const AllUser = () => {
           <option value="blocked">Blocked</option>
         </select>
       </div>
+     </div>
 
       {/* Table Container with horizontal scrolling */}
-      <div className="">
-        <table className="table table-xs table-pin-rows table-pin-cols w-full">
-          <thead className=" text-lg font-bold text-black ">
+      <div className="overflow-x-auto">
+        <table className="table table-xs table-pin-rows w-full">
+          <thead className=" text-base md:text-lg  text-black ">
             <tr className="">
               <th className="bg-green-200 rounded-sm py-2">Photo</th>
               <th className="bg-green-200 rounded-sm py-2">Email</th>

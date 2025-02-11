@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-
 const MyDonationRequest = () => {
   const [donationRequests, setDonationRequests] = useState([]);
   const [statusFilter, setStatusFilter] = useState(""); // For filtering by status
@@ -37,27 +36,28 @@ const MyDonationRequest = () => {
     fetchDonationRequests();
   }, [statusFilter, currentPage]);
 
-
- const handleStatusChange = (id, status) => {
-    axiosSecure.put(`/donationRequest/${id}`, { donationStatus: status })
+  const handleStatusChange = (id, status) => {
+    axiosSecure
+      .put(`/donationRequest/${id}`, { donationStatus: status })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         setDonationRequests((prevRequests) =>
           prevRequests.map((request) =>
-            request._id === id ? { ...request, donationStatus: status } : request
+            request._id === id
+              ? { ...request, donationStatus: status }
+              : request
           )
         );
-        toast.success(`Successfully updated donation ${status}`,{
-          top:'center'
-        })
+        toast.success(`Successfully updated donation ${status}`, {
+          top: "center",
+        });
       })
       .catch((err) => {
         console.error("Error details:", err); // Log the full error object for debugging
         alert("Error updating donation status"); // Display a generic error message
-        return
+        return;
       });
   };
-
 
   // Format donation date to a readable format
   const formatDate = (donationDate) => {
@@ -67,9 +67,9 @@ const MyDonationRequest = () => {
   };
 
   return (
-    <div className="bg-slate-50">
+    <div className="bg-slate-50 p-3">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-semibold text-center mb-6">
+        <h1 className="text-2xl md:text-3xl font-semibold text-center mb-6">
           My Donation Requests
         </h1>
 
@@ -96,62 +96,74 @@ const MyDonationRequest = () => {
         {loading ? (
           <div className="text-center py-4">Loading...</div>
         ) : (
-          <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-            <thead className="bg-green-300">
-              <tr>
-                <th className="px-6 py-3 text-center">Recipient Name</th>
-                <th className="px-6 py-3 text-center">Location</th>
-                <th className="px-6 py-3 text-center">Date</th>
-                <th className="px-6 py-3 text-center">Group</th>
-                <th className="px-6 py-3 text-center">Status</th>
-                <th className="px-6 py-3 text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {donationRequests.length === 0 ? (
+          <div className="overflow-x-auto">
+            <table className=" bg-white shadow-md rounded-lg table table-xs table-pin-rows">
+              <thead className="bg-green-300">
                 <tr>
-                  <td colSpan="6" className="text-center py-4">
-                    No donation requests available.
-                  </td>
+                  <th className="px-6 bg-green-300 py-3 text-center">No</th>
+                  <th className="px-6 bg-green-300 py-3 text-center">Recipient Name</th>
+                  <th className="px-6 bg-green-300 py-3 text-center">Location</th>
+                  <th className="px-6 bg-green-300 py-3 text-center">Date</th>
+                  <th className="px-6 bg-green-300 py-3 text-center">Group</th>
+                  <th className="px-6 bg-green-300 py-3 text-center">Status</th>
+                  <th className="px-6 bg-green-300 py-3 text-center">Action</th>
                 </tr>
-              ) : (
-                donationRequests.map((request) => (
-                  <tr key={request._id} className="border-t hover:bg-slate-50 text-center">
-                    <td className="px-6 py-4">{request.recipientName}</td>
-                    <td className="py-2 text-sm">{request.recipientDistrict}, {request.recipientUpazila}</td>
-                    <td className="py-2 text-sm">{formatDate(request?.donationDate)}</td>
-                    <td className="px-6 py-4">{request.bloodGroup}</td>
-                    <td className="px-6 py-4">
-                      <span
-                        className={`px-2 py-1 text-sm rounded-full ${
-                          request.donationStatus === "pending"
-                            ? "bg-yellow-200 text-yellow-800"
-                            : request.donationStatus === "inprogress"
-                            ? "bg-blue-200 text-blue-800"
-                            : request.donationStatus === "done"
-                            ? "bg-green-200 text-green-800"
-                            : "bg-red-200 text-red-800"
-                        }`}
-                      >
-                        {request.donationStatus}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 space-x-2">
-                      
-                      {request.donationStatus !== "canceled" && (
-                        <button
-                          onClick={() => handleStatusChange(request._id, "canceled")}
-                          className="px-4 py-1 text-white bg-red-500 hover:bg-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
-                        >
-                           Reject
-                        </button>
-                      )}
+              </thead>
+              <tbody>
+                {donationRequests.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="text-center py-4">
+                      No donation requests available.
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  donationRequests.map((request,index) => (
+                    <tr
+                      key={request._id}
+                      className="border-t hover:bg-slate-50 text-center"
+                    >
+                      <td className="px-6 py-4">{index+1}</td>
+                      <td className="px-6 py-4">{request.recipientName}</td>
+                      <td className="py-2 text-sm">
+                        {request.recipientDistrict}, {request.recipientUpazila}
+                      </td>
+                      <td className="py-2 text-sm">
+                        {formatDate(request?.donationDate)}
+                      </td>
+                      <td className="px-6 py-4">{request.bloodGroup}</td>
+                      <td className="px-6 py-4">
+                        <span
+                          className={`px-2 py-1 text-sm rounded-full ${
+                            request.donationStatus === "pending"
+                              ? "bg-yellow-200 text-yellow-800"
+                              : request.donationStatus === "inprogress"
+                              ? "bg-blue-200 text-blue-800"
+                              : request.donationStatus === "done"
+                              ? "bg-green-200 text-green-800"
+                              : "bg-red-200 text-red-800"
+                          }`}
+                        >
+                          {request.donationStatus}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 space-x-2">
+                        {request.donationStatus !== "canceled" && (
+                          <button
+                            onClick={() =>
+                              handleStatusChange(request._id, "canceled")
+                            }
+                            className="px-4 py-1 text-white bg-red-500 hover:bg-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                          >
+                            Reject
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
 
         {/* Pagination Controls */}
@@ -159,7 +171,7 @@ const MyDonationRequest = () => {
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
-            className="px-4 py-2 bg-indigo-500 text-white rounded-md disabled:bg-gray-400"
+            className="px-2 md:px-4 md:py-2 bg-green-500 text-white rounded-md "
           >
             Previous Page
           </button>
@@ -167,7 +179,7 @@ const MyDonationRequest = () => {
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
-            className="px-4 py-2 bg-indigo-500 text-white rounded-md disabled:bg-gray-400"
+            className="px-2 md:px-4 md:py-2 bg-green-500 text-white rounded-md "
           >
             Next Page
           </button>

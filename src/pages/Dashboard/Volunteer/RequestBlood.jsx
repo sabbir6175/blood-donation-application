@@ -62,8 +62,8 @@ const RequestBlood = () => {
       </h1>
 
       <div className="overflow-x-auto p-4">
-        <table className="md:min-w-full overflow-x-auto table-auto border-collapse border border-gray-300">
-          <thead className="bg-gray-100 ">
+        <table className="table table-xs table-pin-rows border-gray-300">
+          <thead className="bg-gray-100 text-center ">
             <tr>
               <th className="py-2 font-semibold text-gray-700 border-b">No</th>
               <th className="py-2 font-semibold text-gray-700 border-b">Recipient Name</th>
@@ -87,7 +87,7 @@ const RequestBlood = () => {
                   <td className="py-2">{formatDate(request.donationDate)}</td>
                   <td className="py-2">{request.bloodGroup}</td>
                   <td className="py-2">{request.donationStatus}</td>
-                  <td className="py-2 flex flex-col  md:flex-row text-center">
+                  <td className="py-2 flex flex-row text-center">
                     {/* Buttons to change donation status */}
                     {request.donationStatus !== "done" && (
                       <button
