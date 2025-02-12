@@ -12,18 +12,18 @@ const SignUp = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [photoURL, setPhotoURL] = useState(""); // State for storing photo URL
-  const [loading, setLoading] = useState(false); // Loading state for image upload
+  const [photoURL, setPhotoURL] = useState(""); 
+  const [loading, setLoading] = useState(false); 
 
   // Image upload to ImgBB
   const handleImageUpload = async (file) => {
-    setLoading(true); // Start loading when uploading
+    setLoading(true); 
     const formData = new FormData();
     formData.append("image", file);
 
     try {
       const response = await fetch(
-        "https://api.imgbb.com/1/upload?expiration=600&key=7662248e39f4bdbdf6a5043ad0e447fd",
+        `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.IMBB_KEY}`,
         {
           method: "POST",
           body: formData,
@@ -31,7 +31,7 @@ const SignUp = () => {
       );
       const data = await response.json();
       if (data && data.data && data.data.url) {
-        setPhotoURL(data.data.url); // Store image URL if upload is successful
+        setPhotoURL(data.data.url);
       } else {
         toast.error("Failed to upload image.");
       }
@@ -68,7 +68,7 @@ const SignUp = () => {
       name,
       email,
       password: newPassword,
-      photo: photoURL, // Add the photo URL to the data
+      photo: photoURL, 
       bloodGroup,
       district,
       upazila,

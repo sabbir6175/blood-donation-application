@@ -3,32 +3,30 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 
 const Card = () => {
-  // console.log(user.displayName)
-
   // Fetch the donation request details when the component mounts
   const [pendingDonationAll, setPendingDonation] = useState([]);
+  const [visibleCards, setVisibleCards] = useState(7); // Initially show 7 cards
   const AxiosPublic = useAxiosPublic();
-  //  console.log(pendingDonation)
+
   useEffect(() => {
     AxiosPublic.get("/donationRequest").then((res) => {
       // Filter for pending donations if needed
-
       setPendingDonation(res.data);
     });
   }, [AxiosPublic]);
 
-//   console.log(pendingDonationAll);
+  // Function to show all cards
+  const showAllCards = () => {
+    setVisibleCards(pendingDonationAll.length); // Show all cards
+  };
 
   return (
-    <div className="container mx-auto pb-10 p-4 bg-slate-200">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold my-10 text-center  ">Blood Request</h2>
+    <div className="container mx-auto pb-10 p-4 ">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl  my-10 text-center">Blood Request</h2>
 
-      <div className="mt-4 p-4 bg-white shadow-md mx-auto rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {pendingDonationAll.map((pendingDonation) => (
-          <div
-            key={pendingDonation._id}
-            className="border-2 p-4 shadow-2xl group-hover:"
-          >
+      <div className="mt-4 p-4 mx-auto rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {pendingDonationAll.slice(0, visibleCards).map((pendingDonation) => (
+          <div key={pendingDonation._id} className="border-2 p-4 shadow-2xl group-hover:">
             <div className="w-full mb-5 h-52">
               <img
                 className="w-full h-full"
@@ -73,16 +71,26 @@ const Card = () => {
               {pendingDonation.requestMessage}
             </p>
 
-            {/* Button to open the modal */}
-
             <Link to={`/donationDetails/:${pendingDonation._id}`}>
-              <button className="mt-4 w-full bg-red-600 font-bold text-white p-2 rounded">
+              <button className="mt-4 w-full bg-green-400 font-bold text-white p-2 rounded">
                 Donate
               </button>
             </Link>
           </div>
         ))}
       </div>
+
+      {/* See All Button */}
+      {visibleCards < pendingDonationAll.length && (
+        <div className="text-center mt-6">
+          <button
+            onClick={showAllCards}
+            className=" btn-wide bg-green-400 text-white p-2 rounded font-bold"
+          >
+            See All
+          </button>
+        </div>
+      )}
     </div>
   );
 };

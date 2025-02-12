@@ -15,7 +15,7 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <div className='container mx-auto'>
+    <div className=''>
        <AuthProvider>
        <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />

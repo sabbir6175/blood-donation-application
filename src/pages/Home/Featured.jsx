@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Featured = () => {
     return (
-      <div className="w-full py-20 bg-gradient-to-r from-red-600 to-red-500 text-white">
+      <div className="w-full py-20 text-black ">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-semibold mb-5">Why Blood Donation Matters?</h2>
           <p className="text-lg mb-10 max-w-3xl mx-auto">

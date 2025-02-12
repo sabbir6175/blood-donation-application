@@ -6,11 +6,13 @@ import Footer from '../pages/shared/Footer/Footer';
 const MainLayout = () => {
     return (
       
-        <>
+        <div className='bg-slate-100'>
          <Navbar></Navbar>
-         <Outlet></Outlet>
+        <div className='container mx-auto'>
+            <Outlet></Outlet>
+        </div>
          <Footer></Footer>
-        </>
+        </div>
        
     );
 };

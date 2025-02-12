@@ -19,7 +19,7 @@ const AddBlog = () => {
     
     try {
       const response = await axios.post(
-        "https://api.imgbb.com/1/upload?key=7662248e39f4bdbdf6a5043ad0e447fd", // Replace with your ImgBB API key
+       `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.IMBB_KEY}`, // Replace with your ImgBB API key
         formData
       );
 

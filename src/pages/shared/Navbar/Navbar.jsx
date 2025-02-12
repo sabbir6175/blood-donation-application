@@ -14,18 +14,18 @@ const Navbar = () => {
   // Define links to show on the navbar
   const links = (
     <>
-      <li>
+      <li className="hover:text-green-300">
         <Link to="/">Home</Link>
       </li>
-      <li>
+      <li className="hover:text-green-300">
         <Link to="/donationRequest">Donation Requests</Link>
       </li>
-      <li>
+      <li className="hover:text-green-300">
         <Link to="/blogs">Blog</Link>
-      </li>
+      </li >
       {user && (
         <>
-          <li>
+          <li className="hover:text-green-300">
             <Link to="/">Funding Links</Link>
           </li>
         </>
@@ -50,7 +50,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar  bg-gradient-to-r from-red-600 to-red-600  sticky text-black top-0 z-10 backdrop-blur-md">
+    <div className="navbar  bg-[#eb2c29]  sticky text-black top-0 z-10 lg:px-16 backdrop-blur-md">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost text-white lg:hidden">
@@ -86,7 +86,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 text-white">
+        <ul className="menu menu-horizontal px-1  text-white">
           {links}
         </ul>
       </div>
@@ -95,7 +95,7 @@ const Navbar = () => {
           <li className="list-none">
             <div className="dropdown">
               <button tabIndex={0} className=" mr-5">
-                <img src={user?.photoURL} className='w-10 h-10 outline outline-green-600 rounded-full' alt="User photoURL" />
+                <img src={user?.photoURL} className='w-10 h-10  rounded-full' alt="User photoURL" />
               </button>
               <ul
                 tabIndex={0}
@@ -125,7 +125,7 @@ const Navbar = () => {
             </div>
           </li>
         ) : (
-          <Link to="/SignIn" className="btn bg-white text-red-700 outline-none animate-pulse">
+          <Link to="/SignIn" className="btn bg-white text-red-700 outline-none ">
             Login
           </Link>
         )}
