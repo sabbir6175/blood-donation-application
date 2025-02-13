@@ -14,7 +14,8 @@ const Process = () => {
         leave
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto mt-10 px-3">
-        <div className="card bg-base-100  shadow">
+        <div data-aos="fade-up"
+     data-aos-duration="3000" className="card bg-base-100  shadow">
           <figure className="relative">
             <img
               src="https://i.ibb.co.com/V0DDbWnQ/images-2.jpg"
@@ -32,7 +33,8 @@ const Process = () => {
           </div>
         </div>
         {/* card 2 */}
-        <div className="card bg-base-100  shadow">
+        <div data-aos="fade-up"
+     data-aos-duration="3000" className="card bg-base-100  shadow">
           <figure className="relative">
             <img
               src="https://i.ibb.co.com/svTZ9LZF/download.jpg"
@@ -50,7 +52,8 @@ const Process = () => {
           </div>
         </div>
         {/* card 3 */}
-        <div className="card bg-base-100  shadow">
+        <div data-aos="fade-up"
+     data-aos-duration="3000" className="card bg-base-100  shadow">
           <figure className="relative">
             <img
               src="https://i.ibb.co.com/gb3JfsR0/images-4.jpg"
@@ -68,7 +71,8 @@ const Process = () => {
           </div>
         </div>
         {/* card 4 */}
-        <div className="card bg-base-100  shadow">
+        <div data-aos="fade-up"
+     data-aos-duration="3000" className="card bg-base-100  shadow">
           <figure className="relative">
             <img
               src="https://i.ibb.co.com/fd3CNL7c/process-4.webp"

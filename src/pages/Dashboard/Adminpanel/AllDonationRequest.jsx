@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { FaTrashAlt } from "react-icons/fa";
 
 const AllDonationRequest = () => {
   const [donationRequests, setDonationRequests] = useState([]);
@@ -25,14 +27,12 @@ const AllDonationRequest = () => {
 
   // Function to update donation status (approve/reject)
   const handleStatusChange = (id, status) => {
-    axiosSecure
-      .patch(`/donationRequest/${id}`, { donationStatus: status })
+    axiosSecure.patch(`/donationRequestStatus/${id}`, { donationStatus: status }) // Only send donationStatus
       .then((res) => {
-        console.log(res.data);
-        setDonationRequests((prevRequests) =>
-          prevRequests.map((request) =>
+        setDonationRequests((donationRequests) =>
+          donationRequests.map((request) =>
             request._id === id
-              ? { ...request, donationStatus: status }
+              ? { ...request, donationStatus: status } // Update the local state with the new status
               : request
           )
         );
@@ -45,6 +45,35 @@ const AllDonationRequest = () => {
         setError("Error updating donation status"); // Display a generic error message
       });
   };
+  const handleDeleteRequest = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/donationRequest/${id}`)
+          .then(() => {
+            setDonationRequests(donationRequests.filter((donation) => donation._id !== id));
+            Swal.fire({
+              title: "Deleted!",
+              text: "The donation request has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            console.error("Error details:", err);
+            toast.error("Error deleting donation request", { top: "center" });
+          });
+      }
+    });
+  };
+  
 
   // Format date to a readable format
   const formatDate = (donationDate) => {
@@ -87,11 +116,11 @@ const AllDonationRequest = () => {
                         <td className="py-2">{formatDate(request.donationDate)}</td>
                         <td className="py-2">{request.bloodGroup}</td>
                         <td className="py-2">{request.donationStatus}</td>
-                        <td className="py-2 flex  md:flex-row items-center">
+                        <td className="py-2 justify-center gap-2 flex md:flex-row items-center">
                           {request.donationStatus !== "done" && (
                             <button
                               onClick={() => handleStatusChange(request._id, "done")}
-                              className="bg-green-500 btn-sm text-white rounded mr-2 px-3 py-1"
+                              className="bg-green-500 btn-sm text-white rounded px-3 py-1"
                             >
                               Approve
                             </button>
@@ -104,6 +133,12 @@ const AllDonationRequest = () => {
                               Reject
                             </button>
                           )}
+                           <button
+                        onClick={() => handleDeleteRequest(request._id)}
+                        className=" btn-sm text-white py-1  px-3 rounded"
+                      >
+                        <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                      </button>
                         </td>
                       </tr>
                     ))
