@@ -46,7 +46,7 @@ const Blogs = () => {
               <h2 className="text-2xl font-semibold">{blog.title}</h2>
               <p className="md:pr-32">
                 {blog.content.slice(0, 150)}...
-                <Link to={`/blogs/${blog._id}`} className="text-blue-500 inline-block">
+                <Link to={`/blogs/${blog._id}`} className="text-green-500 inline-block">
                   Read More
                 </Link>
               </p>

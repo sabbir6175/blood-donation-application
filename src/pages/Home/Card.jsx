@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Card = () => {
   // Fetch the donation request details when the component mounts
   const [pendingDonationAll, setPendingDonation] = useState([]);
-  const [visibleCards, setVisibleCards] = useState(7); // Initially show 7 cards
+  const [visibleCards, setVisibleCards] = useState(4); // Initially show 7 cards
   const AxiosPublic = useAxiosPublic();
 
   useEffect(() => {
@@ -22,7 +22,16 @@ const Card = () => {
 
   return (
     <div className="container mx-auto pb-10 p-4 ">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl  my-10 text-center">Blood Request</h2>
+     <div className="my-10">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl uppercase font-bold  text-center text-[#000000]">
+            !-- Blood Request --!
+            </h2>
+            <img
+            className="w-82 mx-auto"
+            src="https://i.ibb.co.com/RkDvFz6n/separator.webp"
+            alt=""
+          />
+     </div>
 
       <div className="mt-4 p-4 mx-auto rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {pendingDonationAll.slice(0, visibleCards).map((pendingDonation) => (
@@ -80,17 +89,7 @@ const Card = () => {
         ))}
       </div>
 
-      {/* See All Button */}
-      {visibleCards < pendingDonationAll.length && (
-        <div className="text-center mt-6">
-          <button
-            onClick={showAllCards}
-            className=" btn-wide bg-green-400 text-white p-2 rounded font-bold"
-          >
-            See All
-          </button>
-        </div>
-      )}
+     
     </div>
   );
 };

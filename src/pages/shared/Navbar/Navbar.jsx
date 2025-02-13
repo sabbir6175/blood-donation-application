@@ -26,7 +26,7 @@ const Navbar = () => {
       {user && (
         <>
           <li className="hover:text-green-300">
-            <Link to="/">Funding Links</Link>
+            <Link to="/funding-page">Funding Links</Link>
           </li>
         </>
       )}
@@ -50,10 +50,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar  bg-[#eb2c29]  sticky text-black top-0 z-10 lg:px-16 backdrop-blur-md">
+    <div className="navbar  bg-red-50  text-black sticky top-0  bg-opacity-80 backdrop-blur-md  z-10">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost text-white lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost  lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -71,22 +71,21 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content  bg-white rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
+            className="menu menu-sm dropdown-content -ml-5  bg-red-50 rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
           >
             {links}
           </ul>
         </div>
         <div className="flex items-center gap-4">
           <img
-            src="https://i.ibb.co/J3tCD0M/blood-logo.jpg"
-            className="w-10 md:w-12 h-10 md:h-12 hidden md:block outline-red-600 rounded-full outline"
+            src="https://i.ibb.co.com/vCVdBSj0/logo.webp"
+            className=""
             alt="Logo"
           />
-          <h1 className="text-2xl md:text-4xl text-white uppercase">Blood</h1>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1  text-white">
+        <ul className="menu menu-horizontal px-1  ">
           {links}
         </ul>
       </div>
