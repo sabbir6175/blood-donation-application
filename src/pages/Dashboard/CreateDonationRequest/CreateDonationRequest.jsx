@@ -2,10 +2,14 @@ import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../../AuthContext/AuthContext";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import District from "../../../Hooks/District";
+import Upazila from "../../../Hooks/Upazila";
 
 const CreateDonationRequest = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
+  const [districts] = District();
+  const [upazilas] = Upazila()
 
   const [formData, setFormData] = useState({
     requesterName: "",
@@ -74,7 +78,7 @@ const CreateDonationRequest = () => {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 shadow-2xl rounded-md border-2 p-4 max-w-2xl mx-auto"
+        className="space-y-4 shadow-2xl rounded-md border-2 p-4"
       >
         <div className="flex flex-col md:flex-row w-full gap-5">
           <div className="w-full lg:w-1/2 ">
@@ -98,7 +102,8 @@ const CreateDonationRequest = () => {
             />
           </div>
         </div>
-        <div>
+       <div className="flex flex-col md:flex-row w-full gap-5">
+       <div className="w-full lg:w-1/2">
           <label className="block font-medium">Recipient Name : </label>
           <input
             type="text"
@@ -109,7 +114,7 @@ const CreateDonationRequest = () => {
             className="w-full p-2 border rounded-md"
           />
         </div>
-        <div>
+        <div className="w-full lg:w-1/2">
           <label className="block font-medium">Recipient District : </label>
           <select
             name="recipientDistrict"
@@ -118,68 +123,22 @@ const CreateDonationRequest = () => {
             required
             className="w-full p-2 border rounded-md"
           >
-            <option value="">Select District</option>
-            <option value="Bagerhat">Bagerhat</option>
-            <option value="Bandarban">Bandarban</option>
-            <option value="Barisal">Barisal</option>
-            <option value="Bhola">Bhola</option>
-            <option value="Bogra">Bogra</option>
-            <option value="Brahmanbaria">Brahmanbaria</option>
-            <option value="Chandpur">Chandpur</option>
-            <option value="Chattogram">Chattogram</option>
-            <option value="Chuadanga">Chuadanga</option>
-            <option value="Cumilla">Cumilla</option>
-            <option value="Dhaka">Dhaka</option>
-            <option value="Dinajpur">Dinajpur</option>
-            <option value="Faridpur">Faridpur</option>
-            <option value="Feni">Feni</option>
-            <option value="Gaibandha">Gaibandha</option>
-            <option value="Gazipur">Gazipur</option>
-            <option value="Gopalganj">Gopalganj</option>
-            <option value="Habiganj">Habiganj</option>
-            <option value="Jamuna">Jamuna</option>
-            <option value="Jamalpur">Jamalpur</option>
-            <option value="Jashore">Jashore</option>
-            <option value="Jhalokathi">Jhalokathi</option>
-            <option value="Jhenaidah">Jhenaidah</option>
-            <option value="Khagrachari">Khagrachari</option>
-            <option value="Khulna">Khulna</option>
-            <option value="Kishoreganj">Kishoreganj</option>
-            <option value="Kurigram">Kurigram</option>
-            <option value="Kushtia">Kushtia</option>
-            <option value="Lakshmipur">Lakshmipur</option>
-            <option value="Lalmonirhat">Lalmonirhat</option>
-            <option value="Manikganj">Manikganj</option>
-            <option value="Meherpur">Meherpur</option>
-            <option value="Moulvibazar">Moulvibazar</option>
-            <option value="Munshiganj">Munshiganj</option>
-            <option value="Mymensingh">Mymensingh</option>
-            <option value="Naogaon">Naogaon</option>
-            <option value="Narail">Narail</option>
-            <option value="Narayanganj">Narayanganj</option>
-            <option value="Narsingdi">Narsingdi</option>
-            <option value="Netrokona">Netrokona</option>
-            <option value="Nilphamari">Nilphamari</option>
-            <option value="Noakhali">Noakhali</option>
-            <option value="Pabna">Pabna</option>
-            <option value="Panchagarh">Panchagarh</option>
-            <option value="Patuakhali">Patuakhali</option>
-            <option value="Pirojpur">Pirojpur</option>
-            <option value="Rajbari">Rajbari</option>
-            <option value="Rajshahi">Rajshahi</option>
-            <option value="Rangamati">Rangamati</option>
-            <option value="Rangpur">Rangpur</option>
-            <option value="Satkhira">Satkhira</option>
-            <option value="Shariatpur">Shariatpur</option>
-            <option value="Sherpur">Sherpur</option>
-            <option value="Sirajganj">Sirajganj</option>
-            <option value="Sunamganj">Sunamganj</option>
-            <option value="Sylhet">Sylhet</option>
-            <option value="Tangail">Tangail</option>
-            <option value="Thakurgaon">Thakurgaon</option>
+             <option value="">Select District</option>
+              {districts.length > 0 ? (
+                districts.map((districtData) => (
+                  <option key={districtData.id} value={districtData.name}>
+                    {districtData.name}
+                  </option>
+                ))
+              ) : (
+                <option>Loading...</option>
+              )}
           </select>
         </div>
-        <div>
+       </div>
+        <div className="flex flex-col md:flex-row w-full gap-5">
+                
+        <div className="w-full lg:w-1/2">
           <label className="block font-medium">Recipient Upazila : </label>
           <select
             name="recipientUpazila"
@@ -189,61 +148,18 @@ const CreateDonationRequest = () => {
             className="w-full p-2 border rounded-md"
           >
             <option value="">Select Upazila</option>
-            <option value="Mithapukur">Mithapukur</option>
-            <option value="Pirgonj">Pirgonj</option>
-            <option value="Kaunia">Kaunia</option>
-            <option value="Pirgacha">Pirgacha</option>
-            <option value="Panchagarh Sadar">Panchagarh Sadar</option>
-            <option value="Birganj">Birganj</option>
-            <option value="Dinajpur Sadar">Dinajpur Sadar</option>
-            <option value="Thakurgaon Sadar">Thakurgaon Sadar</option>
-            <option value="Kamalganj">Kamalganj</option>
-            <option value="Cumilla">Cumilla</option>
-            <option value="Cox's Bazar">Cox's Bazar</option>
-            <option value="Brahmanbaria">Brahmanbaria</option>
-            <option value="Tangail">Tangail</option>
-            <option value="Faridpur">Faridpur</option>
-            <option value="Feni">Feni</option>
-            <option value="Gaibandha">Gaibandha</option>
-            <option value="Habiganj">Habiganj</option>
-            <option value="Moulvibazar">Moulvibazar</option>
-            <option value="Jhalokathi">Jhalokathi</option>
-            <option value="Jhenaidah">Jhenaidah</option>
-            <option value="Khulna">Khulna</option>
-            <option value="Kurigram">Kurigram</option>
-            <option value="Kushtia">Kushtia</option>
-            <option value="Lakshmipur">Lakshmipur</option>
-            <option value="Lalmonirhat">Lalmonirhat</option>
-            <option value="Manikganj">Manikganj</option>
-            <option value="Meherpur">Meherpur</option>
-            <option value="Munshiganj">Munshiganj</option>
-            <option value="Mymensingh">Mymensingh</option>
-            <option value="Naogaon">Naogaon</option>
-            <option value="Narail">Narail</option>
-            <option value="Narayanganj">Narayanganj</option>
-            <option value="Narsingdi">Narsingdi</option>
-            <option value="Netrokona">Netrokona</option>
-            <option value="Nilphamari">Nilphamari</option>
-            <option value="Noakhali">Noakhali</option>
-            <option value="Pabna">Pabna</option>
-            <option value="Panchagarh">Panchagarh</option>
-            <option value="Patuakhali">Patuakhali</option>
-            <option value="Pirojpur">Pirojpur</option>
-            <option value="Rajbari">Rajbari</option>
-            <option value="Rajshahi">Rajshahi</option>
-            <option value="Rangamati">Rangamati</option>
-            <option value="Rangpur">Rangpur</option>
-            <option value="Satkhira">Satkhira</option>
-            <option value="Shariatpur">Shariatpur</option>
-            <option value="Sherpur">Sherpur</option>
-            <option value="Sirajganj">Sirajganj</option>
-            <option value="Sunamganj">Sunamganj</option>
-            <option value="Sylhet">Sylhet</option>
-            <option value="Tangail">Tangail</option>
-            <option value="Thakurgaon">Thakurgaon</option>
+           {upazilas.length > 0 ? (
+                upazilas.map((upazilaData) => (
+                  <option key={upazilaData.id} value={upazilaData.name}>
+                    {upazilaData.name}
+                  </option>
+                ))
+              ) : (
+                <option>Loading...</option>
+              )}
           </select>
         </div>
-        <div>
+        <div className="w-full lg:w-1/2">
           <label className="block font-medium">Hospital Name : </label>
           <input
             type="text"
@@ -255,7 +171,10 @@ const CreateDonationRequest = () => {
             className="w-full p-2 border rounded-md"
           />
         </div>
-        <div>
+        </div>
+
+       <div className="flex flex-col md:flex-row w-full gap-5">
+       <div className="w-full lg:w-1/2">
           <label className="block font-medium">Full Address : </label>
           <input
             type="text"
@@ -267,7 +186,7 @@ const CreateDonationRequest = () => {
             className="w-full p-2 border rounded-md"
           />
         </div>
-        <div>
+        <div className="w-full lg:w-1/2">
           <label className="block font-medium">Blood Group : </label>
           <select
             name="bloodGroup"
@@ -287,7 +206,10 @@ const CreateDonationRequest = () => {
             <option value="O-">O-</option>
           </select>
         </div>
-        <div>
+       </div>
+
+        <div className="flex flex-col md:flex-row w-full gap-5">
+        <div className="w-full lg:w-1/2">
           <label className="block font-medium">Donation Date : </label>
           <input
             type="date"
@@ -298,7 +220,7 @@ const CreateDonationRequest = () => {
             className="w-full p-2 border rounded-md"
           />
         </div>
-        <div>
+        <div className="w-full lg:w-1/2">
           <label className="block font-medium">Donation Time : </label>
           <input
             type="time"
@@ -308,6 +230,7 @@ const CreateDonationRequest = () => {
             required
             className="w-full p-2 border rounded-md"
           />
+        </div>
         </div>
         <div>
           <label className="block font-medium">Request Message : </label>

@@ -3,11 +3,15 @@ import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../../AuthContext/AuthContext";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
+import Upazila from "../../../Hooks/Upazila";
+import District from "../../../Hooks/District";
 
 const ProfilePage = () => {
   const { user } = useContext(AuthContext);
   const email = user.email;
   const AxiosPublic = useAxiosPublic();
+  const [upazilas] = Upazila();
+  const [districts] = District();
   const [isEditable, setIsEditable] = useState(false);
 
   const [profileData, setProfileData] = useState({
@@ -142,14 +146,30 @@ const ProfilePage = () => {
               >
                 District
               </label>
-              <input
+              <select
                 type="text"
-                id="district"
-                name="district"
-                defaultValue={profileData.district}
+                id="upazila"
+                name="upazila"
                 disabled={!isEditable}
                 className="w-full p-2 border rounded-lg"
-              />
+              >
+                {!isEditable ? (
+                  <option value={profileData.district} selected>
+                    {profileData.district}
+                  </option>
+                ) : districts.length > 0 ? (
+                  <>
+                    <option value="">Select District</option>
+                    {districts.map((districtData) => (
+                      <option key={districtData.id} value={districtData.name}>
+                        {districtData.name}
+                      </option>
+                    ))}
+                  </>
+                ) : (
+                  <option>Loading...</option>
+                )}
+              </select>
             </div>
           </div>
 
@@ -161,14 +181,31 @@ const ProfilePage = () => {
               >
                 Upazila
               </label>
-              <input
+              
+              <select
                 type="text"
                 id="upazila"
                 name="upazila"
-                defaultValue={profileData.upazila}
                 disabled={!isEditable}
                 className="w-full p-2 border rounded-lg"
-              />
+              >
+                {!isEditable ? (
+                  <option value={profileData.upazila} selected>
+                    {profileData.upazila}
+                  </option>
+                ) : upazilas.length > 0 ? (
+                  <>
+                    <option value="">Select Upazila</option>
+                    {upazilas.map((upazilaData) => (
+                      <option key={upazilaData.id} value={upazilaData.name}>
+                        {upazilaData.name}
+                      </option>
+                    ))}
+                  </>
+                ) : (
+                  <option>Loading...</option>
+                )}
+              </select>
             </div>
 
             <div className="mb-4 w-full">
