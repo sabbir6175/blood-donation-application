@@ -23,12 +23,14 @@ const SignUp = () => {
 
     try {
       const response = await fetch(
-        `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.IMBB_KEY}`,
+        `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_IMAGE_KEY}`,
         {
           method: "POST",
           body: formData,
         }
       );
+      console.log('image bb te upload image',import.meta.env.VITE_IMAGE_KEY);
+
       const data = await response.json();
       if (data && data.data && data.data.url) {
         setPhotoURL(data.data.url);
@@ -77,7 +79,7 @@ const SignUp = () => {
 
     // Step 1: Create the user using Firebase or any authentication service
     const result = await createUser(email, newPassword);
-    setUser(result.data); // Set the user in AuthContext
+    setUser(result.user); // Set the user in AuthContext
 
     // Step 2: Update user profile with photo URL
     await updateUserProfile({ displayName: name, photoURL: photoURL });
@@ -103,7 +105,7 @@ const SignUp = () => {
 
     // Make the POST request to save the user in the database
     const response = await axiosPublic.post("/users", userInfo);
-    if (response.data) {
+    if (response.user) {
       console.log("User added to the database:", response.data);
     } else {
       console.error("Error saving user to the database");

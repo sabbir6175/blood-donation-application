@@ -238,7 +238,7 @@ const AllUser = () => {
           onPageChange={handlePageClick}
           containerClassName="flex justify-center space-x-2"
           pageClassName="px-4 py-2 border rounded cursor-pointer"
-          activeClassName="bg-blue-500 text-white"
+          activeClassName="bg-green-500 text-white"
           disabledClassName="text-gray-400 cursor-not-allowed"
         />
       </div>

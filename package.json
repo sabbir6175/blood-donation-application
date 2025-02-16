@@ -30,6 +30,7 @@
     "react-paginate": "^8.2.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.28.2",
+    "react-stripe-checkout": "^2.6.3",
     "react-toastify": "^11.0.3",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.15.10",

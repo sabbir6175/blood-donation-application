@@ -19,9 +19,6 @@ const AdminHome = () => {
   useEffect(() => {
     AxiosPublic.get('/donationRequest/data')
       .then(res => {
-        // console.log(res.data)
-        // Filter the donations with donationStatus of 'inprogress'
-        // const inProgressDonations = res.data.filter(donation => donation.donationStatus === "inprogress");
         setDonationRequests(res.data); // Set the filtered donations
       })
       .catch(error => {

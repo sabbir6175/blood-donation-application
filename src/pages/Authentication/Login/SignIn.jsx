@@ -3,14 +3,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../../AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import useAdmin from "../../../Hooks/useAdmin";
+
 
 const SignIn = () => {
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const [isAdmin]=useAdmin()
-  console.log(isAdmin)
+
 
     const from = location.state?.from?.pathname || "/dashboard/admin";
 
@@ -25,7 +24,7 @@ const SignIn = () => {
       signInUser(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                setUser(user);
                 Swal.fire({
                   position: "top-center",
                   icon: "success",

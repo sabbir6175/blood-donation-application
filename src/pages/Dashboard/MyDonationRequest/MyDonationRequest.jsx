@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 const MyDonationRequest = () => {
   const [donationRequests, setDonationRequests] = useState([]);
@@ -38,7 +39,7 @@ const MyDonationRequest = () => {
 
   const handleStatusChange = (id, status) => {
     axiosSecure
-      .put(`/donationRequest/${id}`, { donationStatus: status })
+      .patch(`/donationRequestStatus/${id}`, { donationStatus: status })
       .then((res) => {
         console.log(res.data);
         setDonationRequests((prevRequests) =>

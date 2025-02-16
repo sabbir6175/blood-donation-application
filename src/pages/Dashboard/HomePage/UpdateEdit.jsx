@@ -3,7 +3,7 @@ import AuthContext from "../../../AuthContext/AuthContext";
 import { toast } from "react-toastify";
 import { FaArrowRight } from "react-icons/fa";
 // import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const UpdateEdit = () => {
@@ -11,6 +11,7 @@ const UpdateEdit = () => {
     // const AxiosPublic =useAxiosPublic()
     const [isBlocked, setIsBlocked] = useState(false);
     const AxiosSecure =useAxiosSecure()
+    const navigate = useNavigate()
    
    const donationUpdate = useLoaderData();
    const {_id,requesterName,requesterEmail,recipientName,recipientDistrict,recipientUpazila,hospitalName,fullAddress,bloodGroup,donationDate,donationTime,requestMessage,donationStatus} = donationUpdate;
@@ -45,9 +46,10 @@ const UpdateEdit = () => {
     }
       const response = await AxiosSecure.patch(`/donationRequest/${_id}`, updatedValue );
       console.log(response.data.result);
-      toast.success("Create Donation request successfully!",{
+      toast.success("Update Donation request successfully!",{
         top:'center'
       });
+      navigate('/dashboard/donor')
      
   };
 

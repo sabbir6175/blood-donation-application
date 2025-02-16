@@ -49,17 +49,18 @@ const DonationDetails = () => {
   const handleDonate = (id) => {
     console.log(id);
     axiosSecure
-      .patch(`/donationRequest/${id}`, {
+      .patch(`/donationRequestStatus/${id}`, {
         requesterName,  // Donor name
         requesterEmail, // Donor email
         donationStatus: 'inprogress'  // Set status to 'inprogress'
       })
       .then((res) => {
         console.log(res);
+        
         toast.success("Donation confirmed!", { top: 'center' });
         setIsModalOpen(false); // Close the modal
         setRequest({ ...request, donationStatus: "inprogress" });
-        navigate('/donationRequest');
+        // navigate('/donationRequest');
       })
       .catch((error) => {
         console.error("Failed to confirm donation:", error);

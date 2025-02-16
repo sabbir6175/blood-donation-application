@@ -8,20 +8,29 @@ import Swal from "sweetalert2";
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [donations, setDonations] = useState([]);
-  const [donationToDelete, setDonationToDelete] = useState(null);
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     axiosSecure
       .get("/donationRequest")
       .then((res) => {
-        setDonations(res.data);
+        // Filter donations by status and email
+        const filteredDonations = res.data.filter(
+          (donation) =>
+            donation.donationStatus === "inprogress" &&
+            donation.requesterEmail === user.email
+        );
+        setDonations(filteredDonations);
+      })
+      .catch((err) => {
+        console.error("Error fetching donations:", err);
+        toast.error("Error loading donations", { top: "center" });
       });
-  }, [axiosSecure]);
+  }, [axiosSecure, user.email]);
 
   const handleStatusChange = (id, status) => {
     axiosSecure
-      .put(`/donationRequest/${id}`, { donationStatus: status })
+      .put(`/donationRequestStatus/${id}`, { donationStatus: status })
       .then((res) => {
         setDonations((prevRequests) =>
           prevRequests.map((request) =>
