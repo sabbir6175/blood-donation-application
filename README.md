@@ -1,6 +1,6 @@
-# Project Name : Blood Donation 
+# Project Name : Blood Donation Application
 
-#### The Blood Donation Application is designed to streamline the blood donation process by connecting donors with recipients, ensuring a smooth and efficient exchange of life-saving blood. This application will be a valuable tool for individuals looking to donate blood and organizations or hospitals in need of blood.
+### The Blood Donation Application is designed to streamline the blood donation process by connecting donors with recipients, ensuring a smooth and efficient exchange of life-saving blood. This application will be a valuable tool for individuals looking to donate blood and organizations or hospitals in need of blood.
 
 ### Live Link
 []()
@@ -24,7 +24,7 @@
 
 ## Technology Used:
 
- - Frontend: HTML, TailwindCSS, DaisyUi, sweet alert, JavaScript, React router, axios, TanStackQuery(etc)
+ - Frontend: HTML, TailwindCSS, DaisyUi, sweet alert, JavaScript, React router, axios, jodit-react, TanStackQuery(etc)
  - backend: --
     - mongodb: blood donation application all data save used mongodb
     - Express.js: A web application framework that will handle routing and server-side logic.
@@ -35,5 +35,5 @@
  - Efficient Blood Matching : By storing detailed profiles and blood requests, the app can quickly match donors with recipients,    saving time and effort.
 
  - Increased Awareness : The content management feature will help educate users on the importance of blood donation, increasing overall participation.
- 
+
  - Accessibility: Role-based access and easy navigation make the app suitable for both donors and administrators to interact seamlessly.

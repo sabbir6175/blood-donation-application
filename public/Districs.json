@@ -1,15 +1,6 @@
 [
-  {
-    "type": "header",
-    "version": "4.8.5",
-    "comment": "Export to JSON plugin for PHPMyAdmin"
-  },
-  { "type": "database", "name": "bd_geo_code" },
-  {
-    "type": "table",
-    "name": "districts",
-    "database": "bd_geo_code",
-    "data": [
+  
+
       {
         "id": "1",
         "division_id": "1",
@@ -586,6 +577,5 @@
         "lon": "90.727887",
         "url": "www.netrokona.gov.bd"
       }
-    ]
-  }
+    
 ]
