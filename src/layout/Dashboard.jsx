@@ -66,7 +66,7 @@ const Dashboard = () => {
         </Link>
       </li>
       <li>
-        <Link to="/dashboard/admin">
+        <Link to="/dashboard/Volunteer">
           <FaHome />
           Volunteer Home
         </Link>

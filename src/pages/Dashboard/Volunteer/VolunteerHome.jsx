@@ -1,11 +1,13 @@
 import { useContext,  useEffect,  useState } from "react";
 import { FaHandHoldingUsd, FaUsers } from "react-icons/fa";
-import AuthContext from "../../../AuthContext/AuthContext";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const AdminHome = () => {
+import { useQuery } from "@tanstack/react-query";
+import AuthContext from "../../../AuthContext/AuthContext";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
+
+const VolunteerHome = () => {
   // Context for user info
   const { user } = useContext(AuthContext);
   const [donationRequest, setDonationRequests] = useState([])
@@ -30,9 +32,9 @@ const AdminHome = () => {
 
   // Fetching users with TanStack Query
   const { data: userData, error: userError, isLoading: userLoading } = useQuery({
-    queryKey: ['users'],
+    queryKey: ['user'],
     queryFn: async () => {
-      const response = await AxiosSecure.get('/admin/users');
+      const response = await AxiosSecure.get('/volunteer/user');
       return response.data.users; // Returns the list of users
     },
   });
@@ -115,4 +117,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default VolunteerHome;

@@ -25,6 +25,7 @@ import BlogDetailPage from "../pages/Blogs/BlogDetailPage";
 import RequestBlood from "../pages/Dashboard/Volunteer/RequestBlood";
 import ContentManagementVolunteer from "../pages/Dashboard/Volunteer/ContentManagementVolunteer";
 import Funding from "../pages/Funding/Funding";
+import VolunteerHome from "../pages/Dashboard/Volunteer/VolunteerHome";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,10 @@ const router = createBrowserRouter([
         element: <CreateDonationRequest></CreateDonationRequest>
       },
       //volunteer dashboard
+      {
+        path: '/dashboard/Volunteer',
+        element: <VolunteerHome></VolunteerHome>
+      },
       {
         path: '/dashboard/all-blood-donation-request',
         element: <RequestBlood></RequestBlood>

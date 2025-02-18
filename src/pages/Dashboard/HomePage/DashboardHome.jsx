@@ -117,7 +117,7 @@ const Dashboard = () => {
                 </td>
                 <td className="py-4 text-sm text-gray-900">{donation.bloodGroup}</td>
                 <td className="py-4 text-sm text-gray-900">{donation.donationStatus}</td>
-                <td className="py-4 text-sm text-gray-900 flex flex-col ">
+                <td className="py-4 text-sm text-gray-900 flex flex-row ">
                   {donation.donationStatus === "inprogress" && (
                     <>
                       <button

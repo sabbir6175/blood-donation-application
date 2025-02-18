@@ -21,7 +21,7 @@ const AllUser = () => {
     ],
     queryFn: async ({ queryKey }) => {
       const [, { status, page, limit }] = queryKey;
-      const response = await AxiosSecure.get("/users", {
+      const response = await AxiosSecure.get("/admin/users", {
         params: { status, page, limit },
       });
       return response.data;
