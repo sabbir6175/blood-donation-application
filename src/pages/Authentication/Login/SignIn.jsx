@@ -1,17 +1,19 @@
 import {  useContext } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../../AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+// import useAdmin from "../../../Hooks/useAdmin";
 
 
 const SignIn = () => {
   const { signInUser, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
+  // const [isAdmin] = useAdmin()
 
 
-    const from = location.state?.from?.pathname || "/dashboard/admin";
+    // const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +27,18 @@ const SignIn = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user);
+
+                // let dashboardPath = "/"; // Default path (could be a general home page or specific route)
+                // if (isAdmin?.admin) {
+                //   dashboardPath = "/dashboard/admin";
+                // } else if (isAdmin?.volunteer) {
+                //   dashboardPath = "/dashboard/admin";
+                // } else if (isAdmin?.donor) {
+                //   dashboardPath = "/dashboard/donor";
+                // }
+
+
+
                 Swal.fire({
                   position: "top-center",
                   icon: "success",
@@ -32,7 +46,7 @@ const SignIn = () => {
                   showConfirmButton: false,
                   timer: 1500
                 });
-                navigate(from, { replace: true });
+                navigate('/');
             })
             .catch(error => {
               toast.warn(error)

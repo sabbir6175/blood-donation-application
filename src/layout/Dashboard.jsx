@@ -18,7 +18,7 @@ const Dashboard = () => {
   const linkAdmin = (
     <>
       <li>
-        <Link to="/dashboard/admin-profile">
+        <Link to="/dashboard/profile">
           <FaUser />
           Profile
         </Link>
@@ -60,7 +60,7 @@ const Dashboard = () => {
   const linkVolunteer = (
     <>
       <li>
-        <Link to="/dashboard/admin-profile">
+        <Link to="/dashboard/profile">
           <FaUser />
           Profile
         </Link>
@@ -96,7 +96,7 @@ const Dashboard = () => {
   const linkDonor = (
     <>
       <li>
-        <Link to="/dashboard/admin-profile">
+        <Link to="/dashboard/profile">
           <FaUser />
           Profile
         </Link>
@@ -132,8 +132,8 @@ const Dashboard = () => {
 
   return (
     <div className="flex">
-      <div className=" flex flex-row md:flex-col text-white  md:w-64 md:min-h-screen bg-gradient-to-r from-red-600 to-green-500">
-        <ul className="menu w-full md:w-64  bg-gradient-to-r from-red-600 to-green-500  md:min-h-screen fixed top-0 z-50 rounded-sm ">
+      <div className=" flex flex-row md:flex-col text-white  md:w-64 md:min-h-screen bg-gradient-to-r from-red-400 to-green-100">
+        <ul className="menu w-full md:w-64  bg-gradient-to-r from-red-400 to-green-100  md:min-h-screen fixed top-0 z-50 rounded-sm ">
           {isAdmin?.admin === true && (
             <>
               <div className="flex justify-between place-items-center w-full sticky top-0 z-50 ">
@@ -158,7 +158,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-600 to-green-500  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-400 to-green-100  min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkAdmin}
                     </ul>
@@ -194,7 +194,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-600 to-green-500  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-400 to-green-100  min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkVolunteer}
                     </ul>
@@ -228,7 +228,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-600 to-green-500  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-400 to-green-100  min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkDonor}
                     </ul>
@@ -242,7 +242,7 @@ const Dashboard = () => {
       </div>
 
       <div className="flex-1 md:flex-0 w-full md:w-0">
-        <div className="hidden md:block bg-gradient-to-r from-red-600 to-green-500 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center">
+        <div className="hidden md:block bg-gradient-to-r from-red-400 to-green-100 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center">
           Dashboard
         </div>
         <div className="container mx-auto p-0 md:p-4 mt-20 md:mt-0 lg:p-8">

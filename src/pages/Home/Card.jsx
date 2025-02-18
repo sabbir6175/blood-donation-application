@@ -34,7 +34,7 @@ const Card = () => {
   return (
     <div className="container mx-auto pb-10 p-4">
       <div className="my-10">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl uppercase font-bold text-center text-[#000000]">
+        <h2 className="text-2xl md:text-4xl lg:text-4xl uppercase font-bold text-center text-[#000000]">
           !-- Blood Request --!
         </h2>
         <img

@@ -5,12 +5,12 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { RiDashboardFill } from "react-icons/ri";
 import { CgLogOut } from "react-icons/cg";
-import useAdmin from "../../../Hooks/useAdmin";
+// import useAdmin from "../../../Hooks/useAdmin";
 
 const Navbar = () => {
-  const { user, singOutUser } = useContext(AuthContext);  // Use context to get user state
-  const [isAdmin] = useAdmin();
-  console.log(' user  ',isAdmin)
+  const { user, singOutUser } = useContext(AuthContext); // Use context to get user state
+  // const [isAdmin] = useAdmin();
+  // console.log(" user  ", isAdmin);
   // Define links to show on the navbar
   const links = (
     <>
@@ -25,7 +25,7 @@ const Navbar = () => {
       </li>
       <li className="hover:text-green-300">
         <Link to="/blogs">Blog</Link>
-      </li >
+      </li>
       {user && (
         <>
           <li className="hover:text-green-300">
@@ -44,11 +44,11 @@ const Navbar = () => {
           icon: "success",
           title: "user logout Successfully",
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
       })
       .catch((error) => {
-        toast.error('Failed to sign out', error);
+        toast.error("Failed to sign out", error);
       });
   };
 
@@ -74,7 +74,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content -ml-5  bg-red-50 rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
+            className="menu menu-sm dropdown-content -ml-5  bg-gradient-to-r from-red-400 to-green-100 text-white rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
           >
             {links}
           </ul>
@@ -88,46 +88,65 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1  ">
-          {links}
-        </ul>
+        <ul className="menu menu-horizontal px-1  ">{links}</ul>
       </div>
       <div className="navbar-end">
+        <h1 className="mr-2">{user?.displayName}</h1>
         {user ? (
           <li className="list-none">
             <div className="dropdown">
               <button tabIndex={0} className=" mr-5">
-                <img src={user?.photoURL} className='w-10 h-10  rounded-full' alt="User photoURL" />
+                <img
+                  src={user?.photoURL}
+                  className="w-10 h-10  rounded-full"
+                  alt="User photoURL"
+                />
               </button>
               <ul
                 tabIndex={0}
-                className="dropdown-content -ml-36 bg-red-400 text-white menu menu-compact  rounded-box w-52 shadow-lg mt-2"
+                className="dropdown-content -ml-28 bg-gradient-to-r from-red-400 to-green-100 text-white menu menu-compact  rounded-box w-44 shadow-lg mt-2"
               >
-                {
-                  isAdmin?.admin ?
+                {/* {isAdmin?.admin ? (
                   <li>
-                    <Link to="/dashboard/admin"><RiDashboardFill></RiDashboardFill> Dashboard</Link>
-                  </li>:
-                  isAdmin?.volunteer ?
-                  <li>
-                    <Link to="/dashboard/admin"> <RiDashboardFill></RiDashboardFill> Dashboard</Link>
-                  </li>:
-                   <li>
-                      <Link to="/dashboard/donor"> <RiDashboardFill></RiDashboardFill> Dashboard</Link>
+                    <Link to="/dashboard/admin">
+                      <RiDashboardFill></RiDashboardFill> Dashboard
+                    </Link>
                   </li>
-                }
-               
+                ) : isAdmin?.volunteer ? (
+                  <li>
+                    <Link to="/dashboard/admin">
+                      {" "}
+                      <RiDashboardFill></RiDashboardFill> Dashboard
+                    </Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link to="/dashboard/donor">
+                      {" "}
+                      <RiDashboardFill></RiDashboardFill> Dashboard
+                    </Link>
+                  </li>
+                )} */}
                 <li>
-                  <button onClick={handleSingOut}><CgLogOut className="-rotate-180"></CgLogOut> Logout</button>
+                  <Link to="/dashboard">
+                    {" "}
+                    <RiDashboardFill></RiDashboardFill> Dashboard
+                  </Link>
                 </li>
+
                 <li>
-                    {user.displayName}
+                  <button onClick={handleSingOut}>
+                    <CgLogOut className="-rotate-180"></CgLogOut> Logout
+                  </button>
                 </li>
               </ul>
             </div>
           </li>
         ) : (
-          <Link to="/SignIn" className="btn bg-white text-red-700 outline-none ">
+          <Link
+            to="/SignIn"
+            className="btn bg-white text-red-700 outline-none "
+          >
             Login
           </Link>
         )}

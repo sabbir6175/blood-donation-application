@@ -36,7 +36,7 @@ const AllDonationRequest = () => {
               : request
           )
         );
-        toast.success(`Successfully updated donation ${status}`, {
+        toast.success(`Successfully donation ${status}`, {
           top: "center",
         });
       })

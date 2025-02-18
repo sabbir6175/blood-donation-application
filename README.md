@@ -22,6 +22,14 @@
 
 - Search: Donors can search for available blood donation requests based on location and blood type. 
 
+- Responsive Design: The application is fully responsive, providing a seamless experience across all devices.
+
+- Notification System: Donors receive notifications about blood requests and updates.
+
+- Content Management System (CMS): Admin can add, edit, and manage the content on the website (e.g., FAQs, blog posts, etc.).
+
+- Secure Authentication: Users and admins can securely log in using modern authentication protocols (JWT, firebase).
+
 ## Technology Used:
 
  - Frontend: HTML, TailwindCSS, DaisyUi, sweet alert, JavaScript, React router, axios, jodit-react, TanStackQuery(etc)

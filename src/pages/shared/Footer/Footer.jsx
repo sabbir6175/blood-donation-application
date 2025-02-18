@@ -8,7 +8,7 @@ const Footer = () => {
     <div>
       <div className="flex flex-col lg:flex-row gap-5 justify-between bg-green-100 text-black  p-10">
         <div>
-          <h1 className="font-bold text-black text-4xl mb-5">Blood Donation</h1>
+          <h1 className="font-bold text-black text-2xl md:text-3xl lg:text-4xl mb-5">Blood Donation</h1>
 
           <p className="font-normal text-base text-opacity-80 text-gray-600 mb-2">
             Blood donation is the voluntary act of giving blood to help those in

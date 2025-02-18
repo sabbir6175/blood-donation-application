@@ -74,7 +74,7 @@ const router = createBrowserRouter([
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
-        path: '/dashboard/admin-profile',
+        path: '/dashboard/profile',
         element: <AdminProfile></AdminProfile>
       },
       // Admin Panel
@@ -106,7 +106,7 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/Update/:id',
         element: <UpdateEdit></UpdateEdit>,
-        loader: ({params}) => fetch(`http://localhost:7000/donationRequest/${params.id}`)
+        loader: ({params}) => fetch(`https://blood-donation-server-side-project.vercel.app/donationRequest/${params.id}`)
       },
       {
         path: '/dashboard/my-donation-requests',

@@ -28,7 +28,7 @@ const ProfilePage = () => {
     AxiosPublic.get(`/users/${email}`)
       .then((response) => {
         setProfileData(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching profile data", error);
@@ -47,7 +47,7 @@ const ProfilePage = () => {
       upazila: form.upazila.value,
       bloodGroup: form.bloodGroup.value,
     };
-    console.log("Sending ID:", profileData._id, updatedData);
+    // console.log("Sending ID:", profileData._id, updatedData);
 
     AxiosPublic.put(`/users/${profileData._id}`, updatedData)
       .then(() => {
@@ -66,7 +66,7 @@ const ProfilePage = () => {
 
   return (
     <div className="container mx-auto p-6 ">
-      <div className="bg-gradient-to-t from-red-400 to-green-300 p-6 rounded-lg shadow-md">
+      <div className="bg-green-200 p-6 rounded-lg shadow-md">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center uppercase">
           {profileData.role} Profile
         </h1>
@@ -148,8 +148,8 @@ const ProfilePage = () => {
               </label>
               <select
                 type="text"
-                id="upazila"
-                name="upazila"
+                id="district"
+                name="district"
                 disabled={!isEditable}
                 className="w-full p-2 border rounded-lg"
               >

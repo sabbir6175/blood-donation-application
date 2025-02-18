@@ -27,7 +27,7 @@ const Process = () => {
             </div>
           </figure>
           <div className="card-body text-left">
-            <h2 className=" text-left text-[#000000] font-bold text-2xl">Registration!</h2>
+            <h2 className=" text-left text-[#000000] font-bold text-xl md:text-2xl">Registration!</h2>
             <p className="text-[#000000] font-normal text-base">You need to complete a very simple registration form. Which contains all required contact information to enter in the donation process.</p>
             
           </div>
@@ -46,7 +46,7 @@ const Process = () => {
             </div>
           </figure>
           <div className="card-body text-left">
-            <h2 className=" text-left text-[#000000] font-bold text-2xl">Screening!</h2>
+            <h2 className=" text-left text-[#000000] font-bold text-xl md:text-2xl">Screening!</h2>
             <p className="text-[#000000] font-normal text-base">A drop of blood from your finger will take for simple test to ensure that your blood iron levels are proper enough for donation process.</p>
             
           </div>
@@ -65,7 +65,7 @@ const Process = () => {
             </div>
           </figure>
           <div className="card-body text-left">
-            <h2 className=" text-left text-[#000000] font-bold text-2xl">Donation!</h2>
+            <h2 className=" text-left text-[#000000] font-bold text-xl md:text-2xl">Donation!</h2>
             <p className="text-[#000000] font-normal text-base">After ensuring and passed screening test successfully you will be directed to a donor bed for donation. It will take only 6-10 minutes.</p>
             
           </div>
@@ -84,7 +84,7 @@ const Process = () => {
             </div>
           </figure>
           <div className="card-body text-left">
-            <h2 className=" text-left text-[#000000] font-bold text-2xl">Refreshment!</h2>
+            <h2 className=" text-left text-[#000000] font-bold text-xl md:text-2xl">Refreshment!</h2>
             <p className="text-[#000000] font-normal text-base">You can also stay in sitting room until you feel strong enough to leave our center. You will receive awesome drink from us in donation zone.</p>
             
           </div>

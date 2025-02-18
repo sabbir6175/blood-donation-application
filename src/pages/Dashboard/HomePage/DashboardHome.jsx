@@ -91,7 +91,8 @@ const Dashboard = () => {
       </h1>
 
       {donations.length > 0 ? (
-        <table className="min-w-full bg-white shadow-2xl rounded-lg overflow-hidden">
+       <div className="overflow-x-auto">
+           <table className="bg-white shadow-md rounded-lg table table-xs table-pin-rows">
           <thead className="bg-green-300">
             <tr>
               <th className="text-center text-black text-sm font-bold py-2">No</th>
@@ -116,12 +117,12 @@ const Dashboard = () => {
                 </td>
                 <td className="py-4 text-sm text-gray-900">{donation.bloodGroup}</td>
                 <td className="py-4 text-sm text-gray-900">{donation.donationStatus}</td>
-                <td className="py-4 text-sm text-gray-900">
+                <td className="py-4 text-sm text-gray-900 flex flex-col ">
                   {donation.donationStatus === "inprogress" && (
                     <>
                       <button
                         onClick={() => handleDeleteRequest(donation._id)}
-                        className="bg-red-500 text-white py-1 mr-2 px-3 rounded"
+                        className="bg-red-500 text-white py-1  mr-2  px-3 rounded"
                       >
                         Delete
                       </button>
@@ -150,12 +151,13 @@ const Dashboard = () => {
             ))}
           </tbody>
         </table>
+       </div>
       ) : (
         <p>No donation requests found.</p>
       )}
 
       <Link to="/dashboard/my-donation-requests">
-        <button className="mt-6 bg-green-600 font-bold py-2 px-4 rounded">
+        <button className="mt-6 bg-gradient-to-r from-red-400 to-green-100 font-bold py-2 px-4 rounded">
           View My All Requests
         </button>
       </Link>

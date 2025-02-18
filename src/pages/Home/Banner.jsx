@@ -82,11 +82,17 @@ const Banner = () => {
                 save lives and support medical treatments.
               </h1>
               <div className="flex flex-col md:flex-row gap-5">
-                <Link to="/SignUp">
-                  <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500">
-                    Join as a donor
-                  </button>
-                </Link>
+              {!user && (
+                  <Link to="/SignUp">
+                    <motion.button
+                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Join as a donor
+                    </motion.button>
+                  </Link>
+                )}
                 <Link to="/Search">
                   <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
                     Search Donors
@@ -109,11 +115,17 @@ const Banner = () => {
                 save lives and support medical treatments.
               </h1>
               <div className="flex flex-col md:flex-row gap-5">
-                <Link to="/SignUp">
-                  <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500">
-                    Join as a donor
-                  </button>
-                </Link>
+              {!user && (
+                  <Link to="/SignUp">
+                    <motion.button
+                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Join as a donor
+                    </motion.button>
+                  </Link>
+                )}
                 <Link to="/Search">
                   <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
                     Search Donors
@@ -136,11 +148,17 @@ const Banner = () => {
                 save lives and support medical treatments.
               </h1>
               <div className="flex flex-col md:flex-row gap-5">
-                <Link to="/SignUp">
-                  <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500">
-                    Join as a donor
-                  </button>
-                </Link>
+              {!user && (
+                  <Link to="/SignUp">
+                    <motion.button
+                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Join as a donor
+                    </motion.button>
+                  </Link>
+                )}
                 <Link to="/Search">
                   <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
                     Search Donors
@@ -163,11 +181,17 @@ const Banner = () => {
                 save lives and support medical treatments.
               </h1>
               <div className="flex flex-col md:flex-row gap-5">
-                <Link to="/SignUp">
-                  <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500">
-                    Join as a donor
-                  </button>
-                </Link>
+              {!user && (
+                  <Link to="/SignUp">
+                    <motion.button
+                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Join as a donor
+                    </motion.button>
+                  </Link>
+                )}
                 <Link to="/Search">
                   <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
                     Search Donors
@@ -183,22 +207,3 @@ const Banner = () => {
 };
 
 export default Banner;
-{
-  /* <div className="absolute inset-0 bg-black bg-opacity-10 flex flex-col items-center justify-center">
-<h1 className="text-2xl  text-slate-400 text-center">
-Blood donation is the voluntary giving <br /> of blood to help save lives and support medical treatments.
-</h1>
-<div className="flex gap-5">
-  <Link to="/SignUp">
-    <button className="mt-5 py-2 md:py-3 animate-bounce px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500">
-      Join as a donor
-    </button>
-  </Link>
-  <Link to="/Search">
-    <button className="mt-5 -inset-90 animate-bounce  py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
-      Search Donors
-    </button>
-  </Link>
-</div>
-</div> */
-}

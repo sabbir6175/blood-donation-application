@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import District from "../../../Hooks/District";
 import Upazila from "../../../Hooks/Upazila";
+import Swal from "sweetalert2";
 
 const CreateDonationRequest = () => {
   const { user } = useContext(AuthContext);
@@ -49,27 +50,36 @@ const CreateDonationRequest = () => {
       [name]: value,
     }));
   };
-
+  // console.log(formData)
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (isBlocked) {
       alert("You are blocked and cannot create a donation request.");
       return;
     }
-
+    
+    // console.log(formData);
+  
     try {
       const response = await axiosSecure.post("/donation-requests", formData);
       console.log(response.data);
-      toast.success("Create Donation request successfully!", {
-        top: "center",
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500
       });
     } catch (error) {
-      console.error("Error submitting donation request", error);
-      alert("There was an error submitting the request.");
+      console.error(error);
+      toast.error("Error while creating donation request.", {
+        position: "top-center",
+      });
     }
   };
+  
 
   return (
     <div className="container mx-auto bg-slate-100 p-4">
