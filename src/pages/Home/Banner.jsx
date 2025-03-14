@@ -48,7 +48,7 @@ const Banner = () => {
                 {!user && (
                   <Link to="/SignUp">
                     <motion.button
-                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
+                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-green-600 text-white rounded-full hover:bg-white hover:text-black"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -58,7 +58,7 @@ const Banner = () => {
                 )}
                 <Link to="/Search">
                   <motion.button
-                    className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white"
+                    className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-black rounded-full hover:bg-red-400 hover:text-white"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >

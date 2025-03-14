@@ -35,13 +35,15 @@ const Card = () => {
     <div className="container mx-auto pb-10 p-4">
       <div className="my-10">
         <h2 className="text-2xl md:text-4xl lg:text-4xl uppercase font-bold text-center text-[#000000]">
-          !-- Blood Request --!
+           Blood Request 
         </h2>
         <img
           className="w-82 mx-auto"
           src="https://i.ibb.co.com/RkDvFz6n/separator.webp"
           alt=""
         />
+        
+        <span className="max-w-3xl mx-auto text-center flex justify-center">A blood request is a lifesaving appeal for patients in urgent need of blood. Your donation can make a critical difference.</span>
       </div>
 
       <div className=" mt-4 p-4 mx-auto rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

@@ -121,15 +121,15 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-slate-200 py-10 px-2">
-      <div className="  p-4 card lg:w-5/12 mx-auto bg-red-50 backdrop-blur-md ">
+    <div className=" py-10 px-2">
+      <div className="  p-4 card border lg:w-5/12 mx-auto  ">
         <h2 className="text-3xl  text-center font-bold mb-4">
-          Register For Blood Donation
+         Welcome SignUp
         </h2>
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-4 ">
+        <form onSubmit={handleSubmit} className=" space-y-4 ">
           {/* Name */}
           <div className="flex flex-col lg:flex-row  md:gap-4">
-            <div className="form-control">
+            <div className="form-control w-full lg:w-1/2">
               <label className="label font-bold">Name :</label>
               <input
                 type="text"
@@ -141,7 +141,7 @@ const SignUp = () => {
             </div>
 
             {/* Email */}
-            <div className="form-control">
+            <div className="form-control w-full lg:w-1/2">
               <label className="label font-bold">Email :</label>
               <input
                 type="email"
@@ -354,14 +354,14 @@ const SignUp = () => {
             <div className="text-red-500 text-center mt-2">{error}</div>
           )}
 
-          <button type="submit" className="btn bg-red-500 text-white w-full">
+          <button type="submit" className="btn bg-green-400 text-white w-full">
             <SiGnu /> Sign Up
           </button>
         </form>
         <div className="text-center mt-4">
           <p>
             Already have an account?{" "}
-            <Link to="/SignIn" className="text-blue-500">
+            <Link to="/SignIn" className="text-green-500">
               Sign In
             </Link>
           </p>

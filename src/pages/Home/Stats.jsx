@@ -33,17 +33,18 @@ const Stats = () => {
 
   return (
     <>
-      <div className="my-10">
+      <div className="my-16">
         <h1 className="text-2xl md:text-4xl text-[#000000] font-bold text-center ">
-          !--Successfully--!
+          Successfully
         </h1>
         <img
           className="w-82 mx-auto"
           src="https://i.ibb.co.com/RkDvFz6n/separator.webp"
           alt=""
         />
+        <span className="text-center flex justify-center max-w-3xl mx-auto">Successful blood donation saves lives by providing essential blood to those in need. It's a simple, safe process that makes a lasting impact.</span>
       </div>
-      <div ref={ref} className="py-10 px-4 bg-opacity-100 flex items-center justify-center">
+      <div ref={ref} className=" px-4 bg-opacity-100 flex items-center justify-center">
        
         <div className="relative h-[1000px] md:h-[700px] w-full">
           
@@ -62,7 +63,7 @@ const Stats = () => {
                 >
                   <div className="flex justify-center mb-2">{stat.icon}</div>
                   {inView ? (
-                    <h2 className="text-3xl text-red-500 font-bold">
+                    <h2 className="text-3xl text-green-500 font-bold">
                       <CountUp start={0} end={stat.number} duration={4.5} separator="," />
                     </h2>
                   ) : (

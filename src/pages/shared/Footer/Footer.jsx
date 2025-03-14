@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center bg-green-100 py-2 ">
-            <h1>Copyright 2025 design by@ <span className="text-xl text-green-600">Sabbir Hasan</span> </h1>
+            <h1>Copyright@2025 design by <span className="text-xl text-green-600">Sabbir Hasan</span> </h1>
       </div>
     </div>
   );

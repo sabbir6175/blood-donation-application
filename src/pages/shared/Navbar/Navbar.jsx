@@ -53,8 +53,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar  bg-red-50  text-black sticky top-0  bg-opacity-80 backdrop-blur-md  z-10">
-      <div className="navbar-start">
+    <div className="bg-green-50  text-black sticky top-0  bg-opacity-80 backdrop-blur-md z-10">
+       <div className="navbar   md:px-10 text-black sticky top-0  bg-opacity-80 backdrop-blur-md ">
+      <div className="navbar-start ">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost  lg:hidden">
             <svg
@@ -145,13 +146,15 @@ const Navbar = () => {
         ) : (
           <Link
             to="/SignIn"
-            className="btn bg-white text-red-700 outline-none "
+            className="btn btn-sm lg:btn-md text-black bg-red-200 outline-none "
           >
-            Login
+            SignIn
           </Link>
         )}
       </div>
     </div>
+    </div>
+ 
   );
 };
 
