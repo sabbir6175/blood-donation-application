@@ -74,7 +74,7 @@ const DonationDetails = () => {
   }
 
   return (
-    <div className="container mx-auto pb-10 p-4 bg-slate-200">
+    <div className="container mx-auto pb-10 p-4 ">
       <h2 className="text-2xl md:text-4xl font-bold my-10 text-center">Welcome Donation Request</h2>
 
       <div className="mt-4 p-4 bg-white shadow-md mx-auto rounded-md md:w-96">

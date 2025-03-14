@@ -29,7 +29,7 @@ const DonationRequest = () => {
         <div className="flex items-center gap-2 py-5 md:pt-6 px-6 justify-center">
           <div>
             <h1 className="text-xl lg:text-4xl text-black font-bold">
-              All Pending Donation Requests({pendingDonation.length})
+              All Pending Requests({pendingDonation.length})
             </h1>
             
           </div>

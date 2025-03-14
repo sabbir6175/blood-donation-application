@@ -58,7 +58,7 @@ const VolunteerHome = () => {
   return (
     <div className="p-4 md:p-8 mt-20 md:mt-0 bg-slate-50">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-green-600 to-red-500   text-white p-6 rounded-lg mb-8">
+      <div className="text-black p-6 rounded-lg mb-8">
         <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-center uppercase">Welcome {user.displayName}!</h1>
       </div>
 

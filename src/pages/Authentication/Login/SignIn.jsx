@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../../AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { useState } from "react";
 // import useAdmin from "../../../Hooks/useAdmin";
 
 
@@ -14,6 +15,11 @@ const SignIn = () => {
 
 
     // const from = location.state?.from?.pathname || "/";
+    const [loginData, setLoginData] = useState({ email: "", password: "" });
+
+    const handleButtonClick = (email, password) => {
+      setLoginData({ email, password });
+    };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,9 +61,14 @@ const SignIn = () => {
   };
 
   return (
-    <div className=" mt-20 p-4">
+    <div className=" md:mt-20 p-4">
       <div className=" p-4 card lg:w-5/12  mx-auto border  backdrop-blur-md ">
-        <h2 className="text-3xl mb-4 text-center font-bold  ">Welcome Back to Login</h2>
+        <h2 className="text-2xl md:text-3xl text-center font-bold mb-10 ">Welcome Back to Login</h2>
+        <div className="flex gap-5 justify-around ">
+          <button  onClick={() => handleButtonClick("sabbirhasannahid6175@gmail.com", "Sabbir@123")} className="btn-sm bg-green-300 rounded-sm gap-3">Admin</button>
+          <button  onClick={() => handleButtonClick("numan234@gmail.com", "Numan@12")} className="btn-sm bg-green-300 rounded-sm  gap-3">Volunteer</button>
+          <button  onClick={() => handleButtonClick("	masumbillah@gmail.com", "Masum@12")} className="btn-sm bg-green-300 rounded-sm  gap-3">Donor</button>
+        </div>
         <form
           onSubmit={handleSubmit}
           className=" md:p-4 w-full "
@@ -69,6 +80,8 @@ const SignIn = () => {
               type="email"
               name="email"
               className="input input-bordered w-full"
+              value={loginData.email}
+              onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
               required
             />
           </div>
@@ -80,6 +93,8 @@ const SignIn = () => {
               type="password"
               name="password"
               className="input input-bordered w-full"
+              value={loginData.password}
+              onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
               required
             />
           </div>
