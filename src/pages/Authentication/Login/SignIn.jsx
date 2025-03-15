@@ -56,8 +56,8 @@ const SignIn = () => {
         <h2 className="text-2xl md:text-3xl text-center font-bold mb-10">
           Welcome Back to Login
         </h2>
-
-        <div className="mb-5 md:p-4">
+        <h1 className="text-center font-bold mb-3 text-lg text-green-500">Easy Login Select Role</h1>
+        <div className=" md:p-4">
           <label className="font-semibold">Select Role:</label>
           <select
             className="select select-bordered w-full"
@@ -70,7 +70,7 @@ const SignIn = () => {
             <option value="Donor">Donor</option>
           </select>
         </div>
-
+        
         <form onSubmit={handleSubmit} className="md:p-4 w-full">
           {/* Email */}
           <div className="form-control">
