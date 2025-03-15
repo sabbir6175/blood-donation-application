@@ -38,7 +38,7 @@ const Banner = () => {
               alt="Blood Donation"
               className="w-full h-[1062px] bg-cover bg-no-repeat"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center p-5">
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-5 md:py-16">
               <h1 className="text-sm md:text-2xl text-white">
                 Donate your blood and
                 <br />

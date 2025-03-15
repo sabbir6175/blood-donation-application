@@ -13,6 +13,7 @@ const ProfilePage = () => {
   const [upazilas] = Upazila();
   const [districts] = District();
   const [isEditable, setIsEditable] = useState(false);
+  const [lastLoginTime, setLastLoginTime] = useState("");
 
   const [profileData, setProfileData] = useState({
     displayName: "",
@@ -24,6 +25,10 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
+    if (user) {
+      // Convert last login time to readable format
+      setLastLoginTime(new Date(Number(user.metadata.lastLoginAt)).toLocaleString());
+    }
     // Fetching profile data
     AxiosPublic.get(`/users/${email}`)
       .then((response) => {
@@ -65,22 +70,31 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 ">
-      <div className=" bg-green-50 p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center uppercase">
+    <div className="container mx-auto lg:p-6 ">
+      <div className="  p-3 md:p-6 rounded-lg ">
+        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center uppercase">
           {profileData.role} Profile
         </h1>
-        <div className="w-4/12 md:w-1/5 h-[100px] md:h-[190px] rounded-full border-2 bg-white mx-auto">
+        <div className="w-4/12 md:w-1/5 h-[100px] md:h-[110px] lg:h-[190px] rounded-full border-2 bg-white mx-auto">
           <img
             className="w-full h-full rounded-full"
             src={profileData.photoURL}
             alt="Profile"
           />
         </div>
-        <div className="text-right">
+        <div className="flex flex-col md:flex-row gap-2 justify-between mb-10 items-center ">
+         
+          {/* Last Login Time */}
+        <div className="text-center mt-4">
+          <p className="text-gray-600">
+            <strong>Last Login:</strong> {lastLoginTime || "N/A"}
+          </p>
+        </div>
+
+          
           <button
             onClick={() => setIsEditable((prev) => !prev)}
-            className="bg-green-500 text-white py-2 px-4 rounded mb-4"
+            className="bg-green-500 text-white py-2 px-4 rounded"
           >
             {isEditable ? "Cancel" : "Edit"}
           </button>
