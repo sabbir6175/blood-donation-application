@@ -82,7 +82,7 @@ const CreateDonationRequest = () => {
   
 
   return (
-    <div className="container mx-auto bg-slate-100 p-4">
+    <div className="container mx-auto  p-4">
       <h1 className="text-3xl font-bold text-center  mb-6">
         Create Donation Request
       </h1>
@@ -255,7 +255,7 @@ const CreateDonationRequest = () => {
         </div>
         <button
           type="submit"
-          className="w-full py-2 bg-red-600 text-white rounded-md mt-4"
+          className="w-full py-2 bg-green-400 text-black font-semibold rounded-md mt-4"
           disabled={isBlocked}
         >
           {isBlocked ? "You are Blocked" : "Submit Request"}

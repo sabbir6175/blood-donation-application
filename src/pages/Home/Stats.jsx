@@ -42,7 +42,7 @@ const Stats = () => {
           src="https://i.ibb.co.com/RkDvFz6n/separator.webp"
           alt=""
         />
-        <span className="text-center flex justify-center max-w-3xl mx-auto">Successful blood donation saves lives by providing essential blood to those in need. It's a simple, safe process that makes a lasting impact.</span>
+        <span className="text-center flex justify-center md:max-w-3xl mx-auto">Successful blood donation saves lives by providing essential blood to those in need. It's a simple, safe process that makes a lasting impact.</span>
       </div>
       <div ref={ref} className=" px-4 bg-opacity-100 flex items-center justify-center">
        

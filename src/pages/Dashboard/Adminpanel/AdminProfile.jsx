@@ -66,7 +66,7 @@ const ProfilePage = () => {
 
   return (
     <div className="container mx-auto p-6 ">
-      <div className="bg-green-200 p-6 rounded-lg shadow-md">
+      <div className=" bg-green-50 p-6 rounded-lg shadow-md">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center uppercase">
           {profileData.role} Profile
         </h1>
@@ -80,7 +80,7 @@ const ProfilePage = () => {
         <div className="text-right">
           <button
             onClick={() => setIsEditable((prev) => !prev)}
-            className="bg-red-500 text-white py-2 px-4 rounded mb-4"
+            className="bg-green-500 text-white py-2 px-4 rounded mb-4"
           >
             {isEditable ? "Cancel" : "Edit"}
           </button>

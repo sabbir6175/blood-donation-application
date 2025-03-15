@@ -157,7 +157,7 @@ const Dashboard = () => {
       )}
 
       <Link to="/dashboard/my-donation-requests">
-        <button className="mt-6 bg-gradient-to-r from-red-400 to-green-100 font-bold py-2 px-4 rounded">
+        <button className="mt-6 bg-green-300 font-bold py-2 px-4 rounded">
           View My All Requests
         </button>
       </Link>

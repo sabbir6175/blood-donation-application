@@ -132,12 +132,12 @@ const Dashboard = () => {
 
   return (
     <div className="flex">
-      <div className=" flex flex-row md:flex-col text-white  md:w-64 md:min-h-screen bg-gradient-to-r from-red-400 to-green-100">
-        <ul className="menu w-full md:w-64  bg-gradient-to-r from-red-400 to-green-100  md:min-h-screen fixed top-0 z-50 rounded-sm ">
+      <div className=" flex flex-row md:flex-col text-black  md:w-64 md:min-h-screen bg-gradient-to-t from-green-300 to-green-100">
+        <ul className="menu w-full md:w-64  bg-gradient-to-r from-green-300 to-green-100  md:min-h-screen fixed top-0 z-50 rounded-sm ">
           {isAdmin?.admin === true && (
             <>
               <div className="flex justify-between place-items-center w-full sticky top-0 z-50 ">
-                <div className="w-1/2 text-xl font-semibold text-center text-white md:mb-10">
+                <div className="w-1/2 text-xl font-semibold text-center text-black md:mb-10">
                   <h1 className="">Admin Dashboard</h1>
                 </div>
                 <div className="drawer w-1/2 text-end mr-5 block md:hidden ">
@@ -158,7 +158,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-400 to-green-100  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-green-300 to-green-100  min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkAdmin}
                     </ul>
@@ -173,7 +173,7 @@ const Dashboard = () => {
           {isAdmin?.volunteer === true && (
             <>
               <div className="flex justify-between place-items-center w-full sticky top-0 z-50 ">
-                <div className="w-1/2 text-xl font-semibold text-center text-white md:mb-10">
+                <div className="w-1/2 text-xl font-semibold text-center text-black md:mb-10">
                   <h1 className="">Volunteer Dashboard</h1>
                 </div>
                 <div className="drawer w-1/2 text-end mr-5 block md:hidden ">
@@ -194,7 +194,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-400 to-green-100  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-green-300 to-green-100  min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkVolunteer}
                     </ul>
@@ -207,7 +207,7 @@ const Dashboard = () => {
           {isAdmin?.donor === true && (
             <>
               <div className="flex justify-between place-items-center w-full sticky top-0 z-50 ">
-                <div className="w-1/2 text-xl font-semibold text-center text-white md:mb-10">
+                <div className="w-1/2 text-xl font-semibold text-center text-black md:mb-10">
                   <h1 className="">Donor Dashboard</h1>
                 </div>
                 <div className="drawer w-1/2 text-end mr-5 block md:hidden ">
@@ -228,7 +228,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-white bg-gradient-to-r from-red-400 to-green-100  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-green-300 to-green-100  min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkDonor}
                     </ul>
@@ -242,7 +242,7 @@ const Dashboard = () => {
       </div>
 
       <div className="flex-1 md:flex-0 w-full md:w-0">
-        <div className="hidden md:block bg-gradient-to-r from-red-400 to-green-100 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center">
+        <div className="hidden bg-gradient-to-r from-green-300 to-green-100 w-full py-4 text-3xl sticky top-0 z-50 font-bold text-white text-center">
           Dashboard
         </div>
         <div className="container mx-auto p-0 md:p-4 mt-20 md:mt-0 lg:p-8">

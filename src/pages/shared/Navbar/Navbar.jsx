@@ -53,8 +53,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-green-50  text-black sticky top-0  bg-opacity-80 backdrop-blur-md z-10">
-       <div className="navbar   md:px-10 text-black sticky top-0  bg-opacity-80 backdrop-blur-md ">
+    <div className="bg-gradient-to-r from-green-300 to-green-100  text-black fixed w-full  top-0  bg-opacity-80 backdrop-blur-md z-20">
+       <div className="navbar   md:px-10 text-black ">
       <div className="navbar-start ">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost  lg:hidden">
@@ -75,7 +75,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content -ml-5  bg-gradient-to-r from-red-400 to-green-100 text-white rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
+            className="menu menu-sm dropdown-content -ml-5  bg-gradient-to-r from-green-400 to-green-50 text-black rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
           >
             {links}
           </ul>
@@ -105,7 +105,7 @@ const Navbar = () => {
               </button>
               <ul
                 tabIndex={0}
-                className="dropdown-content -ml-28 bg-gradient-to-r from-red-400 to-green-100 text-white menu menu-compact  rounded-box w-44 shadow-lg mt-2"
+                className="dropdown-content -ml-28 bg-gradient-to-r from-green-300 to-green-100 text-black menu menu-compact  rounded-box w-44 shadow-lg mt-2"
               >
                 {/* {isAdmin?.admin ? (
                   <li>
@@ -146,7 +146,7 @@ const Navbar = () => {
         ) : (
           <Link
             to="/SignIn"
-            className="btn btn-sm lg:btn-md text-black bg-red-200 outline-none "
+            className="btn btn-sm lg:btn-md text-black bg-gradient-to-r from-green-300 bg-green-200 outline-none "
           >
             SignIn
           </Link>

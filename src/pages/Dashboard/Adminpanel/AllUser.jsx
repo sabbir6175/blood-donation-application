@@ -167,7 +167,7 @@ const AllUser = () => {
                 <td>
                   <div className="dropdown">
                     <div className="flex gap-5">
-                      <button className="btn btn-sm bg-orange-600">
+                      <button className="btn btn-sm bg-green-400">
                         <HiDotsVertical></HiDotsVertical>
                       </button>
                       <button

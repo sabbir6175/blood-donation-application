@@ -120,7 +120,7 @@ const AddBlog = () => {
 
         {loading && <p>Uploading image...</p>}
         
-        <button type="submit" className="btn w-full text-white btn-wide bg-gradient-to-tl from-green-400 to-red-500">
+        <button type="submit" className="btn w-full text-black bg-gradient-to-r from-green-300 to-green-300">
           Create Blog
         </button>
       </form>

@@ -43,7 +43,7 @@ const Card = () => {
           alt=""
         />
         
-        <span className="max-w-3xl mx-auto text-center flex justify-center">A blood request is a lifesaving appeal for patients in urgent need of blood. Your donation can make a critical difference.</span>
+        <span className="md:max-w-3xl mx-auto text-center flex justify-center">A blood request is a lifesaving appeal for patients in urgent need of blood. Your donation can make a critical difference.</span>
       </div>
 
       <div className=" mt-4 p-4 mx-auto rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

@@ -24,7 +24,7 @@ const Gallery = () => {
           alt=""
         />
         
-        <span className="max-w-3xl mx-auto text-center flex justify-center">our prestigious voluntary work on campaigns by the team</span>
+        <span className="md:max-w-3xl mx-auto text-center flex justify-center">our prestigious voluntary work on campaigns by the team</span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-10 px-10 md:px-20 ">
             {images.map((image, index) => (

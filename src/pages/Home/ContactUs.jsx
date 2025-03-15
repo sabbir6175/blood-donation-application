@@ -12,7 +12,7 @@ const ContactUs = () => {
           src="https://i.ibb.co.com/RkDvFz6n/separator.webp"
           alt=""
         />
-        <p className=" mb-10 max-w-2xl mx-auto font-normal text-base text-opacity-60 text-gray-600">
+        <p className=" mb-10 md:max-w-2xl mx-auto font-normal text-base text-opacity-60 text-gray-600">
           Have any questions or need more information about blood donation?
           Reach out to us through the form below or give us a call.
         </p>

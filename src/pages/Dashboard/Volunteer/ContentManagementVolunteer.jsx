@@ -60,20 +60,25 @@ const ContentManagement = () => {
 
   return (
     <div className="p-4">
-      <div className="mb-4">
-        <Link to="/dashboard/content-management/add-blog" className="btn bg-green-500">
-          Add Blog
-        </Link>
-      </div>
+      <div className="flex justify-between">
+        <div className="mb-4">
+          <Link
+            to="/dashboard/content-management/add-blog"
+            className="btn px-4 md:px-8  font-semibold  bg-red-400 text-white"
+          >
+            Add Blog
+          </Link>
+        </div>
 
-      <select
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-        className="select select-bordered mb-4"
-      >
-        <option value="draft">Draft</option>
-        <option value="published">Published</option>
-      </select>
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="select select-bordered mb-4"
+        >
+          <option value="draft">Draft</option>
+          <option value="published">Published</option>
+        </select>
+      </div>
 
       <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-5">
         {blogs.map((blog) => (

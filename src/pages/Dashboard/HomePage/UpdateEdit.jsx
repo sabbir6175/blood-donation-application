@@ -54,9 +54,9 @@ const UpdateEdit = () => {
   };
 
   return (
-    <div className="container mx-auto bg-slate-50 p-4">
-      <h1 className="text-3xl font-bold text-center flex gap-3 max-w-2xl mx-auto  items-center   mb-6"><FaArrowRight /> Update Donation Request ({bloodGroup}) </h1>
-      <form onSubmit={handleUpdated} className="space-y-4 shadow-2xl rounded-md border-2 p-4 max-w-2xl mx-auto">
+    <div className="container mx-auto  p-4">
+      <h1 className="text-3xl font-bold text-center flex gap-3 md:max-w-2xl mx-auto  items-center   mb-6"><FaArrowRight /> Update Donation Request ({bloodGroup}) </h1>
+      <form onSubmit={handleUpdated} className="space-y-4 rounded-md border p-4 md:max-w-2xl mx-auto">
         <div>
           <label className="block font-medium">Requester Name : </label>
           <input

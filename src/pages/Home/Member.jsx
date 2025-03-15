@@ -18,7 +18,7 @@ const Member = () => {
           alt=""
         />
         
-        <span className="max-w-3xl mx-auto text-center flex justify-center">The volunteers who give their time and talents help to fulfill our mission.</span>
+        <span className="md:max-w-3xl mx-auto text-center flex justify-center">The volunteers who give their time and talents help to fulfill our mission.</span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-20 px-10 lg:px-20">
         <div className="w-full sm:w-[80%] lg:w-full rounded-md relative group shadow overflow-hidden">
