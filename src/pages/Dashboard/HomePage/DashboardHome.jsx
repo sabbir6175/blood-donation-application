@@ -94,7 +94,7 @@ const Dashboard = () => {
        <div className="overflow-x-auto">
            <table className="bg-white shadow-md rounded-lg table table-xs table-pin-rows">
           <thead className="bg-green-300">
-            <tr>
+            <tr className="bg-gradient-to-r from-red-200 to-green-100 ">
               <th className="text-center text-black text-sm font-bold py-2">No</th>
               <th className="text-center text-black text-sm font-bold py-2">Recipient Name</th>
               <th className="text-center text-black text-sm font-bold py-2">Location</th>

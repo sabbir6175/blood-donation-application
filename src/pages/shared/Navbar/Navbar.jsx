@@ -53,7 +53,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-green-300 to-green-100  text-black fixed w-full  top-0  bg-opacity-80 backdrop-blur-md z-20">
+    <div className="bg-gradient-to-r from-red-200 to-green-100  text-black fixed w-full  top-0  bg-opacity-80 backdrop-blur-md z-20">
        <div className="navbar    text-black ">
       <div className="navbar-start ">
         <div className="dropdown">

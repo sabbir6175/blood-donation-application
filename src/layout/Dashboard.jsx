@@ -133,7 +133,7 @@ const Dashboard = () => {
   return (
     <div className="flex">
       <div className=" flex flex-row md:flex-col text-black  md:w-64 md:min-h-screen bg-gradient-to-t from-green-300 to-green-100">
-        <ul className="menu w-full md:w-64  bg-gradient-to-r from-green-300 to-green-100  md:min-h-screen fixed top-0 z-50 rounded-sm ">
+        <ul className="menu w-full md:w-64  bg-gradient-to-r from-red-200 to-green-100  md:min-h-screen fixed top-0 z-50 rounded-sm ">
           {isAdmin?.admin === true && (
             <>
               <div className="flex justify-between place-items-center w-full sticky top-0 z-50 ">

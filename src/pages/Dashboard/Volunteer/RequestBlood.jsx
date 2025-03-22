@@ -64,7 +64,7 @@ const RequestBlood = () => {
       <div className="overflow-x-auto p-4">
         <table className="table table-xs table-pin-rows border-gray-300">
           <thead className="bg-gray-100 text-center ">
-            <tr>
+            <tr className="bg-gradient-to-r from-red-200 to-green-100 ">
               <th className="py-2 font-semibold text-gray-700 border-b">No</th>
               <th className="py-2 font-semibold text-gray-700 border-b">Recipient Name</th>
               <th className="py-2 font-semibold text-gray-700 border-b">Location</th>

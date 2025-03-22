@@ -97,7 +97,7 @@ const ContentManagement = () => {
         <div className="mb-4">
           <Link
             to="/dashboard/content-management/add-blog"
-            className="btn px-4 md:px-8  font-semibold  bg-red-400 text-white"
+            className="btn px-4 md:px-8  font-semibold  bg-green-200  "
           >
             Add Blog
           </Link>

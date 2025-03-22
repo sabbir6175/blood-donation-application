@@ -141,13 +141,13 @@ const AllUser = () => {
       <div className="overflow-x-auto">
         <table className="table table-xs table-pin-rows w-full">
           <thead className=" text-base md:text-lg  text-black ">
-            <tr className="">
-              <th className="bg-green-200 rounded-sm py-2">Photo</th>
-              <th className="bg-green-200 rounded-sm py-2">Email</th>
-              <th className="bg-green-200 rounded-sm py-2">Name</th>
-              <th className="bg-green-200 rounded-sm py-2">Role</th>
-              <th className="bg-green-200 rounded-sm py-2">Status</th>
-              <th className="bg-green-200 rounded-sm py-2">Actions</th>
+            <tr className=" bg-gradient-to-r from-red-200 to-green-100 ">
+              <th className=" rounded-sm py-2">Photo</th>
+              <th className=" rounded-sm py-2">Email</th>
+              <th className=" rounded-sm py-2">Name</th>
+              <th className=" rounded-sm py-2">Role</th>
+              <th className=" rounded-sm py-2">Status</th>
+              <th className=" rounded-sm py-2">Actions</th>
             </tr>
           </thead>
           <tbody>

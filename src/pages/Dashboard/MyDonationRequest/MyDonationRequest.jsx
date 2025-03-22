@@ -100,14 +100,14 @@ const MyDonationRequest = () => {
           <div className="overflow-x-auto">
             <table className=" bg-white shadow-md rounded-lg table table-xs table-pin-rows">
               <thead className="bg-green-300">
-                <tr>
-                  <th className="px-6 bg-green-300 py-3 text-center">No</th>
-                  <th className="px-6 bg-green-300 py-3 text-center">Recipient Name</th>
-                  <th className="px-6 bg-green-300 py-3 text-center">Location</th>
-                  <th className="px-6 bg-green-300 py-3 text-center">Date</th>
-                  <th className="px-6 bg-green-300 py-3 text-center">Group</th>
-                  <th className="px-6 bg-green-300 py-3 text-center">Status</th>
-                  <th className="px-6 bg-green-300 py-3 text-center">Action</th>
+                <tr className="bg-gradient-to-r from-red-200 to-green-100 ">
+                  <th className="px-6  py-3 text-center">No</th>
+                  <th className="px-6  py-3 text-center">Recipient Name</th>
+                  <th className="px-6  py-3 text-center">Location</th>
+                  <th className="px-6  py-3 text-center">Date</th>
+                  <th className="px-6  py-3 text-center">Group</th>
+                  <th className="px-6  py-3 text-center">Status</th>
+                  <th className="px-6  py-3 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>

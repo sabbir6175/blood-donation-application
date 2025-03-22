@@ -39,7 +39,7 @@ const DonationRequest = () => {
             <>
               <div className="overflow-x-auto  pt-6">
                 <table className="table table-xs">
-                  <thead className="bg-green-200 text-black font-bold text-base rounded-sm">
+                  <thead className="bg-gradient-to-r from-red-200 to-green-100  text-black font-bold text-base rounded-sm">
                     <tr className="">
                       <th>No</th>
                       <th>Name</th>

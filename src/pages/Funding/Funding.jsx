@@ -91,7 +91,7 @@ const FundingPage = () => {
       {/* Displaying Funding Table */}
       {/* {funds.length > 0 ? ( */}
         <table className="min-w-full bg-white shadow-2xl rounded-lg overflow-hidden">
-          <thead className="bg-green-200">
+          <thead className="bg-gradient-to-r from-red-200 to-green-100 ">
             <tr>
               <th className="text-center text-black text-sm font-bold py-2">No</th>
               <th className="text-center text-black text-sm font-bold py-2">User Name</th>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div>
-      <div className="flex flex-col lg:flex-row gap-5 justify-between bg-green-100 text-black  p-10">
+      <div className="flex flex-col lg:flex-row gap-5 justify-between bg-gradient-to-r from-green-200 to-red-100  text-black  p-10">
         <div>
           <h1 className="font-bold text-black text-2xl md:text-3xl lg:text-4xl mb-5">Blood Donation</h1>
 
