@@ -9,7 +9,7 @@ const Process = () => {
         src="https://i.ibb.co.com/RkDvFz6n/separator.webp"
         alt=""
       />
-      <p className="text-base font-normal">
+      <p className="text-base font-normal px-10">
         The donation process from the time you arrive center until the time you
         leave
       </p>

@@ -5,7 +5,7 @@ const Featured = () => {
       <div className="w-full py-20 text-black ">
         <div className="container mx-auto text-center">
           <h2 className="text-2xl md:text-4xl  mb-5 text-[#000000] uppercase font-bold">Why Blood Donation Matters?</h2>
-          <p className=" mb-10 md:max-w-3xl mx-auto font-normal text-base text-opacity-80 text-gray-500">
+          <p className=" mb-10 md:max-w-3xl mx-auto font-normal text-base text-opacity-80 text-gray-500 px-10">
             Every two seconds, someone in the world needs blood. By donating blood, you can help save lives. Blood donations are essential for patients undergoing surgery, cancer treatments, or trauma care. Be a hero—donate blood today and make a difference!
           </p>
           

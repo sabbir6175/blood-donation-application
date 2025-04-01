@@ -18,21 +18,21 @@ const Member = () => {
           alt=""
         />
         
-        <span className="md:max-w-3xl mx-auto text-center flex justify-center">The volunteers who give their time and talents help to fulfill our mission.</span>
+        <span className="md:max-w-3xl mx-auto text-center flex justify-center px-10">The volunteers who give their time and talents help to fulfill our mission.</span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-20 px-10 lg:px-20">
-        <div className="w-full sm:w-[80%] lg:w-full rounded-md relative group shadow overflow-hidden">
+        <div className="w-full   rounded-md relative group shadow overflow-hidden">
           {/*  image  */}
           <img
-            src="https://i.ibb.co.com/77Q5fKw/team-7.webp"
+            src="https://innovativeartisan.com/demo/html/blad-ai/assets/images/t1.jpg"
             alt="animated_cards"
-            className="w-full h-[350px] object-fill bg-cover"
+            className="w-full  object-fill bg-cover"
           />
 
           {/*  texts  */}
           <div className="flex flex-col items-center justify-center backdrop-blur-md text-black absolute bottom-0 w-full pt-[15px] pb-[30px] translate-y-[200px] group-hover:translate-y-0 transition-all duration-[400ms] overflow-hidden">
             <h3 className="text-[1.7rem] translate-y-[-50px] group-hover:translate-y-0 transition-all duration-700 font-bold tracking-[5px] leading-[30px] opacity-0 group-hover:opacity-100">
-              JOHN ABRAHAM
+            Nora Khaypeia
             </h3>
             <p className="text-[1rem] translate-y-[100px] group-hover:translate-y-0 transition-all duration-500 opacity-0 group-hover:opacity-100">
               Manager
@@ -53,18 +53,18 @@ const Member = () => {
           </div>
         </div>
         {/* card 2 */}
-        <div className="w-full sm:w-[80%] lg:w-full rounded-md relative shadow group overflow-hidden">
+        <div className="w-full   rounded-md relative shadow group overflow-hidden">
           {/*  image  */}
           <img
-            src="https://i.ibb.co.com/V0hV2Zgy/team-6.webp"
+            src="https://innovativeartisan.com/demo/html/blad-ai/assets/images/t2.jpg"
             alt="animated_cards"
-            className="w-full h-[350px] object-fill bg-cover"
+            className="w-full  object-fill bg-cover"
           />
 
           {/*  texts  */}
           <div className="flex flex-col items-center justify-center backdrop-blur-md text-black absolute bottom-0 w-full pt-[15px] pb-[30px] translate-y-[200px] group-hover:translate-y-0 transition-all duration-[400ms] overflow-hidden">
             <h3 className="text-[1.7rem] translate-y-[-50px] group-hover:translate-y-0 transition-all duration-700 font-bold tracking-[5px] leading-[30px] opacity-0 group-hover:opacity-100">
-              MELISSA MUNOZ
+            Alex Joshan Deo
             </h3>
             <p className="text-[1rem] translate-y-[100px] group-hover:translate-y-0 transition-all duration-500 opacity-0 group-hover:opacity-100">
               Founder
@@ -85,18 +85,18 @@ const Member = () => {
           </div>
         </div>
         {/* card 3 */}
-        <div className="w-full sm:w-[80%] lg:w-full rounded-md relative shadow group overflow-hidden">
+        <div className="w-full rounded-md relative shadow group overflow-hidden">
           {/*  image  */}
           <img
-            src="https://i.ibb.co.com/tMKdb2yG/team-9.webp"
+            src="https://innovativeartisan.com/demo/html/blad-ai/assets/images/t3.jpg"
             alt="animated_cards"
-            className="w-full h-[350px] object-fill bg-cover"
+            className="w-full  object-fill bg-cover"
           />
 
           {/*  texts  */}
           <div className="flex flex-col items-center justify-center backdrop-blur-md text-black absolute bottom-0 w-full pt-[15px] pb-[30px] translate-y-[200px] group-hover:translate-y-0 transition-all duration-[400ms] overflow-hidden">
             <h3 className="text-[1.7rem] translate-y-[-50px] group-hover:translate-y-0 transition-all duration-700 font-bold tracking-[5px] leading-[30px] opacity-0 group-hover:opacity-100">
-              ALEXANDER GARY
+            Joshan Khaypeia
             </h3>
             <p className="text-[1rem] translate-y-[100px] group-hover:translate-y-0 transition-all duration-500 opacity-0 group-hover:opacity-100">
               Co-Founder
