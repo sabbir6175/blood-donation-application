@@ -18,7 +18,7 @@ const ContactUs = () => {
         </p>
 
         {/* Contact Form */}
-        <div className="bg-slate-200 border-2 bg-opacity-20 backdrop-blur-3xl md:w-10/12 md:mx-auto p-8 rounded-xl shadow-lg">
+        <div className=" border-2 bg-opacity-20 backdrop-blur-3xl md:w-10/12 md:mx-auto p-8 rounded-xl shadow-lg">
           <h3 className="text-2xl font-semibold mb-6">Contact Form</h3>
           <form>
             <div className="mb-4">

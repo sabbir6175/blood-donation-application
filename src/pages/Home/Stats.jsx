@@ -34,7 +34,7 @@ const Stats = () => {
   return (
     <>
       <div className="my-16">
-        <h1 className="text-2xl md:text-4xl text-[#000000] font-bold text-center ">
+        <h1 className="text-2xl md:text-4xl uppercase text-[#000000] font-bold text-center ">
           Successfully
         </h1>
         <img

@@ -54,60 +54,64 @@ const Navbar = () => {
 
   return (
     <div className="bg-gradient-to-r from-red-200 to-green-100  text-black fixed w-full  top-0  bg-opacity-80 backdrop-blur-md z-20">
-       <div className="navbar    text-black ">
-      <div className="navbar-start ">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost  lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+      <div className="navbar md:px-10   text-black ">
+        <div className="navbar-start ">
+          <div className="dropdown">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost  lg:hidden"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content -ml-5  bg-gradient-to-r from-green-400 to-green-50 text-black rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
-          >
-            {links}
-          </ul>
-        </div>
-        <div className="flex items-center gap-4">
-          <img
-            src="https://i.ibb.co.com/vCVdBSj0/logo.webp"
-            className=""
-            alt="Logo"
-          />
-        </div>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1  ">{links}</ul>
-      </div>
-      <div className="navbar-end">
-        <h1 className="mr-2">{user?.displayName}</h1>
-        {user ? (
-          <li className="list-none">
-            <div className="dropdown">
-              <button tabIndex={0} className=" mr-5">
-                <img
-                  src={user?.photoURL}
-                  className="w-10 h-10  rounded-full"
-                  alt="User photoURL"
-                />
-              </button>
-              <ul
-                tabIndex={0}
-                className="dropdown-content -ml-28 bg-gradient-to-r from-green-300 to-green-100 text-black menu menu-compact  rounded-box w-44 shadow-lg mt-2"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                {/* {isAdmin?.admin ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content -ml-5  bg-gradient-to-r from-green-400 to-green-50 text-black rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
+            >
+              {links}
+            </ul>
+          </div>
+          <div className="flex items-center gap-4">
+            <img
+              src="https://i.ibb.co.com/vCVdBSj0/logo.webp"
+              className=""
+              alt="Logo"
+            />
+          </div>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1  ">{links}</ul>
+        </div>
+        <div className="navbar-end">
+          <h1 className="mr-2">{user?.displayName}</h1>
+          {user ? (
+            <li className="list-none">
+              <div className="dropdown">
+                <button tabIndex={0} className=" mr-5">
+                  <img
+                    src={user?.photoURL}
+                    className="w-10 h-10  rounded-full"
+                    alt="User photoURL"
+                  />
+                </button>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content -ml-28 bg-gradient-to-r from-green-300 to-green-100 text-black menu menu-compact  rounded-box w-44 shadow-lg mt-2"
+                >
+                  {/* {isAdmin?.admin ? (
                   <li>
                     <Link to="/dashboard/admin">
                       <RiDashboardFill></RiDashboardFill> Dashboard
@@ -128,33 +132,32 @@ const Navbar = () => {
                     </Link>
                   </li>
                 )} */}
-                <li>
-                  <Link to="/dashboard">
-                    {" "}
-                    <RiDashboardFill></RiDashboardFill> Dashboard
-                  </Link>
-                </li>
+                  <li>
+                    <Link to="/dashboard">
+                      {" "}
+                      <RiDashboardFill></RiDashboardFill> Dashboard
+                    </Link>
+                  </li>
 
-                <li>
-                  <button onClick={handleSingOut}>
-                    <CgLogOut className="-rotate-180"></CgLogOut> Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </li>
-        ) : (
-          <Link
-            to="/SignIn"
-            className="btn btn-sm md:btn-md text-black bg-gradient-to-r from-green-300 bg-green-200 outline-none "
-          >
-            SignIn
-          </Link>
-        )}
+                  <li>
+                    <button onClick={handleSingOut}>
+                      <CgLogOut className="-rotate-180"></CgLogOut> Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          ) : (
+            <Link
+              to="/SignIn"
+              className="btn btn-sm md:btn-md text-black bg-gradient-to-r from-green-300 bg-green-200 outline-none "
+            >
+              SignIn
+            </Link>
+          )}
+        </div>
       </div>
     </div>
-    </div>
- 
   );
 };
 

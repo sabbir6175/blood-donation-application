@@ -2,11 +2,11 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="my-20  md:px-20">
-      <div className="w-full relative bg-white boxShadow rounded-xl flex sm:flex-row flex-col gap-5 md:gap-7 lg:gap-10 justify-center items-center  p-4">
-        <div className="w-full md:w-1/2 h-full lg:h-[400px]">
+    <div className="my-20  lg:px-20">
+      <div className=" relative bg-white boxShadow rounded-xl flex sm:flex-row flex-col gap-5 md:gap-7 lg:gap-10 justify-center items-center  p-4">
+        <div className="w-full md:w-1/2 h-full md:h-[350px] lg:h-[300px]">
           <img
-            src="https://img.freepik.com/free-photo/close-up-portrait-handsome-young-hipster-man-hazel-eyes-wearing-trendy-plaid-shirt-posing-near-city-cafe_291049-1495.jpg?t=st=1722616951~exp=1722620551~hmac=88c27af52ea53d69a3f15a046cd8f7fe8c8036a5c733e1e1449b78bc68aeef24&w=360"
+            src="https://blood-center.sites.motocms.com/res/671f4ec30e234dbaa78e9a5f/671f6586e8a69d1d9a534b82_optimized_1479_c1479x878-0x0.webp"
             alt="image"
             className="  h-full  object-fill bg-cover rounded-sm bg-no-repeat w-full"
           />
