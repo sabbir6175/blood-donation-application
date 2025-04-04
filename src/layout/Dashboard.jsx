@@ -158,7 +158,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-green-300 to-green-100  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-red-200 to-green-100   min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkAdmin}
                     </ul>
@@ -194,7 +194,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-green-300 to-green-100  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-red-200 to-green-100   min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkVolunteer}
                     </ul>
@@ -228,7 +228,7 @@ const Dashboard = () => {
                       aria-label="close sidebar"
                       className="drawer-overlay"
                     ></label>
-                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-green-300 to-green-100  min-h-full  p-4">
+                    <ul className="menu bg-base-200 text-black bg-gradient-to-r from-red-200 to-green-100   min-h-full  p-4">
                       {/* Sidebar content here */}
                       {linkDonor}
                     </ul>

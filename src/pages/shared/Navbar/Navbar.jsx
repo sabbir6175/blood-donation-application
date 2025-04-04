@@ -26,6 +26,9 @@ const Navbar = () => {
       <li className="hover:text-green-300">
         <Link to="/blogs">Blog</Link>
       </li>
+      <li className="hover:text-green-300">
+        <Link to="/faq">FAQ</Link>
+      </li>
       {user && (
         <>
           <li className="hover:text-green-300">
@@ -79,7 +82,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content -ml-5  bg-gradient-to-r from-green-400 to-green-50 text-black rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
+              className="menu menu-sm dropdown-content -ml-5 bg-gradient-to-r from-red-200 to-green-100 text-black rounded-sm  z-[1] mt-2 w-52 p-2 shadow-2xl"
             >
               {links}
             </ul>
@@ -109,7 +112,7 @@ const Navbar = () => {
                 </button>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content -ml-28 bg-gradient-to-r from-green-300 to-green-100 text-black menu menu-compact  rounded-box w-44 shadow-lg mt-2"
+                  className="dropdown-content -ml-28 bg-gradient-to-r from-red-200 to-green-100  text-black menu menu-compact  rounded-box w-44 shadow-lg mt-2"
                 >
                   {/* {isAdmin?.admin ? (
                   <li>
@@ -133,7 +136,7 @@ const Navbar = () => {
                   </li>
                 )} */}
                   <li>
-                    <Link to="/dashboard">
+                    <Link to="/dashboard/profile">
                       {" "}
                       <RiDashboardFill></RiDashboardFill> Dashboard
                     </Link>

@@ -26,6 +26,7 @@ import RequestBlood from "../pages/Dashboard/Volunteer/RequestBlood";
 import ContentManagementVolunteer from "../pages/Dashboard/Volunteer/ContentManagementVolunteer";
 import Funding from "../pages/Funding/Funding";
 import VolunteerHome from "../pages/Dashboard/Volunteer/VolunteerHome";
+import FAQ from "../pages/FAQ/FAQ";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: '/blogs',
         element: <Blogs></Blogs>
+      },
+      {
+        path: '/faq',
+        element: <FAQ></FAQ>
       },
       {
         path: '/blogs/:id',

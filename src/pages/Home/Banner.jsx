@@ -24,11 +24,11 @@ const Banner = () => {
         }}
         navigation={true}
         modules={[Pagination, Navigation]}
-        className="mySwiper"
+        className="mySwiper "
       >
         <SwiperSlide>
           <motion.div
-            className="relative w-full h-[400px] md:h-[600px]"
+            className="relative w-full h-[400px] md:h-[600px] "
             initial={{ opacity: 0, y: 50 }}  // Initial position and opacity
             animate={{ opacity: 1, y: 0 }}   // Final position and opacity
             transition={{ duration: 1 }}     // Duration of the animation
@@ -47,23 +47,21 @@ const Banner = () => {
               <div className="flex flex-col md:flex-row gap-5">
                 {!user && (
                   <Link to="/SignUp">
-                    <motion.button
-                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-green-600 text-white rounded-full hover:bg-white hover:text-black"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
+                    <button
+                      className="mt-5 rounded-2xl py-2 md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300"
+                      
                     >
                       Join as a donor
-                    </motion.button>
+                    </button>
                   </Link>
                 )}
                 <Link to="/Search">
-                  <motion.button
-                    className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-black rounded-full hover:bg-red-400 hover:text-white"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                  <button
+                    className="mt-5 py-2 rounded-2xl md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300 "
+                   
                   >
                     Search Donors
-                  </motion.button>
+                  </button>
                 </Link>
               </div>
             </div>
@@ -82,19 +80,21 @@ const Banner = () => {
                 save lives and support medical treatments.
               </h1>
               <div className="flex flex-col md:flex-row gap-5">
-              {!user && (
+                {!user && (
                   <Link to="/SignUp">
-                    <motion.button
-                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
+                    <button
+                      className="mt-5 rounded-2xl py-2 md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300"
+                      
                     >
                       Join as a donor
-                    </motion.button>
+                    </button>
                   </Link>
                 )}
                 <Link to="/Search">
-                  <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
+                  <button
+                    className="mt-5 py-2 rounded-2xl md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300 "
+                   
+                  >
                     Search Donors
                   </button>
                 </Link>
@@ -115,19 +115,21 @@ const Banner = () => {
                 save lives and support medical treatments.
               </h1>
               <div className="flex flex-col md:flex-row gap-5">
-              {!user && (
+                {!user && (
                   <Link to="/SignUp">
-                    <motion.button
-                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
+                    <button
+                      className="mt-5 rounded-2xl py-2 md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300"
+                      
                     >
                       Join as a donor
-                    </motion.button>
+                    </button>
                   </Link>
                 )}
                 <Link to="/Search">
-                  <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
+                  <button
+                    className="mt-5 py-2 rounded-2xl md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300 "
+                   
+                  >
                     Search Donors
                   </button>
                 </Link>
@@ -148,19 +150,21 @@ const Banner = () => {
                 save lives and support medical treatments.
               </h1>
               <div className="flex flex-col md:flex-row gap-5">
-              {!user && (
+                {!user && (
                   <Link to="/SignUp">
-                    <motion.button
-                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
+                    <button
+                      className="mt-5 rounded-2xl py-2 md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300"
+                      
                     >
                       Join as a donor
-                    </motion.button>
+                    </button>
                   </Link>
                 )}
                 <Link to="/Search">
-                  <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
+                  <button
+                    className="mt-5 py-2 rounded-2xl md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300 "
+                   
+                  >
                     Search Donors
                   </button>
                 </Link>
@@ -181,19 +185,21 @@ const Banner = () => {
                 save lives and support medical treatments.
               </h1>
               <div className="flex flex-col md:flex-row gap-5">
-              {!user && (
+                {!user && (
                   <Link to="/SignUp">
-                    <motion.button
-                      className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-red-600 text-white rounded-full hover:bg-white hover:text-red-500"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
+                    <button
+                      className="mt-5 rounded-2xl py-2 md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300"
+                      
                     >
                       Join as a donor
-                    </motion.button>
+                    </button>
                   </Link>
                 )}
                 <Link to="/Search">
-                  <button className="mt-5 py-2 md:py-3 px-3 md:px-8 bg-white text-red-500 rounded-full hover:bg-red-600 hover:text-white">
+                  <button
+                    className="mt-5 py-2 rounded-2xl md:py-3 px-3 md:px-8 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300 "
+                   
+                  >
                     Search Donors
                   </button>
                 </Link>

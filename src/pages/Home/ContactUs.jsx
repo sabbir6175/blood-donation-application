@@ -42,7 +42,7 @@ const ContactUs = () => {
                 className="w-full p-3 rounded-md border border-gray-300"
               ></textarea>
             </div>
-            <button className="py-3 px-6 bg-green-300 text-black font-bold rounded-md  ">
+            <button className="py-3 px-6 bg-gradient-to-r from-red-200 to-green-100 border-transparent hover:bg-gradient-to-r hover:from-green-100 hover:to-red-200 transition-all duration-300 text-black font-bold rounded-md  ">
               Send Message
             </button>
           </form>

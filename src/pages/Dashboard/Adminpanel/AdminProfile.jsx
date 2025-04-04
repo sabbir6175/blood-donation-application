@@ -82,7 +82,7 @@ const ProfilePage = () => {
             alt="Profile"
           />
         </div>
-        <div className="flex flex-col md:flex-row gap-2 justify-between mb-10 items-center ">
+        <div className="flex  flex-row md:flex-row gap-2 justify-between mb-10 items-center ">
          
           {/* Last Login Time */}
         <div className="text-center mt-4">
