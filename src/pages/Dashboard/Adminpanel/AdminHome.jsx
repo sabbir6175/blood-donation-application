@@ -9,8 +9,10 @@ const AdminHome = () => {
   // Context for user info
   const { user } = useContext(AuthContext);
   const [donationRequest, setDonationRequests] = useState([])
-
-  const totalFunding = "To do : Process"; // Total amount donated
+  const [funding, setFunding] = useState([])
+ const totalFunding = funding.reduce((total, fund) => total + parseFloat(fund.fundAmount || 0 ), 0);
+  console.log(totalFunding)
+  
 
   // Axios hook for public API calls
   const AxiosPublic = useAxiosPublic();
@@ -27,6 +29,16 @@ const AdminHome = () => {
   }, [AxiosPublic]);
   
   
+  const { data } = useQuery({
+    queryKey: ["fund"],
+    queryFn: async () => {
+      const res = await AxiosSecure.get("/funds");
+      setFunding(res.data.funds)
+      return res.data;
+    },
+  })
+  // const funds = data?.funds || [];
+  // console.log(funds)
 
   // Fetching users with TanStack Query
   const { data: userData, error: userError, isLoading: userLoading } = useQuery({
@@ -61,7 +73,7 @@ const AdminHome = () => {
       </div>
 
       {/* Featured Cards Section */}
-      <div className="grid sm:grid-cols-1 lg:grid-cols-2 shadow p-5 bg-slate-200 gap-6">
+      <div className="grid sm:grid-cols-1 lg:grid-cols-2 shadow p-5  gap-6">
         
         {/* Total Donors Card */}
         <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
@@ -103,7 +115,7 @@ const AdminHome = () => {
             <FaHandHoldingUsd className="text-3xl  text-green-500 mr-4" />
             <div>
               <h3 className="text-base md:text-xl font-bold">Total Funding</h3>
-              <p className="text-base font-bold">${totalFunding}</p>
+              <p className="text-base md:text-xl font-bold text-center">${totalFunding}</p>
             </div>
           </div>
         </div>

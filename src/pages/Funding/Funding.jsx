@@ -1,129 +1,88 @@
-import { useState, useEffect, useContext } from "react";
-import { toast } from "react-toastify";
-import StripeCheckout from "react-stripe-checkout"; // For Stripe integration
+import { useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import AuthContext from "../../AuthContext/AuthContext";
-import Pagination from "../../Hooks/Pagination";
- // Custom Pagination Component
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+// import Loading from "./Loading";
 
 const FundingPage = () => {
-  const { user } = useContext(AuthContext); // To get logged-in user's info
-  const [funds, setFunds] = useState([]); // List of funds
-  const [totalFunds, setTotalFunds] = useState(0); // Total funds raised
-  const [page, setPage] = useState(1); // Pagination page
-  const [fundAmount, setFundAmount] = useState(""); // Amount entered by user
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  // Fetch funds and total funds when the page is changed
-  // useEffect(() => {
-  //   axiosSecure.get(`/funds?page=${page}`)
-  //     .then((res) => {
-  //       setFunds(res.data.funds);
-  //       setTotalFunds(res.data.totalFunds);
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error fetching funds:", err);
-  //       toast.error("Error fetching funds", { top: "center" });
-  //     });
-  // }, [page]);
+  const { data } = useQuery({
+    queryKey: ["funds", currentPage],
+    queryFn: async () => {
+      const res = await axiosSecure(
+        `/funds?page=${currentPage}&limit=${itemsPerPage}`
+      );
+      return res.data;
+    },
+  });
 
-  const handleFundSubmit = (token) => {
-    // Handle the fund submission via Stripe token
-    const donationFunding = {
-      amount: fundAmount,
-      token: token.id,
-      userEmail: user.email,
-    }
-    console.log(donationFunding)
-    axiosSecure.post("/funding",donationFunding )
-      .then((res) => {
-        toast.success("Successfully donated!", { top: "center" });
-        setFundAmount(""); // Reset the input
-        setTotalFunds(prev => prev + parseFloat(fundAmount)); // Update total funds locally
-      })
-      .catch((err) => {
-        console.error("Error making payment:", err);
-        toast.error("Payment failed. Please try again.", { top: "center" });
-      });
-  };
-
-  const handleAmountChange = (e) => {
-    setFundAmount(e.target.value);
-  };
-
+  const funds = data?.funds || [];
+  const totalContributions = data?.totalContributions || 0;
+  const totalPages = Math.ceil(totalContributions / itemsPerPage);
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+//  console.log(funds)
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 uppercase text-center py-5">
-        Funding Page
-      </h1>
+    <div className="container mx-auto my-32">
+           
+            <div className="w-11/12 md:w-10/12 lg:w-8/12 mx-auto">
+               <div className="text-center mb-10">
+                  <h1 className="font-bold text-2xl md:text-3xl  mb-3 ">Funding</h1>
+                  <span className="text-base font-normal  text-center opacity-70">We need funding for our blood donation project to ensure timely access to blood in emergencies. <br /> Your contribution can play a vital role in saving lives.</span>
+               </div>
+                <div className="text-right">
+                  <Link
+                  to={"/give-fund"}
+                  >
+                     <button  className="btn bg-green-500 border-none text-white hover:bg-green-500 text-sm uppercase px-7">Give Fund</button>
+                  </Link>
+                   
+                </div>
 
-      {/* Give Fund Button */}
-      <div className="mb-6 flex justify-center">
-        <StripeCheckout
-          stripeKey={`${import.meta.env.VITE_YOUR_STRIPE_PUBLIC_KEY}`}
-          token={handleFundSubmit}
-          amount={fundAmount * 100} // Stripe expects amount in cents
-          name="Donate to the Organization"
-          description="Help us support our cause."
-        >
-          <button className="bg-green-600 text-white py-2 px-4 rounded">
-            Give Fund
-          </button>
-        </StripeCheckout>
-      </div>
+                <div className="overflow-x-scroll lg:overflow-hidden mt-5">
+                <table className="table-auto min-w-full border-collapse border border-green-400">
+                    <thead>
+                        <tr className="bg-gradient-to-r from-red-200 to-green-100  ">
+                            <th className={`px-4 py-2`}>Name</th>
+                            <th className={`px-4 py-2`}>Fund Amount</th>
+                            <th className={`px-4 py-2`}>TransactionId</th>
+                            <th className={`px-4 py-2`}>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {funds.map((fund) => (
+                            <tr key={fund._id} className="border border-green-400 font-nunito font-semibold">
+                                <td className={`px-4 py-2 text-center`}>{fund.name}</td>
+                                <td className={`px-4 py-2 text-center`}>${fund.fundAmount}</td>
+                                <td className={`px-4 py-2 text-center`}>{fund.transactionId}</td>
+                                <td className={`px-4 py-2 text-center`}>{new Date(fund.fundingDate).toLocaleString('en-Gb').slice(0, 10)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                
+                {pages.length > 0 ? (
+                    <div className="mt-20 flex justify-center space-x-2">
+                        {pages.map((page) => (
+                            <button
+                                key={page}
+                                onClick={() => setCurrentPage(page)}
+                                className={`px-3 py-1 border rounded transition text-base ${currentPage === page ? "bg-green-400 text-white font-medium" : "bg-font_tertiary hover:bg-green-400 hover:text-white"
+                                    }`}
+                            >
+                                {page}
+                            </button>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-center text-gray-500">No Pages Available</p>
+                )}
+            </div>
 
-      {/* Fund Amount Input */}
-      <div className="mb-6 flex justify-center">
-        <input
-          type="number"
-          className="border px-4 py-2 rounded"
-          placeholder="Enter amount"
-          value={fundAmount}
-          onChange={handleAmountChange}
-        />
-      </div>
-
-      {/* Display Total Funds */}
-      <div className="text-center mb-6 font-semibold text-xl">
-        <p>Total Funds : ${totalFunds}</p>
-      </div>
-
-      {/* Displaying Funding Table */}
-      {/* {funds.length > 0 ? ( */}
-        <table className="min-w-full bg-white shadow-2xl rounded-lg overflow-hidden">
-          <thead className="bg-gradient-to-r from-red-200 to-green-100 ">
-            <tr>
-              <th className="text-center text-black text-sm font-bold py-2">No</th>
-              <th className="text-center text-black text-sm font-bold py-2">User Name</th>
-              <th className="text-center text-black text-sm font-bold py-2">Amount</th>
-              <th className="text-center text-black text-sm font-bold py-2">Funding Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {funds.map((fund, index) => (
-              <tr key={fund._id} className="text-center">
-                <td className="py-4 text-sm text-gray-900">{index + 1}</td>
-                <td className="py-4 text-sm text-gray-900">{fund.userEmail}</td>
-                <td className="py-4 text-sm text-gray-900">${fund.amount}</td>
-                <td className="py-4 text-sm text-gray-900">
-                  {new Date(fund.date).toLocaleDateString()}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      {/* ) : (
-        <p>No funds available.</p>
-      )} */}
-
-      {/* Pagination Component */}
-      <Pagination
-        totalItems={totalFunds}
-        itemsPerPage={10}
-        currentPage={page}
-        onPageChange={(newPage) => setPage(newPage)} // Handle page change
-      />
-    </div>
+            </div>
+        </div>
   );
 };
 

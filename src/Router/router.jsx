@@ -1,6 +1,4 @@
-import {
-  createBrowserRouter
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home";
 import SignIn from "../pages/Authentication/Login/SignIn";
@@ -27,6 +25,7 @@ import ContentManagementVolunteer from "../pages/Dashboard/Volunteer/ContentMana
 import Funding from "../pages/Funding/Funding";
 import VolunteerHome from "../pages/Dashboard/Volunteer/VolunteerHome";
 import FAQ from "../pages/FAQ/FAQ";
+import GiveFund from "../pages/GiveFund/GiveFund";
 
 const router = createBrowserRouter([
   {
@@ -34,109 +33,124 @@ const router = createBrowserRouter([
     element: <MainLayout></MainLayout>,
     children: [
       {
-        path: '/',
-        element: <Home></Home>
+        path: "/",
+        element: <Home></Home>,
       },
       {
-        path: '/donationRequest',
-        element: <DonationRequest></DonationRequest>
+        path: "/donationRequest",
+        element: <DonationRequest></DonationRequest>,
       },
       {
-        path: '/donationDetails/:id',
-        element: <PrivateRoute><DonationDetails></DonationDetails></PrivateRoute>
+        path: "/donationDetails/:id",
+        element: (
+          <PrivateRoute>
+            <DonationDetails></DonationDetails>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/blogs',
-        element: <Blogs></Blogs>
+        path: "/blogs",
+        element: <Blogs></Blogs>,
       },
       {
-        path: '/faq',
-        element: <FAQ></FAQ>
+        path: "/faq",
+        element: <FAQ></FAQ>,
       },
       {
-        path: '/blogs/:id',
-        element: <BlogDetailPage></BlogDetailPage>
+        path: "/blogs/:id",
+        element: <BlogDetailPage></BlogDetailPage>,
       },
       {
-        path: '/funding-page',
-        element:<Funding></Funding>
+        path: "/funding-page",
+        element: <PrivateRoute><Funding></Funding></PrivateRoute>,
       },
       {
-        path: '/Search',
-        element: <SearchPage></SearchPage>
+        path: '/give-fund',
+        element: <PrivateRoute><GiveFund></GiveFund></PrivateRoute>
+      },
+      {
+        path: "/Search",
+        element: <SearchPage></SearchPage>,
       },
       {
         path: "SignIn",
-        element: <SignIn></SignIn>
+        element: <SignIn></SignIn>,
       },
       {
         path: "SignUp",
-        element: <SignUp></SignUp>
+        element: <SignUp></SignUp>,
       },
-    ]
+    ],
   },
   {
-    path: '/dashboard',
-    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: '/dashboard/profile',
-        element: <AdminProfile></AdminProfile>
+        path: "/dashboard/profile",
+        element: <AdminProfile></AdminProfile>,
       },
       // Admin Panel
       {
-        path: '/dashboard/admin',
-        element: <AdminHome></AdminHome>
+        path: "/dashboard/admin",
+        element: <AdminHome></AdminHome>,
       },
       {
-        path: '/dashboard/content-management/add-blog',
-        element: <AddBlog></AddBlog>
+        path: "/dashboard/content-management/add-blog",
+        element: <AddBlog></AddBlog>,
       },
       {
-        path: '/dashboard/all-user',
-        element: <AllUser></AllUser>
+        path: "/dashboard/all-user",
+        element: <AllUser></AllUser>,
       },
       {
-        path: '/dashboard/all-donation-request',
-        element: <AllDonationRequest></AllDonationRequest>
+        path: "/dashboard/all-donation-request",
+        element: <AllDonationRequest></AllDonationRequest>,
       },
       {
-        path: '/dashboard/content-management',
-        element: <ContentManagement></ContentManagement>
+        path: "/dashboard/content-management",
+        element: <ContentManagement></ContentManagement>,
       },
       //donor dashboard
       {
-        path: '/dashboard/donor',
-        element: <DashboardHome></DashboardHome>
+        path: "/dashboard/donor",
+        element: <DashboardHome></DashboardHome>,
       },
       {
-        path: '/dashboard/Update/:id',
+        path: "/dashboard/Update/:id",
         element: <UpdateEdit></UpdateEdit>,
-        loader: ({params}) => fetch(`https://blood-donation-server-side-project.vercel.app/donationRequest/${params.id}`)
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:7000/donationRequest/${params.id}`
+          ),
       },
       {
-        path: '/dashboard/my-donation-requests',
-        element: <MyDonationRequest></MyDonationRequest>
+        path: "/dashboard/my-donation-requests",
+        element: <MyDonationRequest></MyDonationRequest>,
       },
       {
-        path: '/dashboard/create-donation-request',
-        element: <CreateDonationRequest></CreateDonationRequest>
+        path: "/dashboard/create-donation-request",
+        element: <CreateDonationRequest></CreateDonationRequest>,
       },
       //volunteer dashboard
       {
-        path: '/dashboard/Volunteer',
-        element: <VolunteerHome></VolunteerHome>
+        path: "/dashboard/Volunteer",
+        element: <VolunteerHome></VolunteerHome>,
       },
       {
-        path: '/dashboard/all-blood-donation-request',
-        element: <RequestBlood></RequestBlood>
+        path: "/dashboard/all-blood-donation-request",
+        element: <RequestBlood></RequestBlood>,
       },
       {
-        path: '/dashboard/content-management-volunteer',
-        element: <ContentManagementVolunteer></ContentManagementVolunteer>
-      }
-    ]
-  }
+        path: "/dashboard/content-management-volunteer",
+        element: <ContentManagementVolunteer></ContentManagementVolunteer>,
+      },
+    ],
+  },
 ]);
 
 export default router;
