@@ -21,19 +21,19 @@ const BlogDetailsPage = () => {
   if (!blog) return <div>Loading...</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">All Blog Details</h1>
-      <div className="flex flex-col border-2 p-2 md:p-5 md:flex-row gap-6">
-        <div className="md:w-1/3">
+    <div className="container mx-auto md:p-4">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8">All Blog Details</h1>
+      <div className="flex flex-col  w-10/12 mx-auto p-2 md:p-5  gap-6">
+        <div className="w-full ">
           <img
             src={blog.thumbnail}
             alt="Blog Thumbnail"
-            className="w-full h-auto rounded-lg"
+            className="w-full   h-auto lg:h-[400px] rounded-lg"
           />
         </div>
-        <div className="md:w-2/3">
+        <div className="w-full">
           <h1 className="text-xl font-bold"> {blog.title}</h1>
-          <p className="text-lg mt-2 md:mr-32"><span className="font-bold">Descriptions :</span> {blog.content}</p>
+          <p className="text-lg mt-2 "><span className="font-bold">Descriptions :</span> {blog.content}</p>
           <h2 className="text-xl font-bold mt-4">Deadline: {blog.date}</h2>
         </div>
       </div>
