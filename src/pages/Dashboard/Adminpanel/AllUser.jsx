@@ -1,10 +1,10 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import ReactPaginate from "react-paginate";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { FaTrashAlt } from "react-icons/fa";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const AllUser = () => {
   const [statusFilter, setStatusFilter] = useState("all");
@@ -35,10 +35,8 @@ const AllUser = () => {
 
   // Block user mutation with optimistic update
   const { mutate: blockUser } = useMutation({
-    mutationFn: (userId) =>
-      AxiosSecure.put(`/users/block/${userId}`),
+    mutationFn: (userId) => AxiosSecure.put(`/users/block/${userId}`),
     onMutate: (userId) => {
-      // Optimistically update the UI
       const previousData = data;
       const updatedData = {
         ...previousData,
@@ -47,41 +45,39 @@ const AllUser = () => {
         ),
       };
       queryClient.setQueryData(["users"], updatedData);
+      return { previousData };
     },
     onError: (error, userId, context) => {
-      // Rollback if there's an error
       queryClient.setQueryData(["users"], context.previousData);
       console.error("Error blocking user:", error);
     },
     onSettled: () => {
-      refetch(); // refetch data after mutation
+      refetch();
     },
   });
 
   // Unblock user mutation
   const { mutate: unblockUser } = useMutation({
-    mutationFn: (userId) =>
-      AxiosSecure.put(`/users/unblock/${userId}`),
+    mutationFn: (userId) => AxiosSecure.put(`/users/unblock/${userId}`),
     onSuccess: () => refetch(),
     onError: (error) => console.error("Error unblocking user:", error),
   });
 
   // Make volunteer mutation
   const { mutate: makeVolunteer } = useMutation({
-    mutationFn: (userId) =>
-      AxiosSecure.put(`/users/make-volunteer/${userId}`),
+    mutationFn: (userId) => AxiosSecure.put(`/users/make-volunteer/${userId}`),
     onSuccess: () => refetch(),
     onError: (error) => console.error("Error making volunteer:", error),
   });
 
   // Make admin mutation
   const { mutate: makeAdmin } = useMutation({
-    mutationFn: (userId) =>
-      AxiosSecure.put(`/users/make-admin/${userId}`),
+    mutationFn: (userId) => AxiosSecure.put(`/users/make-admin/${userId}`),
     onSuccess: () => refetch(),
     onError: (error) => console.error("Error making admin:", error),
   });
 
+  // Delete user
   const handleDeleteUser = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -109,120 +105,128 @@ const AllUser = () => {
 
   // Loading and error handling
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="py-10 text-lg font-medium text-center">Loading...</div>
+    );
   }
 
   if (isError) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <div className="py-10 text-lg font-medium text-center text-red-600">
+        Error: {error.message}
+      </div>
+    );
   }
 
   return (
-    <div className="p-2 md:p-4 bg-slate-50">
-     <div className="flex justify-between items-center">
-     <div className="flex justify-between my-4">
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold">
+    <div className="min-h-screen p-2 md:p-4 bg-slate-50">
+      {/* Header Section */}
+      <div className="flex flex-col items-center justify-between mb-6 md:flex-row">
+        <h2 className="mb-3 text-2xl font-extrabold md:text-3xl md:mb-0">
           Total Users: {data?.totalUsers}
         </h2>
-      </div>
-      <div className="my-4 text-right">
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
         >
           <option value="all">All</option>
           <option value="active">Active</option>
           <option value="blocked">Blocked</option>
         </select>
       </div>
-     </div>
 
-      {/* Table Container with horizontal scrolling */}
-      <div className="overflow-x-auto">
-        <table className="table table-xs table-pin-rows w-full">
-          <thead className=" text-base md:text-lg  text-black ">
-            <tr className=" bg-gradient-to-r from-red-200 to-green-100 ">
-              <th className=" rounded-sm py-2">Photo</th>
-              <th className=" rounded-sm py-2">Email</th>
-              <th className=" rounded-sm py-2">Name</th>
-              <th className=" rounded-sm py-2">Role</th>
-              <th className=" rounded-sm py-2">Status</th>
-              <th className=" rounded-sm py-2">Actions</th>
+      {/* Table */}
+      <div className="bg-white rounded-lg shadow-md sm:overflow-x-auto md:overflow-visible">
+        <table className="table w-full table-xs table-pin-rows">
+          <thead className="text-base text-black">
+            <tr className="text-sm bg-gradient-to-r from-red-200 to-green-100 md:text-base">
+              <th className="py-2">Photo</th>
+              <th className="py-2">Email</th>
+              <th className="py-2">Name</th>
+              <th className="py-2">Role</th>
+              <th className="py-2">Status</th>
+              <th className="py-2 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {data?.users?.map((user) => (
-              <tr key={user._id} className="shadow hover:bg-slate-100">
+              <tr key={user._id} className="hover:bg-slate-100">
                 <td>
                   <img
                     src={user.photoURL}
                     alt="Avatar"
-                    className="w-10 h-10 rounded-full"
+                    className="object-cover w-10 h-10 rounded-full"
                   />
                 </td>
-                <td className="">{user.email}</td>
+                <td>{user.email}</td>
                 <td>{user.displayName}</td>
-                <td>{user.role}</td>
-                <td>{user.status}</td>
+                <td className="capitalize">{user.role}</td>
+                <td
+                  className={`font-semibold ${
+                    user.status === "blocked"
+                      ? "text-red-500"
+                      : "text-green-600"
+                  }`}
+                >
+                  {user.status}
+                </td>
                 <td>
-                  <div className="dropdown">
-                    <div className="flex gap-5">
-                      <button className="btn btn-sm bg-green-400">
-                        <HiDotsVertical></HiDotsVertical>
+                  <div className="flex justify-center gap-2">
+                    <div className="dropdown dropdown-left">
+                      <button className="text-white bg-green-400 btn btn-sm">
+                        <HiDotsVertical />
                       </button>
-                      <button
-                        onClick={() => handleDeleteUser(user)}
-                        className="btn btn-sm"
-                      >
-                        <FaTrashAlt className="text-red-600"></FaTrashAlt>
-                      </button>
+                      <ul className="menu dropdown-content bg-green-100 rounded-md w-36 p-2 shadow z-[1]">
+                        {user.status === "active" && (
+                          <li>
+                            <button
+                              className="text-red-500"
+                              onClick={() => blockUser(user._id)}
+                            >
+                              Block
+                            </button>
+                          </li>
+                        )}
+                        {user.status === "blocked" && (
+                          <li>
+                            <button
+                              className="text-green-500"
+                              onClick={() => unblockUser(user._id)}
+                            >
+                              Unblock
+                            </button>
+                          </li>
+                        )}
+                        {user.role !== "volunteer" && (
+                          <li>
+                            <button
+                              className="text-blue-500"
+                              onClick={() => makeVolunteer(user._id)}
+                            >
+                              Make Volunteer
+                            </button>
+                          </li>
+                        )}
+                        {user.role !== "admin" && (
+                          <li>
+                            <button
+                              className="text-yellow-500"
+                              onClick={() => makeAdmin(user._id)}
+                            >
+                              Make Admin
+                            </button>
+                          </li>
+                        )}
+                      </ul>
                     </div>
-                    <div className="menu -ml-36 dropdown-content bg-green-300 rounded-box z-[1] w-36 p-2 shadow">
-                      {user.status === "active" && (
-                        <button
-                          className="block py-2 text-red-500"
-                          onClick={() => {
-                            console.log("Blocking user:", user._id);
-                            blockUser(user._id);
-                          }}
-                        >
-                          Block
-                        </button>
-                      )}
-                      {user.status === "blocked" && (
-                        <button
-                          className="block py-2 text-green-500"
-                          onClick={() => {
-                            console.log("Unblocking user:", user._id);
-                            unblockUser(user._id);
-                          }}
-                        >
-                          Unblock
-                        </button>
-                      )}
-                      {user.role !== "volunteer" && (
-                        <button
-                          className="block py-2 text-blue-500"
-                          onClick={() => {
-                            console.log("Making user volunteer:", user._id);
-                            makeVolunteer(user._id);
-                          }}
-                        >
-                          Volunteer
-                        </button>
-                      )}
-                      {user.role !== "admin" && (
-                        <button
-                          className="block py-2 text-yellow-500"
-                          onClick={() => {
-                            console.log("Making user admin:", user._id);
-                            makeAdmin(user._id);
-                          }}
-                        >
-                          Admin
-                        </button>
-                      )}
-                    </div>
+
+                    <button
+                      onClick={() => handleDeleteUser(user)}
+                      className="bg-red-100 btn btn-sm hover:bg-red-200"
+                    >
+                      <FaTrashAlt className="text-red-600" />
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -231,15 +235,26 @@ const AllUser = () => {
         </table>
       </div>
 
-      {/* Pagination */}
-      <div className="mt-20">
+      {/* Pagination Section */}
+      <div className="flex flex-col items-center justify-between mt-10 md:flex-row">
+        <p className="mb-4 text-sm text-gray-500 md:mb-0">
+          Showing {currentPage * usersPerPage + 1}–
+          {Math.min((currentPage + 1) * usersPerPage, data?.totalUsers)} of{" "}
+          {data?.totalUsers} users
+        </p>
+
         <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={"..."}
           pageCount={data?.totalPages || 1}
           onPageChange={handlePageClick}
-          containerClassName="flex justify-center space-x-2"
-          pageClassName="px-4 py-2 border rounded cursor-pointer"
-          activeClassName="bg-green-500 text-white"
-          disabledClassName="text-gray-400 cursor-not-allowed"
+          containerClassName="flex flex-wrap justify-center md:justify-end items-center gap-2 select-none"
+          pageClassName="px-4 py-2 border border-gray-300 rounded-md hover:bg-green-100 cursor-pointer transition"
+          activeClassName="bg-green-500 text-white border-green-500"
+          previousClassName="px-4 py-2 border border-gray-300 rounded-md hover:bg-green-100 cursor-pointer transition"
+          nextClassName="px-4 py-2 border border-gray-300 rounded-md hover:bg-green-100 cursor-pointer transition"
+          disabledClassName="opacity-50 cursor-not-allowed"
         />
       </div>
     </div>

@@ -125,7 +125,7 @@ const router = createBrowserRouter([
         element: <UpdateEdit></UpdateEdit>,
         loader: ({ params }) =>
           fetch(
-            `http://localhost:7000/donationRequest/${params.id}`
+            `https://blood-donation-server-side-project.vercel.app/donationRequest/${params.id}`
           ),
       },
       {
