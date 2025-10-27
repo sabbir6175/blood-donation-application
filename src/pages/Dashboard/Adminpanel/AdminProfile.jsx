@@ -1,10 +1,9 @@
-import { useState, useEffect, useContext } from "react";
-// import useAxiosSecure from "../../../Hooks/useAxiosSecure"; // Custom Axios hook
-import AuthContext from "../../../AuthContext/AuthContext";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Upazila from "../../../Hooks/Upazila";
+import AuthContext from "../../../AuthContext/AuthContext";
 import District from "../../../Hooks/District";
+import Upazila from "../../../Hooks/Upazila";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const ProfilePage = () => {
   const { user } = useContext(AuthContext);
@@ -14,7 +13,6 @@ const ProfilePage = () => {
   const [districts] = District();
   const [isEditable, setIsEditable] = useState(false);
   const [lastLoginTime, setLastLoginTime] = useState("");
-
   const [profileData, setProfileData] = useState({
     displayName: "",
     email: "",
@@ -26,24 +24,18 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (user) {
-      // Convert last login time to readable format
-      setLastLoginTime(new Date(Number(user.metadata.lastLoginAt)).toLocaleString());
+      setLastLoginTime(
+        new Date(Number(user.metadata.lastLoginAt)).toLocaleString()
+      );
     }
-    // Fetching profile data
     AxiosPublic.get(`/users/${email}`)
-      .then((response) => {
-        setProfileData(response.data);
-        // console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching profile data", error);
-      });
-  }, [email, AxiosPublic]);
+      .then((res) => setProfileData(res.data))
+      .catch((err) => console.error("Error fetching profile data", err));
+  }, [email, AxiosPublic, user]);
 
   const handleSave = (e) => {
     e.preventDefault();
     const form = e.target;
-
     const updatedData = {
       displayName: form.name.value,
       email: form.email.value,
@@ -52,200 +44,169 @@ const ProfilePage = () => {
       upazila: form.upazila.value,
       bloodGroup: form.bloodGroup.value,
     };
-    // console.log("Sending ID:", profileData._id, updatedData);
 
     AxiosPublic.put(`/users/${profileData._id}`, updatedData)
       .then(() => {
         toast.success("Profile updated successfully");
-        setProfileData((prev) => ({
-          ...prev,
-          ...updatedData,
-        })); // Update the profile data in state after successful save
-        setIsEditable(false); // Turn off edit mode
+        setProfileData((prev) => ({ ...prev, ...updatedData }));
+        setIsEditable(false);
       })
-      .catch((error) => {
+      .catch((err) => {
         toast.error("Failed to update profile");
-        console.error("Error saving profile data", error);
+        console.error(err);
       });
   };
 
   return (
-    <div className="container mx-auto lg:p-6 ">
-      <div className="  p-3 md:p-6 rounded-lg ">
-        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center uppercase">
-          {profileData.role} Profile
+    <div className="min-h-screen bg-gradient-to-br from-[#E8F5E9] via-[#FFF8F9] to-[#F1F8E9] flex justify-center items-center py-10 px-4">
+      <div className="w-full max-w-3xl p-6 border border-gray-100 shadow-xl bg-white/80 backdrop-blur-lg rounded-2xl md:p-10">
+        {/* Title */}
+        <h1 className="mb-6 text-2xl font-extrabold tracking-wide text-center text-gray-800 uppercase md:text-3xl">
+          {profileData.role ? `${profileData.role} Profile` : "User Profile"}
         </h1>
-        <div className="w-4/12 md:w-1/5 h-[100px] md:h-[110px] lg:h-[190px] rounded-full border-2 bg-white mx-auto">
-          <img
-            className="w-full h-full rounded-full"
-            src={profileData.photoURL}
-            alt="Profile"
-          />
-        </div>
-        <div className="flex  flex-row md:flex-row gap-2 justify-between mb-10 items-center ">
-         
-          {/* Last Login Time */}
-        <div className="text-center mt-4">
-          <p className="text-gray-600">
+
+        {/* Profile Image */}
+        <div className="flex flex-col items-center mb-6">
+          <div className="relative overflow-hidden border-4 rounded-full shadow-md w-28 h-28 md:w-36 md:h-36 border-gradient-to-r from-green-400 to-pink-400">
+            <img
+              src={profileData.photoURL || "/default-avatar.png"}
+              alt="Profile"
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <p className="mt-3 text-sm text-gray-600 md:text-base">
             <strong>Last Login:</strong> {lastLoginTime || "N/A"}
           </p>
-        </div>
-
-          
           <button
             onClick={() => setIsEditable((prev) => !prev)}
-            className="bg-green-500 text-white py-2 px-4 rounded"
+            className={`mt-4 px-6 py-2 rounded-full font-semibold text-sm md:text-base transition-all ${
+              isEditable
+                ? "bg-gray-400 text-white hover:bg-gray-500"
+                : "bg-gradient-to-r from-green-400 to-pink-400 text-white hover:opacity-90"
+            }`}
           >
-            {isEditable ? "Cancel" : "Edit"}
+            {isEditable ? "Cancel" : "Edit Profile"}
           </button>
         </div>
 
-        <form onSubmit={handleSave}>
-          <div className="flex flex-col lg:flex-row lg:gap-3">
-            <div className="mb-4 w-full">
-              <label
-                htmlFor="name"
-                className="block text-sm font-semibold mb-2"
-              >
+        {/* Form */}
+        <form onSubmit={handleSave} className="space-y-5">
+          {/* Row 1 */}
+          <div className="flex flex-col gap-4 md:flex-row">
+            <div className="w-full">
+              <label className="block mb-1 font-semibold text-gray-700">
                 Name
               </label>
               <input
                 type="text"
-                id="name"
                 name="name"
                 defaultValue={profileData.displayName}
                 disabled={!isEditable}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 transition border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 disabled:bg-gray-100"
               />
             </div>
-            <div className="mb-4 w-full">
-              <label
-                htmlFor="email"
-                className="block text-sm font-semibold mb-2"
-              >
+            <div className="w-full">
+              <label className="block mb-1 font-semibold text-gray-700">
                 Email
               </label>
               <input
                 type="email"
-                id="email"
                 name="email"
                 defaultValue={profileData.email}
                 disabled
-                className="w-full p-2 border rounded-lg cursor-not-allowed"
+                className="w-full p-3 bg-gray-100 border rounded-lg cursor-not-allowed"
               />
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:gap-3">
-            <div className="mb-4 w-full">
-              <label
-                htmlFor="photoURL"
-                className="block text-sm font-semibold mb-2"
-              >
+          {/* Row 2 */}
+          <div className="flex flex-col gap-4 md:flex-row">
+            <div className="w-full">
+              <label className="block mb-1 font-semibold text-gray-700">
                 Photo URL
               </label>
               <input
                 type="text"
-                id="photoURL"
                 name="photoURL"
                 defaultValue={profileData.photoURL}
                 disabled={!isEditable}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-400 disabled:bg-gray-100"
               />
             </div>
-            <div className="mb-4 w-full">
-              <label
-                htmlFor="district"
-                className="block text-sm font-semibold mb-2"
-              >
+            <div className="w-full">
+              <label className="block mb-1 font-semibold text-gray-700">
                 District
               </label>
               <select
-                type="text"
-                id="district"
                 name="district"
                 disabled={!isEditable}
-                className="w-full p-2 border rounded-lg"
+                defaultValue={profileData.district}
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-400 disabled:bg-gray-100"
               >
                 {!isEditable ? (
-                  <option value={profileData.district} selected>
-                    {profileData.district}
-                  </option>
-                ) : districts.length > 0 ? (
+                  <option>{profileData.district}</option>
+                ) : (
                   <>
                     <option value="">Select District</option>
-                    {districts.map((districtData) => (
-                      <option key={districtData.id} value={districtData.name}>
-                        {districtData.name}
+                    {districts.map((d) => (
+                      <option key={d.id} value={d.name}>
+                        {d.name}
                       </option>
                     ))}
                   </>
-                ) : (
-                  <option>Loading...</option>
                 )}
               </select>
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:gap-3">
-            <div className="mb-4 w-full">
-              <label
-                htmlFor="upazila"
-                className="block text-sm font-semibold mb-2"
-              >
+          {/* Row 3 */}
+          <div className="flex flex-col gap-4 md:flex-row">
+            <div className="w-full">
+              <label className="block mb-1 font-semibold text-gray-700">
                 Upazila
               </label>
-              
               <select
-                type="text"
-                id="upazila"
                 name="upazila"
                 disabled={!isEditable}
-                className="w-full p-2 border rounded-lg"
+                defaultValue={profileData.upazila}
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-400 disabled:bg-gray-100"
               >
                 {!isEditable ? (
-                  <option value={profileData.upazila} selected>
-                    {profileData.upazila}
-                  </option>
-                ) : upazilas.length > 0 ? (
+                  <option>{profileData.upazila}</option>
+                ) : (
                   <>
                     <option value="">Select Upazila</option>
-                    {upazilas.map((upazilaData) => (
-                      <option key={upazilaData.id} value={upazilaData.name}>
-                        {upazilaData.name}
+                    {upazilas.map((u) => (
+                      <option key={u.id} value={u.name}>
+                        {u.name}
                       </option>
                     ))}
                   </>
-                ) : (
-                  <option>Loading...</option>
                 )}
               </select>
             </div>
 
-            <div className="mb-4 w-full">
-              <label
-                htmlFor="bloodGroup"
-                className="block text-sm font-semibold mb-2"
-              >
+            <div className="w-full">
+              <label className="block mb-1 font-semibold text-gray-700">
                 Blood Group
               </label>
               <input
                 type="text"
-                id="bloodGroup"
                 name="bloodGroup"
                 defaultValue={profileData.bloodGroup}
                 disabled={!isEditable}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-400 disabled:bg-gray-100"
               />
             </div>
           </div>
 
+          {/* Save Button */}
           {isEditable && (
             <button
               type="submit"
-              className="bg-green-500 w-full text-white py-2 px-4 rounded"
+              className="w-full py-3 mt-4 font-semibold text-white transition rounded-full bg-gradient-to-r from-green-400 to-pink-400 hover:opacity-90"
             >
-              Save
+              Save Changes
             </button>
           )}
         </form>

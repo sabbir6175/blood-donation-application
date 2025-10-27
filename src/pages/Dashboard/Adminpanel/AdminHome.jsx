@@ -1,127 +1,200 @@
-import { useContext,  useEffect,  useState } from "react";
-import { FaHandHoldingUsd, FaUsers } from "react-icons/fa";
-import AuthContext from "../../../AuthContext/AuthContext";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { motion } from "framer-motion";
+import { useContext, useEffect, useState } from "react";
+import { FaHandHoldingUsd, FaHeartbeat, FaUsers } from "react-icons/fa";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import AuthContext from "../../../AuthContext/AuthContext";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const AdminHome = () => {
-  // Context for user info
   const { user } = useContext(AuthContext);
-  const [donationRequest, setDonationRequests] = useState([])
-  const [funding, setFunding] = useState([])
- const totalFunding = funding.reduce((total, fund) => total + parseFloat(fund.fundAmount || 0 ), 0);
-  console.log(totalFunding)
-  
+  const [donationRequest, setDonationRequests] = useState([]);
+  const [funding, setFunding] = useState([]);
 
-  // Axios hook for public API calls
   const AxiosPublic = useAxiosPublic();
   const AxiosSecure = useAxiosSecure();
 
+  const totalFunding = funding.reduce(
+    (total, fund) => total + parseFloat(fund.fundAmount || 0),
+    0
+  );
+
   useEffect(() => {
-    AxiosPublic.get('/donationRequest/data')
-      .then(res => {
-        setDonationRequests(res.data); // Set the filtered donations
-      })
-      .catch(error => {
-        console.error('Error fetching donation data:', error);
-      });
+    AxiosPublic.get("/donationRequest/data")
+      .then((res) => setDonationRequests(res.data))
+      .catch((err) => console.error("Error fetching donation data:", err));
   }, [AxiosPublic]);
-  
-  
-  const { data } = useQuery({
+
+  const { isLoading: fundLoading } = useQuery({
     queryKey: ["fund"],
     queryFn: async () => {
       const res = await AxiosSecure.get("/funds");
-      setFunding(res.data.funds)
+      setFunding(res.data.funds);
       return res.data;
-    },
-  })
-  // const funds = data?.funds || [];
-  // console.log(funds)
-
-  // Fetching users with TanStack Query
-  const { data: userData, error: userError, isLoading: userLoading } = useQuery({
-    queryKey: ['users'],
-    queryFn: async () => {
-      const response = await AxiosSecure.get('/admin/users');
-      return response.data.users; // Returns the list of users
     },
   });
 
+  const {
+    data: userData,
+    error: userError,
+    isLoading: userLoading,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await AxiosSecure.get("/admin/users");
+      return res.data.users;
+    },
+  });
 
- 
-  // Filter donors and volunteers
-  const donors = userData ? userData.filter(user => user.role === 'donor') : [];
-  const volunteer = userData ? userData.filter(user => user.role === 'volunteer') : [];
+  if (userLoading || fundLoading)
+    return <div className="mt-10 text-center text-gray-700">Loading...</div>;
+  if (userError) return <div>Error: {userError.message}</div>;
 
-  if ( userLoading) {
-    return <div>Loading...</div>;
-  }
+  const donors = userData?.filter((u) => u.role === "donor") || [];
+  const volunteers = userData?.filter((u) => u.role === "volunteer") || [];
 
-
-
-  if (userError) {
-    return <div>Error fetching users: {userError.message}</div>;
-  }
+  const chartData = [
+    { name: "Donors", value: donors.length },
+    { name: "Volunteers", value: volunteers.length },
+    { name: "Requests", value: donationRequest.length },
+    { name: "Funding", value: totalFunding },
+  ];
 
   return (
-    <div className="p-4 md:p-8 mt-20 md:mt-0 bg-slate-50">
-      {/* Welcome Section */}
-      <div className="  text-black p-6 rounded-lg mb-8">
-        <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-center uppercase">Welcome {user.displayName}!</h1>
+    <div className="min-h-screen p-6  md:p-10 bg-gradient-to-br from-[#E8F5E9] via-[#FFF8F9] to-[#F1F8E9]">
+      {/* Welcome */}
+      <motion.div
+        className="mb-10 text-center"
+        initial={{ opacity: 0, y: -15 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <h1 className="text-3xl font-extrabold text-gray-800 md:text-4xl">
+          Welcome,{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-pink-500">
+            {user?.displayName}
+          </span>{" "}
+          👋
+        </h1>
+        <p className="mt-2 text-sm text-gray-600 md:text-base">
+          Your Admin Dashboard Overview
+        </p>
+      </motion.div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 gap-6 mb-12 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          {
+            title: "Total Donors",
+            value: donors.length,
+            icon: <FaUsers className="text-5xl text-green-500" />,
+            gradient: "from-green-200 to-green-100",
+          },
+          {
+            title: "Volunteers",
+            value: volunteers.length,
+            icon: <FaUsers className="text-5xl text-pink-400" />,
+            gradient: "from-pink-100 to-pink-50",
+          },
+          {
+            title: "Blood Requests",
+            value: donationRequest.length,
+            icon: <FaHeartbeat className="text-5xl text-red-400" />,
+            gradient: "from-red-100 to-rose-50",
+          },
+          {
+            title: "Total Funding",
+            value: `$${totalFunding.toFixed(2)}`,
+            icon: <FaHandHoldingUsd className="text-5xl text-emerald-500" />,
+            gradient: "from-emerald-100 to-green-50",
+          },
+        ].map((card, i) => (
+          <motion.div
+            key={i}
+            whileHover={{ scale: 1.03 }}
+            className={`p-6 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition-all bg-gradient-to-br ${card.gradient}`}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-medium text-gray-600">{card.title}</h3>
+                <p className="text-3xl font-extrabold text-gray-800">
+                  {card.value}
+                </p>
+              </div>
+              {card.icon}
+            </div>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Featured Cards Section */}
-      <div className="grid sm:grid-cols-1 lg:grid-cols-2 shadow p-5  gap-6">
-        
-        {/* Total Donors Card */}
-        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
-          <div className="flex items-center   md:gap-10">
-            <FaUsers className="text-3xl text-orange-500 mr-4" />
-            <div className="flex justify-center items-center flex-col">
-              <h3 className="text-base md:text-xl font-bold">Total Donors</h3>
-              <p className="text-base md:text-xl font-bold">{donors.length}</p> {/* Displaying the number of donors */}
-            </div>
-          </div>
-        </div>
+      {/* Charts */}
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {/* Bar Chart */}
+        <motion.div
+          className="p-6 bg-white border border-gray-200 shadow-md rounded-2xl hover:shadow-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+        >
+          <h3 className="mb-4 text-lg font-bold text-gray-700">
+            📊 Overall Statistics
+          </h3>
+          <ResponsiveContainer width="100%" height={320}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar
+                dataKey="value"
+                fill="#22c55e"
+                radius={[8, 8, 0, 0]}
+                barSize={45}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </motion.div>
 
-        {/* Total Volunteers Card */}
-        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
-          <div className="flex items-center md:gap-10">
-            <FaUsers className="text-3xl text-orange-500 mr-4" />
-            <div className="flex justify-center items-center flex-col">
-              <h3 className="text-base md:text-xl  font-bold">Total Volunteer</h3>
-              <p className="text-base md:text-xl font-bold">{volunteer.length}</p> {/* Displaying the number of volunteers */}
-            </div>
-          </div>
-        </div>
-
-         {/* Total Blood Donation Requests Card */}
-         <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
-          <div className="flex items-center gap-5 md:gap-10">
-            {/* <FaHeartbeat className="text-3xl text-red-500 mr-4" /> */}
-            <img className="w-10 rounded-tr-box h-10" src="https://i.ibb.co/274cVp87/images.jpg" alt="" />
-            <div>
-              <h3 className="text-base md:text-xl  font-bold">Total Blood Requests</h3>
-              <p className="text-base md:text-xl font-bold text-center">{donationRequest.length}</p> {/* Displaying the number of pending donations */}
-            </div>
-          </div>
-        </div>
-        
-        {/* Total Funding Card */}
-        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
-          <div className="flex items-center md:gap-10">
-            <FaHandHoldingUsd className="text-3xl  text-green-500 mr-4" />
-            <div>
-              <h3 className="text-base md:text-xl font-bold">Total Funding</h3>
-              <p className="text-base md:text-xl font-bold text-center">${totalFunding}</p>
-            </div>
-          </div>
-        </div>
-        
-       
-
+        {/* Line Chart */}
+        <motion.div
+          className="p-6 bg-white border border-gray-200 shadow-md rounded-2xl hover:shadow-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h3 className="mb-4 text-lg font-bold text-gray-700">
+            💹 Funding Growth Trend
+          </h3>
+          <ResponsiveContainer width="100%" height={320}>
+            <LineChart data={funding}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+              <XAxis dataKey="donorName" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="fundAmount"
+                stroke="#16a34a"
+                strokeWidth={3}
+                dot={{ r: 6 }}
+                activeDot={{ r: 9, fill: "#4ade80" }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </motion.div>
       </div>
     </div>
   );

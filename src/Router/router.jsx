@@ -1,31 +1,31 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "../layout/MainLayout";
-import Home from "../pages/Home/Home";
-import SignIn from "../pages/Authentication/Login/SignIn";
-import SignUp from "../pages/Authentication/Register/SignUp";
 import SearchPage from "../Components/SearchPage/SearchPage";
 import Dashboard from "../layout/Dashboard";
-import MyDonationRequest from "../pages/Dashboard/MyDonationRequest/MyDonationRequest";
-import CreateDonationRequest from "../pages/Dashboard/CreateDonationRequest/CreateDonationRequest";
-import PrivateRoute from "./PrivetRouter";
-import DonationRequest from "../pages/DonationRequest/DonationRequest";
-import AllUser from "../pages/Dashboard/AdminPanel/AllUser";
-import AllDonationRequest from "../pages/Dashboard/AdminPanel/AllDonationRequest";
-import ContentManagement from "../pages/Dashboard/AdminPanel/ContentManagement ";
-import AdminHome from "../pages/Dashboard/AdminPanel/AdminHome";
+import MainLayout from "../layout/MainLayout";
+import SignIn from "../pages/Authentication/Login/SignIn";
+import SignUp from "../pages/Authentication/Register/SignUp";
+import BlogDetailPage from "../pages/Blogs/BlogDetailPage";
+import Blogs from "../pages/Blogs/Blogs";
 import AddBlog from "../pages/Dashboard/AdminPanel/AddBlog";
+import AdminHome from "../pages/Dashboard/AdminPanel/AdminHome";
 import AdminProfile from "../pages/Dashboard/AdminPanel/AdminProfile";
-import DonationDetails from "../pages/DonationRequest/DonationDetails";
+import AllDonationRequest from "../pages/Dashboard/AdminPanel/AllDonationRequest";
+import AllUser from "../pages/Dashboard/AdminPanel/AllUser";
+import ContentManagement from "../pages/Dashboard/AdminPanel/ContentManagement ";
+import CreateDonationRequest from "../pages/Dashboard/CreateDonationRequest/CreateDonationRequest";
 import DashboardHome from "../pages/Dashboard/HomePage/DashboardHome";
 import UpdateEdit from "../pages/Dashboard/HomePage/UpdateEdit";
-import Blogs from "../pages/Blogs/Blogs";
-import BlogDetailPage from "../pages/Blogs/BlogDetailPage";
-import RequestBlood from "../pages/Dashboard/Volunteer/RequestBlood";
+import MyDonationRequest from "../pages/Dashboard/MyDonationRequest/MyDonationRequest";
 import ContentManagementVolunteer from "../pages/Dashboard/Volunteer/ContentManagementVolunteer";
-import Funding from "../pages/Funding/Funding";
+import RequestBlood from "../pages/Dashboard/Volunteer/RequestBlood";
 import VolunteerHome from "../pages/Dashboard/Volunteer/VolunteerHome";
+import DonationDetails from "../pages/DonationRequest/DonationDetails";
+import DonationRequest from "../pages/DonationRequest/DonationRequest";
 import FAQ from "../pages/FAQ/FAQ";
+import Funding from "../pages/Funding/Funding";
 import GiveFund from "../pages/GiveFund/GiveFund";
+import Home from "../pages/Home/Home";
+import PrivateRoute from "./PrivetRouter";
 
 const router = createBrowserRouter([
   {
@@ -62,11 +62,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/funding-page",
-        element: <PrivateRoute><Funding></Funding></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <Funding></Funding>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/give-fund',
-        element: <PrivateRoute><GiveFund></GiveFund></PrivateRoute>
+        path: "/give-fund",
+        element: (
+          <PrivateRoute>
+            <GiveFund></GiveFund>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/Search",

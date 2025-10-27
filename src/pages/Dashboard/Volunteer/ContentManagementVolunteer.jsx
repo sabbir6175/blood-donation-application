@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const ContentManagement = () => {
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState("draft");
   const axiosPublic = useAxiosPublic();
 
-  // Fetching blogs based on status (draft or published)
+  // Fetch blogs based on status
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -20,86 +18,87 @@ const ContentManagement = () => {
         console.error("Error fetching blogs:", error);
       }
     };
-
     fetchBlogs();
   }, [filter, axiosPublic]);
 
-  // Handle publishing the blog
-  const handlePublish = (id) => {
-    if (id) {
-       Swal.fire({
-          icon: "warning",
-          title: "Permission Denied!",
-          text: "You do not have permission to publish this blog. Only admins can perform this action.",
-       });
-    }
- };
- 
-
-  // Handle unpublishing the blog
-  const handleUnpublish = (id) => {
-    if (id) {
-        Swal.fire({
-           icon: "warning",
-           title: "Action Not Allowed!",
-           text: "Only admins can unpublish a blog. Please contact an admin for assistance.",
-        });
-     }
-  };
-
-  // Handle blog deletion
-  const handleDelete = async (id) => {
-     if (id) {
-      Swal.fire({
-         icon: "warning",
-         title: "Access Restricted!",
-         text: "You are not allowed to delete this blog. Only admins can delete blogs.",
-      });
-   }
+  // Handle blog actions (all restricted to admins)
+  const handleAction = (action) => {
+    Swal.fire({
+      icon: "warning",
+      title: "Access Denied!",
+      text: `Only admins can ${action} blogs. Please contact an admin.`,
+    });
   };
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between">
-        <div className="mb-4">
-          <Link
-            to="/dashboard/content-management/add-blog"
-            className="btn px-4 md:px-8  font-semibold  bg-green-400 text-black"
-          >
-            Add Blog
-          </Link>
-        </div>
+    <div className="min-h-screen p-4 md:p-8">
+      {/* Header */}
+      <div className="flex flex-col items-center justify-between gap-4 mb-6 md:flex-row">
+        <Link
+          to="/dashboard/content-management/add-blog"
+          className="px-6 py-2 font-semibold text-white transition rounded-lg shadow bg-gradient-to-r from-green-400 to-red-300 hover:opacity-90"
+        >
+          Add Blog
+        </Link>
 
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="select select-bordered mb-4"
+          className="px-3 py-2 border-gray-300 rounded-lg select select-bordered"
         >
           <option value="draft">Draft</option>
           <option value="published">Published</option>
         </select>
       </div>
 
-      <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-5">
+      {/* Blogs Grid */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => (
-          <div key={blog._id} className="card bg-base-100 border p-5 shadow-xl">
-            <figure>
-              <img className="w-full h-[200px]" src={blog.thumbnail} alt="Blog thumbnail" />
-            </figure>
-            <div className="card-body p-2">
-              <h3 className="card-title">{blog.title}</h3>
-              <p>{blog.content.slice(0, 100)}...</p>
-              <div className="card-actions">
-                {blog.status === "draft" ? (
-                  <button className="btn bg-green-300" onClick={() => handlePublish(blog._id)}>
-                    Publish
-                  </button>
-                ) : (
-                  <button className="btn bg-green-300" onClick={() => handleUnpublish(blog._id)}>
-                    Unpublish
-                  </button>
-                )}
-                <button className="btn btn-warning" onClick={() => handleDelete(blog._id)}>
+          <div
+            key={blog._id}
+            className="overflow-hidden transition bg-white shadow-lg cursor-pointer rounded-2xl hover:shadow-xl"
+          >
+            <div className="relative h-48">
+              <img
+                src={blog.thumbnail}
+                alt={blog.title}
+                className="object-cover w-full h-full"
+              />
+              <span
+                className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold ${
+                  blog.status === "draft"
+                    ? "bg-yellow-200 text-yellow-800"
+                    : "bg-green-200 text-green-800"
+                }`}
+              >
+                {blog.status.toUpperCase()}
+              </span>
+            </div>
+            <div className="flex flex-col justify-between h-56 p-4">
+              <div>
+                <h3 className="mb-2 text-lg font-bold text-gray-800">
+                  {blog.title}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {blog.content.slice(0, 120)}...
+                </p>
+              </div>
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={() =>
+                    handleAction(
+                      blog.status === "draft" ? "publish" : "unpublish"
+                    )
+                  }
+                  className="flex-1 px-4 py-2 font-semibold text-white transition rounded-lg bg-gradient-to-r from-green-400 to-teal-400 hover:opacity-90"
+                >
+                  {blog.status === "draft" ? "Publish" : "Unpublish"}
+                </button>
+
+                <button
+                  onClick={() => handleAction("delete")}
+                  className="flex-1 px-4 py-2 font-semibold text-white transition bg-red-500 rounded-lg hover:bg-red-600"
+                >
                   Delete
                 </button>
               </div>

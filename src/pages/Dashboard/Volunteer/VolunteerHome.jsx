@@ -1,127 +1,157 @@
-import { useContext,  useEffect,  useState } from "react";
-import { FaHandHoldingUsd, FaUsers } from "react-icons/fa";
-
 import { useQuery } from "@tanstack/react-query";
+import { useContext, useEffect, useState } from "react";
+import {
+  FaHandHoldingUsd,
+  FaHeartbeat,
+  FaUserFriends,
+  FaUsers,
+} from "react-icons/fa";
 import AuthContext from "../../../AuthContext/AuthContext";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-
 const VolunteerHome = () => {
-  // Context for user info
   const { user } = useContext(AuthContext);
-  const [donationRequest, setDonationRequests] = useState([])
-  const [funding, setFunding] = useState([]);
+  const [donationRequest, setDonationRequests] = useState([]);
+  const [funding, setFunding] = useState(0);
 
-  const totalFunding = "To do : Process"; // Total amount donated
-
-  // Axios hook for public API calls
   const AxiosPublic = useAxiosPublic();
   const AxiosSecure = useAxiosSecure();
 
+  // Fetch Donation Requests
   useEffect(() => {
-    AxiosPublic.get('/donationRequest/data')
-      .then(res => {
-        setDonationRequests(res.data); // Set the filtered donations
-      })
-      .catch(error => {
-        console.error('Error fetching donation data:', error);
-      });
+    AxiosPublic.get("/donationRequest/data")
+      .then((res) => setDonationRequests(res.data))
+      .catch((error) => console.error("Error fetching donation data:", error));
   }, [AxiosPublic]);
-  
-  const {data} = useQuery({
-    queryKey: ["fund"],
-    queryFn: async ()=>{
-      const res = await AxiosSecure.get("/funds");
-      const totalFunding = res.data.funds.reduce((total, fund) => total + parseFloat(fund.fundAmount || 0), 0);
-      setFunding(totalFunding)
-      return res.data;
-    }
-  })
-  
 
-  // Fetching users with TanStack Query
-  const { data: userData, error: userError, isLoading: userLoading } = useQuery({
-    queryKey: ['user'],
+  // Fetch Total Funding
+  useQuery({
+    queryKey: ["fund"],
     queryFn: async () => {
-      const response = await AxiosSecure.get('/volunteer/user');
-      return response.data.users; // Returns the list of users
+      const res = await AxiosSecure.get("/funds");
+      const totalFunding = res.data.funds.reduce(
+        (total, fund) => total + parseFloat(fund.fundAmount || 0),
+        0
+      );
+      setFunding(totalFunding);
+      return res.data;
     },
   });
 
+  // Fetch Users
+  const {
+    data: userData,
+    error: userError,
+    isLoading: userLoading,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const response = await AxiosSecure.get("/volunteer/user");
+      return response.data.users;
+    },
+  });
 
- 
-  // Filter donors and volunteers
-  const donors = userData ? userData.filter(user => user.role === 'donor') : [];
-  const volunteer = userData ? userData.filter(user => user.role === 'volunteer') : [];
+  const donors = userData ? userData.filter((u) => u.role === "donor") : [];
+  const volunteer = userData
+    ? userData.filter((u) => u.role === "volunteer")
+    : [];
 
-  if ( userLoading) {
-    return <div>Loading...</div>;
-  }
+  if (userLoading)
+    return <div className="mt-20 text-lg text-center">Loading...</div>;
+  if (userError) return <div>Error fetching users: {userError.message}</div>;
 
-
-
-  if (userError) {
-    return <div>Error fetching users: {userError.message}</div>;
-  }
+  // Stats Cards Data
+  const stats = [
+    {
+      title: "Total Donors",
+      value: donors.length,
+      icon: <FaUsers className="text-3xl text-pink-500" />,
+      gradient: "from-pink-100 to-green-100",
+    },
+    {
+      title: "Total Volunteers",
+      value: volunteer.length,
+      icon: <FaUserFriends className="text-3xl text-green-500" />,
+      gradient: "from-green-100 to-pink-100",
+    },
+    {
+      title: "Blood Requests",
+      value: donationRequest.length,
+      icon: <FaHeartbeat className="text-3xl text-red-500" />,
+      gradient: "from-rose-100 to-green-100",
+    },
+    {
+      title: "Total Funding",
+      value: `$${funding}`,
+      icon: <FaHandHoldingUsd className="text-3xl text-emerald-500" />,
+      gradient: "from-green-100 to-pink-100",
+    },
+  ];
 
   return (
-    <div className="p-4 md:p-8 mt-20 md:mt-0 bg-slate-50">
+    <div className="p-5 md:p-8 min-h-screen bg-gradient-to-br from-[#C6F6D5] via-white to-[#FDE2E4]">
       {/* Welcome Section */}
-      <div className="text-black p-6 rounded-lg mb-8">
-        <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-center uppercase">Welcome {user.displayName}!</h1>
+      <div className="mb-10 text-center">
+        <h1 className="text-2xl font-extrabold text-gray-800 md:text-3xl">
+          Welcome, <span className="">{user?.displayName || "Volunteer"}</span>{" "}
+          👋
+        </h1>
+        <p className="mt-2 text-sm text-gray-600 md:text-base">
+          Here’s your volunteer dashboard overview
+        </p>
       </div>
 
-      {/* Featured Cards Section */}
-      <div className="grid sm:grid-cols-1 lg:grid-cols-2 shadow p-5  gap-6">
-        
-        {/* Total Donors Card */}
-        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
-          <div className="flex items-center   md:gap-10">
-            <FaUsers className="text-3xl text-orange-500 mr-4" />
-            <div className="flex justify-center items-center flex-col">
-              <h3 className="text-base md:text-xl font-bold">Total Donors</h3>
-              <p className="text-base md:text-xl font-bold">{donors.length}</p> {/* Displaying the number of donors */}
-            </div>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 md:gap-6">
+        {stats.map((item, idx) => (
+          <div
+            key={idx}
+            className={`bg-gradient-to-r ${item.gradient} shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center border border-white/60 backdrop-blur-lg`}
+          >
+            <div className="mb-2">{item.icon}</div>
+            <h3 className="text-sm font-semibold text-center text-gray-700 md:text-base">
+              {item.title}
+            </h3>
+            <p className="mt-1 text-xl font-extrabold text-gray-900 md:text-2xl">
+              {item.value}
+            </p>
           </div>
+        ))}
+      </div>
+
+      {/* Static Section (Customizable Later) */}
+      <div className="grid grid-cols-1 gap-6 mt-12 md:grid-cols-2">
+        {/* Left: Recent Activities */}
+        <div className="p-5 border shadow-lg bg-white/70 rounded-2xl border-white/50">
+          <h2 className="mb-3 text-lg font-bold text-gray-800">
+            Recent Activities
+          </h2>
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li>✅ Donor registration approved</li>
+            <li>💉 3 blood donations completed this week</li>
+            <li>💰 New funding received: $500</li>
+            <li>🩸 Urgent O+ blood request in Rangpur</li>
+          </ul>
         </div>
 
-        {/* Total Volunteers Card */}
-        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
-          <div className="flex items-center md:gap-10">
-            <FaUsers className="text-3xl text-orange-500 mr-4" />
-            <div className="flex justify-center items-center flex-col">
-              <h3 className="text-base md:text-xl  font-bold">Total Volunteer</h3>
-              <p className="text-base md:text-xl font-bold">{volunteer.length}</p> {/* Displaying the number of volunteers */}
-            </div>
+        {/* Right: Quick Actions */}
+        <div className="p-5 border shadow-lg bg-white/70 rounded-2xl border-white/50">
+          <h2 className="mb-3 text-lg font-bold text-gray-800">
+            Quick Actions
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            <button className="px-4 py-2 text-sm text-white transition bg-green-500 rounded-lg hover:bg-green-600">
+              Add Blood Request
+            </button>
+            <button className="px-4 py-2 text-sm text-white transition bg-pink-500 rounded-lg hover:bg-pink-600">
+              Manage Donors
+            </button>
+            <button className="px-4 py-2 text-sm text-white transition bg-yellow-500 rounded-lg hover:bg-yellow-600">
+              View Reports
+            </button>
           </div>
         </div>
-
-         {/* Total Blood Donation Requests Card */}
-         <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
-          <div className="flex items-center gap-5 md:gap-10">
-            {/* <FaHeartbeat className="text-3xl text-red-500 mr-4" /> */}
-            <img className="w-10 rounded-tr-box h-10" src="https://i.ibb.co/274cVp87/images.jpg" alt="" />
-            <div>
-              <h3 className="text-base md:text-xl  font-bold">Total Blood Requests</h3>
-              <p className="text-base md:text-xl font-bold text-center">{donationRequest.length}</p> {/* Displaying the number of pending donations */}
-            </div>
-          </div>
-        </div>
-        
-        {/* Total Funding Card */}
-        <div className="bg-white shadow-lg rounded-lg p-2 md:p-6 flex items-center justify-between">
-          <div className="flex items-center md:gap-10">
-            <FaHandHoldingUsd className="text-3xl  text-green-500 mr-4" />
-            <div>
-              <h3 className="text-base md:text-xl font-bold">Total Funding</h3>
-              <p className="text-base md:text-xl font-bold text-center">${funding}</p>
-            </div>
-          </div>
-        </div>
-        
-       
-
       </div>
     </div>
   );

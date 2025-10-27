@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { SiGnu } from "react-icons/si";
-import AuthContext from "../../../AuthContext/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import AuthContext from "../../../AuthContext/AuthContext";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const SignUp = () => {
   const { setUser, createUser, updateUserProfile } = useContext(AuthContext);
@@ -12,24 +12,24 @@ const SignUp = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [photoURL, setPhotoURL] = useState(""); 
-  const [loading, setLoading] = useState(false); 
+  const [photoURL, setPhotoURL] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Image upload to ImgBB
   const handleImageUpload = async (file) => {
-    setLoading(true); 
+    setLoading(true);
     const formData = new FormData();
     formData.append("image", file);
 
     try {
       const response = await fetch(
-        `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_IMAGE_KEY}`,
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_KEY}`,
         {
           method: "POST",
           body: formData,
         }
       );
-      console.log('image bb te upload image',import.meta.env.VITE_IMAGE_KEY);
+      console.log("image bb te upload image", import.meta.env.VITE_IMAGE_KEY);
 
       const data = await response.json();
       if (data && data.data && data.data.url) {
@@ -70,7 +70,7 @@ const SignUp = () => {
       name,
       email,
       password: newPassword,
-      photo: photoURL, 
+      photo: photoURL,
       bloodGroup,
       district,
       upazila,
@@ -88,7 +88,7 @@ const SignUp = () => {
       icon: "success",
       title: "User Create Successfully",
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
     });
 
     // Step 3: Send the user info to your backend to store in MongoDB
@@ -121,59 +121,57 @@ const SignUp = () => {
   };
 
   return (
-    <div className=" py-10 px-2">
-      <div className="  p-4 card border lg:w-5/12 mx-auto  ">
-        <h2 className="text-3xl  text-center font-bold mb-4">
-         Welcome SignUp
-        </h2>
-        <form onSubmit={handleSubmit} className=" space-y-4 ">
+    <div className="px-2 py-10 ">
+      <div className="p-4 mx-auto border  card lg:w-5/12">
+        <h2 className="mb-4 text-3xl font-bold text-center">Welcome SignUp</h2>
+        <form onSubmit={handleSubmit} className="space-y-4 ">
           {/* Name */}
-          <div className="flex flex-col lg:flex-row  md:gap-4">
-            <div className="form-control w-full lg:w-1/2">
-              <label className="label font-bold">Name :</label>
+          <div className="flex flex-col lg:flex-row md:gap-4">
+            <div className="w-full form-control lg:w-1/2">
+              <label className="font-bold label">Name :</label>
               <input
                 type="text"
                 name="name"
                 placeholder="Enter your name?"
-                className="input input-bordered w-full"
+                className="w-full input input-bordered"
                 required
               />
             </div>
 
             {/* Email */}
-            <div className="form-control w-full lg:w-1/2">
-              <label className="label font-bold">Email :</label>
+            <div className="w-full form-control lg:w-1/2">
+              <label className="font-bold label">Email :</label>
               <input
                 type="email"
                 name="email"
-                className="input input-bordered w-full"
+                className="w-full input input-bordered"
                 placeholder="Enter your email?"
                 required
               />
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row  w-full md:gap-4">
+          <div className="flex flex-col w-full lg:flex-row md:gap-4">
             {/* Avatar (Image Upload) */}
-            <div className="form-control w-full lg:w-1/2">
-              <label className="label font-bold">Upload Photo : </label>
+            <div className="w-full form-control lg:w-1/2">
+              <label className="font-bold label">Upload Photo : </label>
               <input
                 type="file"
                 name="photo"
-                className="input input-bordered w-full py-2"
+                className="w-full py-2 input input-bordered"
                 accept="image/*"
                 onChange={(e) => handleImageUpload(e.target.files[0])}
                 required
               />
-              {loading && <div className="text-center mt-2">Uploading...</div>}
+              {loading && <div className="mt-2 text-center">Uploading...</div>}
             </div>
 
             {/* Blood Group */}
-            <div className="form-control w-full lg:w-1/2">
-              <label className="label font-bold">Blood Group : </label>
+            <div className="w-full form-control lg:w-1/2">
+              <label className="font-bold label">Blood Group : </label>
               <select
                 name="bloodGroup"
-                className="select select-bordered w-full"
+                className="w-full select select-bordered"
               >
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
@@ -187,13 +185,13 @@ const SignUp = () => {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row md:gap-4 w-full">
+          <div className="flex flex-col w-full lg:flex-row md:gap-4">
             {/* District */}
-            <div className="form-control w-full lg:w-1/2">
-              <label className="label font-bold">District :</label>
+            <div className="w-full form-control lg:w-1/2">
+              <label className="font-bold label">District :</label>
               <select
                 name="district"
-                className="select select-bordered w-full"
+                className="w-full select select-bordered"
                 required
               >
                 <option value="">Select District</option>
@@ -259,11 +257,11 @@ const SignUp = () => {
             </div>
 
             {/* Upazila */}
-            <div className="form-control w-full lg:w-1/2">
-              <label className="label font-bold">Upazila : </label>
+            <div className="w-full form-control lg:w-1/2">
+              <label className="font-bold label">Upazila : </label>
               <select
                 name="upazila"
-                className="select select-bordered w-full"
+                className="w-full select select-bordered"
                 required
               >
                 <option value="">Select Upazila</option>
@@ -323,26 +321,26 @@ const SignUp = () => {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row md:gap-4 w-full">
+          <div className="flex flex-col w-full lg:flex-row md:gap-4">
             {/* Password */}
-            <div className="form-control  w-full lg:w-1/2 ">
-              <label className="label font-bold">Password : </label>
+            <div className="w-full form-control lg:w-1/2 ">
+              <label className="font-bold label">Password : </label>
               <input
                 type="password"
                 name="newPassword"
-                className="input input-bordered w-full"
+                className="w-full input input-bordered"
                 placeholder="Enter your password?"
                 required
               />
             </div>
 
             {/* Confirm Password */}
-            <div className="form-control  w-full lg:w-1/2">
-              <label className="label font-bold">Confirm Password : </label>
+            <div className="w-full form-control lg:w-1/2">
+              <label className="font-bold label">Confirm Password : </label>
               <input
                 type="password"
                 name="confirmPassword"
-                className="input input-bordered w-full"
+                className="w-full input input-bordered"
                 placeholder="Enter your confirm password?"
                 required
               />
@@ -351,14 +349,14 @@ const SignUp = () => {
 
           {/* Error message */}
           {error && (
-            <div className="text-red-500 text-center mt-2">{error}</div>
+            <div className="mt-2 text-center text-red-500">{error}</div>
           )}
 
-          <button type="submit" className="btn bg-green-400 text-white w-full">
+          <button type="submit" className="w-full text-white bg-green-400 btn">
             <SiGnu /> Sign Up
           </button>
         </form>
-        <div className="text-center mt-4">
+        <div className="mt-4 text-center">
           <p>
             Already have an account?{" "}
             <Link to="/SignIn" className="text-green-500">
